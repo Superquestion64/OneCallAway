@@ -5,5 +5,5 @@ The programs run automatically when given user input, and share the same depende
 PyAudio cannot be installed using 'pip install PyAudio' for modern python versions as it has not been updated.
 To install PyAudio the proper wheel file must be manually downloaded for your computer architecture and python version.
 The wheel file can be found at https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio.
-Once the correct wheel file is downloaded, simply run 'pip install c:\Users\ <username> \Downloads\ <wheel file name>'
+Once the correct wheel file is downloaded, simply run 'pip install c:\Users\< username >\Downloads\< wheel file name >'
 Audio_Player.py and Audio_Recorder.py can then be run as such: 'python Audio_Player.py' and 'python Audio_Recorder.py'
