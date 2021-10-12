@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>One Call Away - Settings</title>
+
+        <style>
+            html, body {
+                min-width: 300px;
+                min-height: 230px;
+                background-color: rgb(230, 191, 84);
+            }
+
+            .keybind {
+                text-align: center;
+            }
+
+            h1 {
+                text-align: center;
+            }
+
+            p {
+                margin: 0 auto;
+                text-align: center;
+                width: 160px;
+            }
+
+            #desc {
+                text-align: justify;
+            }
+
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>One Call Away - Settings</h1>
+        </header>
+        <div class="description">
+            <p id="desc">Here you can select the key you wish to press to access One Call Away's main feature!</p><br>
+            <p>Don't worry we will remember which one you chose!</p><br>
+            <p>Your current key is: <span id="yourKey"></span></p>
+        </div>
+        <br>
+        <div class="keybind">
+            <form onsubmit="updateKeybind(event)">
+                <label for="keybind"><strong>Choose Key</strong></label><br><br>
+                <input type="text" id="kb" name="keybind" style="width: 10px; text-align: center;">
+                <button>Submit</button>
+            </form>
+        </div>
+
+        <script>
+
+            let key = ""
+
+            
+            fetch('key.txt')
+                .then(response => response.text())
+                .then((data) => {
+                key = data;
+                document.getElementById("yourKey").innerHTML = key;
+                })
+
+            function updateKeybind(event) {
+                event.preventDefault();
+
+                key = document.getElementById("kb").value;
+                document.getElementById("yourKey").innerHTML = key;
+                console.log(key)
+            };
+        </script>
+    </body>
+</html>
