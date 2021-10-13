@@ -1,20 +1,33 @@
 # Created by Charles Vega
-# Last Modified October 9, 2021
-# This program will record and play audio simultaneously through the use of threads and pyaudio
-# Recorded audio from the user's default input device gets sent to the user's default output device
+# Last Modified October 12, 2021
+# This program is effectively a client side voice call application
+# It will create a client that records audio and sends it to a server computer in real time
+# The client can only connect to the server computer, but it can receive audio data to play from the server
+# Recorded audio from the user's default input device is sent to the server's default output device
 # Users must signal for this program to terminate by entering any value
 # Dependencies: PyAudio
 
+
 import pyaudio
-import time
 import socket
+import threading
+import concurrent.futures
+import queue
+import time
+
+# 2048 bytes of data is sent at a time
+MSG_LENGTH = 2048
+#Create the client and connect to the server
+ADDR = (socket.gethostbyname(socket.gethostname()), 5050)
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect(ADDR)
 
 # Will record audio indefinitely until told to terminate
+# Recorded audio is sent to the server
 # @pa is a PyAudio object
 # @device_info has the user's audio device information
-# @audio_stream is a queue to transfer audio data between threads
 # @terminate is an event to terminate this thread
-def record(pa, device_info, audio_stream, terminate):
+def record(pa, device_info, terminate):
     stream_in = pa.open(
         # Sampling frequency
         rate = 44100,
@@ -31,18 +44,17 @@ def record(pa, device_info, audio_stream, terminate):
     # Will loop until the user signals for the program to terminate
     while not terminate.is_set():
         # Record audio and send it to audio_stream
-        audio_stream.put(stream_in.read(stream_in._frames_per_buffer))
+        client.send(stream_in.read(stream_in._frames_per_buffer))
     # End audio recording and deallocate audio resources
     stream_in.stop_stream()
     stream_in.close()
     print("Recording Finished")
 
-# Will play all the audio sent from the record thread
+# Will play audio sent from the server
 # @pa is a PyAudio object
 # @device_info has the user's audio device information
-# @audio_stream is a queue to transfer audio data between threads
 # @terminate is an event to terminate this thread
-def play(pa, device_info, audio_stream, terminate):
+def play(pa, device_info, terminate):
     stream_out = pa.open(
         # Set the sample format and length
         format = pyaudio.paInt16,
@@ -57,13 +69,16 @@ def play(pa, device_info, audio_stream, terminate):
     )
     print("Playing Audio...")
     # Will loop until there is no more remaining audio in audio_stream
-    while not terminate.is_set() or not audio_stream.empty():
+    while not terminate.is_set():
         # Play the audio sent through audio_stream
-        stream_out.write(audio_stream.get())
+        try:
+            stream_out.write(client.recv(MSG_LENGTH))
+        except socket.error:
+            terminate.set()
     # End audio playback and deallocate audio resources
     stream_out.stop_stream()
     stream_out.close()
-    print ("Playback finished")
+    print ("Playback finished, ending connection to server")
 
 # Waits for user input, then sets terminate to true
 # @terminate is an event shared between each thread to end the program
@@ -71,6 +86,26 @@ def user_input(terminate):
     # Wait 1 second
     time.sleep(1)
     # Request user signal to terminate
-    input("Enter any value to terminate the program: ")
+    input("Enter any value to end the connection: ")
     # Set terminate to true
     terminate.set()
+
+# Initiate a PyAudio object
+pa = pyaudio.PyAudio()
+# Save the information of the user's default audio devices
+device_info = pa.get_default_host_api_info()
+# Event which tells recorder and player threads to stop
+terminate = threading.Event()
+# Create three threads
+# First thread records audio from the client's default input device
+# Second thread sends recorded audio to the server
+# Third thread will tell all threads to terminate when given input
+with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+    # Record
+    executor.submit(record, pa, device_info, terminate)
+    # Play
+    executor.submit(play, pa, device_info, terminate)
+    # Terminate
+    executor.submit(user_input, terminate)
+pa.terminate()
+client.close()
