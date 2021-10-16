@@ -19,8 +19,8 @@ These programs are able to record audio from a user's default input device, save
 - Audio_Player.py and Audio_Recorder.py respectively have one function, play and record. To run either program, import Audio_Player.py or Audio_Recorder.py into a python program and run their functions
 - The programs run automatically when given user input, and share the same dependencies, PyAudio and wave
 
-## '__main__.py'
-Located in the '__main__' folder, '__main__.py' is an example file for running the audio programs. When run, the user is given several choices to indicate which audio program they would like to play
+## __main__.py
+Located in the '__main__' folder, __main__.py is an example file for running the audio programs. When run, the user is given several choices to indicate which audio program they would like to play
 - Choice 0 will run Audio_Recorder.py and record audio from their default input device 
 - Choice 1 will run Audio_Player.py and play audio from a given wav file
 - Choice 2 will run Sync_Audio.py, which records and plays audio to and from the user's default audio devices simultaneously
