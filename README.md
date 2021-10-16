@@ -5,7 +5,7 @@ The folder 'Sound Master' has a series of audio programs with different uses. Au
 - Once connected, the server will send audio from its default input device to the client's default output device, and the client vice versa
 - Audio_Client.py is run by simply using: 'python Audio_Client.py'
 - Audio_Server.py has a start() function which will boot up the program. Import Audio_Server.py into any python program and run this function to create a server
-- Note: Both programs are dependent on PyAudio, the IP address of the server **must** be provided in Audio_Client.py, and all firewalls should be disabled
+- *Note:* Both programs are dependent on PyAudio, the IP address of the server **must** be provided in Audio_Client.py, and all firewalls should be disabled
 
 ## Sync_Audio.py
 This program will record and play audio to and from the user's default audio devices simultaneously. Effectively, the user will hear themself talk in real time
