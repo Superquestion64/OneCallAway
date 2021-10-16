@@ -7,7 +7,6 @@
 
 import pyaudio
 import time
-import socket
 
 # Will record audio indefinitely until told to terminate
 # @pa is a PyAudio object

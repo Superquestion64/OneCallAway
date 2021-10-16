@@ -1,7 +1,8 @@
 # Created by Charles Vega
-# Last Modified October 12, 2021
+# Last Modified October 15, 2021
 # This is the main runner for the audio programs. There are 3 choices
-# Choice 0 will record audio and choice 1 will play audio
+# Choice 0 will record audio 
+# Choice 1 will play audio
 # Choice 2 will record and play audio to and from the user's default audio devices simultaneously
 # Choice 3 will boot up a voice call by running this computer as a server
 
@@ -13,7 +14,6 @@ import Audio_Server
 import queue
 import concurrent.futures
 import threading
-import socket
 
 choice = int(input("Enter '0' to record audio, enter '1' to play audio, enter '2' to run Sync_Audio, or enter 3 to start a voice call: "))
 if (choice == 0):
