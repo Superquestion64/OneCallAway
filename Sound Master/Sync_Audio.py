@@ -6,9 +6,6 @@
 # Dependencies: PyAudio
 
 import pyaudio
-import queue
-import concurrent.futures
-import threading
 import time
 
 # Will record audio indefinitely until told to terminate

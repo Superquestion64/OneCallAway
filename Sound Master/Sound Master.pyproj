@@ -22,8 +22,14 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Audio_Client.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Audio_Recorder.py" />
     <Compile Include="Audio_Player.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Audio_Server.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Sync_Audio.py">
