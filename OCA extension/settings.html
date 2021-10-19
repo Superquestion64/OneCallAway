@@ -43,32 +43,13 @@
         </div>
         <br>
         <div class="keybind">
-            <form onsubmit="updateKeybind(event)">
+            <form>
                 <label for="keybind"><strong>Choose Key</strong></label><br><br>
                 <input type="text" id="kb" name="keybind" style="width: 10px; text-align: center;">
                 <button>Submit</button>
             </form>
         </div>
 
-        <script>
-
-            let key = ""
-
-            
-            fetch('key.txt')
-                .then(response => response.text())
-                .then((data) => {
-                key = data;
-                document.getElementById("yourKey").innerHTML = key;
-                })
-
-            function updateKeybind(event) {
-                event.preventDefault();
-
-                key = document.getElementById("kb").value;
-                document.getElementById("yourKey").innerHTML = key;
-                console.log(key)
-            };
-        </script>
+        <script src="popup.js"></script>
     </body>
 </html>

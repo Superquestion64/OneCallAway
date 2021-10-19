@@ -1,22 +1,21 @@
+document.getElementById("yourKey").innerHTML = chrome.storage.sync.get(
+  ["keybind"],
+  function (data) {
+    console.log(data.keybind);
+    x = false;
+    return data.keybind;
+  }
+);
 
-let key = ""
+document.querySelector("form").addEventListener("submit", function (event) {
+  event.preventDefault();
 
-/*
-fetch('key.txt')
-  .then(response => response.text())
-  .then((data) => {
-    key = data;
-  })
-*/
+  let key = document.getElementById("kb").value;
 
-function updateKeybind(event) {
-    event.preventDefault();
+  chrome.storage.sync.set({ keybind: key }, function () {
+    console.log("Keybind is set to " + key);
+  });
 
-    key = document.getElementById("kb").value;
-
-    let fso = new ActiveXObject("Scripting.FileSystemObject");
-    let fh = fso.CreateTextFile("key.txt", 8, true);
-    fh.WriteLine(key);
-    fh.Close();
-    console.log(key)
-};
+  document.getElementById("yourKey").innerHTML = key;
+  //console.log(key);
+});
