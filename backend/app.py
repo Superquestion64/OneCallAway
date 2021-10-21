@@ -14,13 +14,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 client = pymongo.MongoClient('mongodb://localhost:27017')
 db = client.Profiles
 
-@app.route('/')
-def home():
-    return render_template('home.html')
-    
-@app.route('/dashboard/')
-def dashboard():
-    return render_template('dashboard.html')
 from user import routes
 
 if __name__ == "__main__":
