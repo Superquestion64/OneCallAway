@@ -8,7 +8,7 @@
         <style>
             html, body {
                 min-width: 300px;
-                min-height: 230px;
+                min-height: 303px;
                 background-color: rgb(230, 191, 84);
             }
 
@@ -23,11 +23,20 @@
             p {
                 margin: 0 auto;
                 text-align: center;
-                width: 160px;
+                width: 215px;
             }
 
             #desc {
-                text-align: justify;
+                text-align: center;
+                font-size: 15px;
+            }
+            
+            button {
+                position: relative;
+                left: 90px;
+                margin: 0, auto;
+                text-decoration: none;
+                color: rgb(189, 0, 0);
             }
 
         </style>
@@ -37,19 +46,13 @@
             <h1>One Call Away - Settings</h1>
         </header>
         <div class="description">
-            <p id="desc">Here you can select the key you wish to press to access One Call Away's main feature!</p><br>
-            <p>Don't worry we will remember which one you chose!</p><br>
-            <p>Your current key is: <span id="yourKey"></span></p>
+            <p id="desc">
+                To change the keybind shortcuts for OCA's call key 
+                generator you simply have to go to: <br><br> <strong>chrome://extensions/shortcuts</strong><br><br>
+                Under the One Call Away extension you can change the keybind to one of your choice. <br><br>
+                Make sure to keep it a "Global" shortcut as well.
+            </p>
         </div>
-        <br>
-        <div class="keybind">
-            <form>
-                <label for="keybind"><strong>Choose Key</strong></label><br><br>
-                <input type="text" id="kb" name="keybind" style="width: 10px; text-align: center;">
-                <button>Submit</button>
-            </form>
-        </div>
-
-        <script src="popup.js"></script>
+        <!--<script src="popup.js"></script>-->
     </body>
 </html>

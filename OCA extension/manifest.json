@@ -15,8 +15,8 @@
     },
     "commands": {
         "code-generator": {
-            "suggested_key": "Ctrl+Shift+1",
-            "description": "Key to generate code",
+            "suggested_key": "Ctrl+1",
+            "description": "Keybind to generate code",
             "global": true
         }
     }

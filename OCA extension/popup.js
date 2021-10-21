@@ -1,18 +1,31 @@
-document.getElementById("yourKey").innerHTML = chrome.storage.sync.get(
-  ["keybind"],
-  function (data) {
-    console.log(data.keybind);
-    return data.keybind;
-  }
-);
+async function getLocalStorageValue(key) {
+  return new Promise((resolve, reject) => {
+    try {
+      chrome.storage.sync.get(key, function (value) {
+        resolve(value[key]);
+      });
+    } catch (ex) {
+      reject(ex);
+    }
+  });
+}
+
+async function run() {
+  let r = await getLocalStorageValue("keybind");
+  console.log("Keybind is set to " + r);
+  document.getElementById("yourKey").innerHTML = r;
+  return r;
+}
+
+run();
 
 document.querySelector("form").addEventListener("submit", function (event) {
   event.preventDefault();
 
-  let key = document.getElementById("kb").value;
+  key = document.getElementById("kb").value;
 
   chrome.storage.sync.set({ keybind: key }, function () {
-    console.log("Keybind is set to " + key);
+    console.log("Keybind is now set to " + key);
   });
 
   document.getElementById("yourKey").innerHTML = key;
