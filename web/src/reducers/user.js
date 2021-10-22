@@ -5,7 +5,10 @@ import {
   LOGIN_FAIL
 } from "../types";
 
-const initialState = {};
+const initialState = {
+  token: localStorage.getItem("sessionId"),
+  isAuthenticated: false
+};
 
 const userReducer = (state = initialState, action) => {
   const { type, payload } = action;
@@ -16,8 +19,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         ...payload,
-        isAuthenticated: true,
-        loading: false
+        isAuthenticated: true
       };
     case REGISTER_FAIL:
     case LOGIN_FAIL:
@@ -25,8 +27,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         token: null,
         user: null,
-        isAuthenticated: false,
-        loading: false
+        isAuthenticated: false
       };
     default:
       return state;

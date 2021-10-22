@@ -23,12 +23,22 @@ import {
   StyledForm,
   TextField
 } from "./styles/SignInOut.styled";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser, loginUser } from "../../actions/user";
+import { Redirect } from "react-router-dom";
 
 const SignInOut = ({ location }) => {
-  const { pathname } = location;
   const dispatch = useDispatch();
+  const [showPw, setShowPw] = useState(false);
+  const [showConfirmPw, setShowConfirmPw] = useState(false);
+
+  const { isAuthenticated } = useSelector(state => state.user);
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
+
+  const { pathname } = location;
 
   const signUpInitVals = {
     username: "",
@@ -43,9 +53,6 @@ const SignInOut = ({ location }) => {
   };
   const initialValues =
     pathname === "/signup" ? signUpInitVals : signInInitVals;
-
-  const [showPw, setShowPw] = useState(false);
-  const [showConfirmPw, setShowConfirmPw] = useState(false);
 
   return (
     <>

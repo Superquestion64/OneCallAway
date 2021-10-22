@@ -22,8 +22,16 @@ import {
   Subtitle
 } from "./styles/Landing.styled";
 import Navbar from "../general/Navbar";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 const Landing = () => {
+  const { isAuthenticated } = useSelector(state => state.user);
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <Container mh="100vh">
       <Navbar landing={true} />
