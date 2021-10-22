@@ -16,7 +16,7 @@ import {
   StyledLink,
   Title
 } from "../../styles/General.styled";
-import Navbar from "./general/Navbar";
+import Navbar from "../general/Navbar";
 import {
   Image,
   SignBtn,

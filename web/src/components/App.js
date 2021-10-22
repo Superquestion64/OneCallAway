@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Footer from "./pages/general/Footer";
+import Footer from "./general/Footer";
 import Landing from "./pages/Landing";
 import SignInOut from "./pages/SignInOut";
 import Dashboard from "./pages/Dashboard";

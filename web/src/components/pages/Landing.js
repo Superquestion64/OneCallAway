@@ -21,7 +21,7 @@ import {
   Stars,
   Subtitle
 } from "./styles/Landing.styled";
-import Navbar from "./general/Navbar";
+import Navbar from "../general/Navbar";
 
 const Landing = () => {
   return (
