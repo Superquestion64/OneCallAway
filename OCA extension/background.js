@@ -7,16 +7,37 @@ function getRandomString(length) {
   return output;
 }
 
-function copyToClipboard(callKey) {
-    callKey.select();
-    this.document.execCommand("copy", true);
-    console.log(callKey + " is copied to clipboard");
+function notification(currentKey) {
+  chrome.notifications.create({
+    title: "KEY",
+    message: "Call is generating using " + currentKey,
+    iconUrl: "icon_128.png",
+    type: "basic",
+  });
 }
+
+function onClickNotification() {
+	chrome.tabs.create({
+		url: "https://google.com"
+	});
+}
+
+// function copyToClipboard(callKey) {
+//   navigator.clipboard
+//     .writeText(callKey)
+//     .then(() => {
+//       // Success!
+//     })
+//     .catch((err) => {
+//       console.log("Something went wrong", err);
+//     });
+// }
 
 chrome.commands.onCommand.addListener(() => {
   let key = getRandomString(20);
   console.log(key);
   chrome.storage.sync.set({ callKey: key });
-  copyToClipboard(key);
+  notification(key);
+  chrome.notifications.onClicked.addListener(onClickNotification);
+  //copyToClipboard(key);
 });
-
