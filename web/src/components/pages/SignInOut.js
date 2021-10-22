@@ -66,11 +66,11 @@ const SignInOut = ({ location }) => {
               <Formik
                 initialValues={initialValues}
                 validationSchema={
-                  pathname === "signup" ? registerationSchema : loginSchema
+                  pathname === "/signup" ? registerationSchema : loginSchema
                 }
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                   setTimeout(() => {
-                    pathname === "signup"
+                    pathname === "/signup"
                       ? dispatch(registerUser(values))
                       : dispatch(loginUser(values));
                     resetForm();

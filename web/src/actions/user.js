@@ -15,7 +15,7 @@ export const registerUser = values => async dispatch => {
       payload: data
     });
 
-    alert("Registered!");
+    alert(JSON.stringify(data));
   } catch (error) {
     console.error(error);
 
@@ -28,14 +28,14 @@ export const registerUser = values => async dispatch => {
 
 export const loginUser = formValues => async dispatch => {
   try {
-    const { data } = await user.post("/users/login", formValues);
+    const { data } = await user.post("/login", formValues);
 
     dispatch({
       type: LOGIN_SUCCESS,
       payload: data
     });
 
-    alert("Logged in!");
+    alert(JSON.stringify(data));
   } catch (err) {
     console.error(err);
 
