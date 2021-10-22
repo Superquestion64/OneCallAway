@@ -8,13 +8,19 @@ function getRandomString(length) {
 }
 
 function notification(currentKey) {
-    chrome.notifications.create({
-        title: 'KEY',
-        message: 'Call is generating using ' + currentKey,
-        iconUrl: 'icon_128.png',
-        type: 'basic'
-    });
-  }
+  chrome.notifications.create({
+    title: "KEY",
+    message: "Call is generating using " + currentKey,
+    iconUrl: "icon_128.png",
+    type: "basic",
+  });
+}
+
+function onClickNotification() {
+	chrome.tabs.create({
+		url: "https://google.com"
+	});
+}
 
 // function copyToClipboard(callKey) {
 //   navigator.clipboard
@@ -32,5 +38,6 @@ chrome.commands.onCommand.addListener(() => {
   console.log(key);
   chrome.storage.sync.set({ callKey: key });
   notification(key);
+  chrome.notifications.onClicked.addListener(onClickNotification);
   //copyToClipboard(key);
 });

@@ -8,7 +8,7 @@
         "default_icon": "icon.png",
         "default_popup": "popup.html"
     },
-    "permissions": ["tabs", "activeTab", "storage", "<all_urls>", "clipboard-write", "notifications"],
+    "permissions": ["tabs", "activeTab", "storage", "<all_urls>", "notifications"],
     "web_accessible_resources": ["data/key.txt"],
     "background":{
         "service_worker": "background.js"
