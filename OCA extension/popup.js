@@ -31,9 +31,29 @@
 //   document.getElementById("yourKey").innerHTML = key;
 // });
 
+let key = "";
+
 function updatePopup() {
   chrome.storage.sync.get(["callKey"], function (data) {
     document.getElementById("C-K").innerText = data.callKey;
+    key = data.callKey;
   });
 }
+
+// document.getElementById("C-K").onmouseover = function () {
+//   console.log("something happened");
+//   navigator.clipboard.writeText(key).then(() => {
+//     console.log(`"${key}" was copied to clipboard.`);
+//   });
+// };
+
 document.addEventListener("DOMContentLoaded", updatePopup);
+
+// function timedRefresh(timeoutPeriod) {
+//   setTimeout(function () {
+//     location.reload(true);
+//   }, timeoutPeriod);
+//   console.log("refreshed");
+// }
+
+// window.onload = timedRefresh(650);
