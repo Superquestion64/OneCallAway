@@ -16,13 +16,12 @@ export const registerUser = values => async dispatch => {
     });
 
     alert(JSON.stringify(data));
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    alert(err.response.data.error);
 
     dispatch({
       type: REGISTER_FAIL
     });
-    alert("Register failed");
   }
 };
 
@@ -37,9 +36,7 @@ export const loginUser = formValues => async dispatch => {
 
     alert(JSON.stringify(data));
   } catch (err) {
-    console.error(err);
-
-    alert("Login failed");
+    alert(err.response.data.error);
 
     dispatch({
       type: LOGIN_FAIL

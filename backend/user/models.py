@@ -3,12 +3,9 @@ from app import db
 from passlib.hash import pbkdf2_sha256
 import uuid
 import re
+import json
 
 class User:
-
-    @staticmethod
-    def check_password(password_hash, password):
-        return pbkdf2_sha256.verify(password_hash,password)
         
     @staticmethod
     def valid_password(password):
@@ -20,24 +17,23 @@ class User:
     def start_session(self, user):
         session['logged_in'] = True
         session['_id'] = user['_id']
-        return jsonify(user), 200
+        return jsonify(user['_id']), 200
 
     def register(self):
+        print(request.form)
         # Create the user object
         user = {
             "_id": uuid.uuid4().hex,
-            "username":request.form.get('username'),
-            "email": request.form.get('email'),
-            "password": request.form.get('password')
+            "username":request.json['username'],
+            "email": request.json['email'],
+            "password": request.json['password']
         }
-        print(request.form)
-        if request.form.get('password') == request.form.get('verifypassword'):
+        if request.json['password'] == request.json['passwordConfirm']:
             if self.valid_password(user['password']):
                 #Encrypt the password
                 user['password'] = pbkdf2_sha256.encrypt(user['password'])
             else:
-                return jsonify({ "error" : "Please enter a passwod atleast 8 characters long,\
-                    contains a captial case, lower case, a number and a special character"}), 400
+                return jsonify({ "error" : "Please enter a passwod atleast 8 characters long, contains a captial case, lower case, a number and a special character"}), 400
         
             # Check for existing email address
             if db.users.find_one({"email": user['email']}):
@@ -63,12 +59,12 @@ class User:
     #Log in
     def login(self):
         user = db.users.find_one({
-            "username": request.form.get('username')
+            "email": request.json['email']
         })
         # Compares the entered password and the encrypted password, 
         #starts session if the passwords are the same
         #pbkdf2_sha256.verify
-        if user and pbkdf2_sha256.verify(request.form.get('password'), user['password']):
+        if user and pbkdf2_sha256.verify(request.json['password'], user['password']):
             return self.start_session(user)
         
         return jsonify({ "error": "Invalid login credentials"}), 401
@@ -76,8 +72,8 @@ class User:
     #Update
     def update(self):
         if 'logged_in' in session:
-            email = request.form.get('email')
-            username = request.form.get('username')
+            email = request.json['email']
+            username = request.json['username']
             current = db.users.find_one({"_id": session['_id']})
             if email == '':
                 email = current['email']
@@ -86,7 +82,7 @@ class User:
             update_user = {
                "email": email,
                 "username": username,
-                "password": request.form.get('password')
+                "password": request.json['password']
             }
             #Check to see if email is in use
             if db.users.find_one({"email": update_user['email']}):
@@ -99,14 +95,13 @@ class User:
                 if (current['username'] != update_user['username']):
                     return 'Username in use'
             #Check to see if new password is a valid password, if it is encrypt it and update the user infor
-            if self.valid_password(request.form.get('password')):
+            if self.valid_password(request.json['password']):
                 update_user['password'] = pbkdf2_sha256.encrypt(update_user['password'])
                 db.users.update_one({"_id": session['_id']}, {"$set": update_user})
                 session['_id'] = session['_id']
-                return jsonify(update_user)
+                return jsonify(update_user['_id'])
             else:
                 return jsonify({"error": "Password is invalid"}),400
-            return jsonify({"error":"Unable to update"}),400
         return jsonify({"error": "User not logged in"})
                     
         

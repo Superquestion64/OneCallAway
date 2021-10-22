@@ -18,7 +18,7 @@ def signout():
 def login():
     return User().login()
 
-@app.route('/update', methods=['POST'])
+@app.route('/update', methods=['PATCH'])
 @cross_origin()
 def update():
     return User().update()
