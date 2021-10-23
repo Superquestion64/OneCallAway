@@ -91,7 +91,7 @@ class User:
         if db.users.find_one({"email": update_user['email']}):
             #Check whether the email is the current user's
             if (current['email'] != update_user['email']):
-                return jsonify({"Error":"Email in use"}), 400
+                return jsonify({"error":"Email in use"}), 400
         #Check to see if username is in use
         if db.users.find_one({"username": update_user['username']}):
             #Check whether the username is the current user's
