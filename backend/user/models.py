@@ -91,12 +91,12 @@ class User:
         if db.users.find_one({"email": update_user['email']}):
             #Check whether the email is the current user's
             if (current['email'] != update_user['email']):
-                return jsonify({'Email in use'}), 400
+                return jsonify({"Error":"Email in use"}), 400
         #Check to see if username is in use
         if db.users.find_one({"username": update_user['username']}):
             #Check whether the username is the current user's
             if (current['username'] != update_user['username']):
-                return jsonify({'Username in use'}), 400
+                return jsonify({"error":"Username in use"}), 400
         #Check to see if new password is a valid password, if it is encrypt it and update the user infor
         if self.valid_password(request.json['password']):
             update_user['password'] = pbkdf2_sha256.encrypt(update_user['password'])
