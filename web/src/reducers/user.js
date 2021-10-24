@@ -6,7 +6,7 @@ import {
 } from "../types";
 
 const initialState = {
-  token: localStorage.getItem("sessionId"),
+  token: localStorage.getItem("token"),
   isAuthenticated: false
 };
 

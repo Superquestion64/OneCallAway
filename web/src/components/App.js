@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Footer from "./general/Footer";
 import Landing from "./pages/Landing";
 import SignUpIn from "./pages/SignUpIn";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/dashboard/Dashboard";
 import theme from "../styles/theme";
 import { ThemeProvider } from "styled-components";
 

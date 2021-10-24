@@ -35,7 +35,7 @@ const Landing = () => {
   const navItems = [
     {
       title: "features",
-      path: "features"
+      path: ""
     },
     {
       title: "get chrome extension",
@@ -77,8 +77,8 @@ const Landing = () => {
                 Sign Up
               </Btn>
             </StyledLink>
-			<StyledLink to="voice_call">
-			  <Btn
+            <StyledLink to="voice_call">
+              <Btn
                 hoverColor="rgba(50, 50, 160, 1)"
                 br="1.8rem"
                 fs="1.6rem"
@@ -86,9 +86,9 @@ const Landing = () => {
                 bgColor="rgba(50, 50, 160, 0.9)"
                 p=".9rem 1.5rem"
                 boxShadowColor="#fff">
-			    Make a call
-			 </Btn>
-			</StyledLink>
+                Make a call
+              </Btn>
+            </StyledLink>
           </FlexCentered>
         </LandingInner>
       </LandingImage>
@@ -106,7 +106,7 @@ const Landing = () => {
         </FlexCentered>
       </Section>
       <Divider />
-	  
+
       <Section bgColor="#dcedc8" mb="1.1rem">
         <Title fs="2.5rem" margin="1rem 0" textDecoration="underline">
           What our users are saying...
@@ -119,7 +119,7 @@ const Landing = () => {
                 This site makes it crazy easy for me to hop in a call with my
                 bros during a game. What a revolutionary product!
               </Review>
-			  <Reviewer>- John Doe</Reviewer>
+              <Reviewer>- John Doe</Reviewer>
             </FlexCentered>
           </ReviewSection>
         </FlexCentered>
