@@ -7,6 +7,12 @@ The folder 'Sound Master' has a series of audio programs with different uses. Au
 - Audio_Server.py has a start() function which will boot up the program. Import Audio_Server.py into any python program and run this function to create a server
 - **Note:** Both programs are dependent on PyAudio, the IP address of the server **must** be provided in Audio_Client.py, and all firewalls should be disabled
 
+## Web_Audio.py
+After successful compilation of the web app in the 'web' folder, the 'static' folder will be created in 'Sound Master.' Running Web_Audio.py will locally create a web server using python code, this effectively allows the web server to be run using python
+- Web_Audio.py can be run by using 'python Web_Audio.py'
+- Accessing the /voice_call directory in the website will run a program similar to Sync_Audio.py
+- All other website features should function as normal
+
 ## Sync_Audio.py
 This program will record and play audio to and from the user's default audio devices simultaneously. Effectively, the user will hear themself talk in real time
 - By using threads audio input and output is processed concurrently
