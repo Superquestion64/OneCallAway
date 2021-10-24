@@ -8,8 +8,8 @@ export const Container = styled.div`
   min-height: ${({ mh }) => mh || ""};
   position: relative;
   padding: ${({ p }) => p || ""};
-  background-color: ${({ bgColor }) => bgColor || "#fff"};
   background: ${({ bg }) => bg || "none"};
+  background-color: ${({ bgColor }) => bgColor || "#fff"};
 `;
 
 // Text

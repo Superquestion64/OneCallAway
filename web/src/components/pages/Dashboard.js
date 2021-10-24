@@ -8,9 +8,18 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const Dashboard = () => {
+  const oneDayAgo = new Date(new Date().setDate(new Date().getDate() - 1));
+  const twoDaysAgo = new Date(new Date().setDate(new Date().getDate() - 2));
+  const navItems = [
+    {
+      title: "sign out",
+      path: "/"
+    }
+  ];
+
   return (
     <Wrapper mh="100vh">
-      <Navbar />
+      <Navbar navItems={navItems} />
       <Btn
         m="3rem 0 0 2rem"
         bgColor="#440A67"
@@ -20,34 +29,32 @@ const Dashboard = () => {
         Make a call
       </Btn>
       <FlexCentered m="2rem 0 0 0">
-        <Accordion>
+        <Accordion
+          sx={{
+            width: "60vw"
+          }}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header">
-            <p>Accordion 1</p>
+            <p>{oneDayAgo.toLocaleString()}</p>
           </AccordionSummary>
           <AccordionDetails>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </p>
+            <p>Call details</p>
           </AccordionDetails>
         </Accordion>
-        <Accordion>
+        <Accordion
+          sx={{
+            width: "60vw"
+          }}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel2a-content"
             id="panel2a-header">
-            <p>Accordion 2</p>
+            <p>{twoDaysAgo.toLocaleString()}</p>
           </AccordionSummary>
           <AccordionDetails>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </p>
+            <p>Call details</p>
           </AccordionDetails>
         </Accordion>
       </FlexCentered>

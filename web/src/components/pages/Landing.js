@@ -32,9 +32,32 @@ const Landing = () => {
     return <Redirect to="/dashboard" />;
   }
 
+  const navItems = [
+    {
+      title: "features",
+      path: "features"
+    },
+    {
+      title: "get chrome extension",
+      path: "/"
+    },
+    {
+      title: "sign in",
+      path: "/signin"
+    }
+  ];
+
+  const genFeature = feature => {
+    return (
+      <Feature>
+        <Icon />
+        {feature}
+      </Feature>
+    );
+  };
   return (
     <Container mh="100vh">
-      <Navbar landing={true} />
+      <Navbar landing={true} navItems={navItems} />
       <LandingImage>
         <LandingInner>
           <FlexCentered>
@@ -64,18 +87,9 @@ const Landing = () => {
             Features
           </Title>
           <FeatureList name="features">
-            <Feature>
-              <Icon />
-              Invite friends with a simple link
-            </Feature>
-            <Feature>
-              <Icon />
-              Chat with anyone - anywhere
-            </Feature>
-            <Feature>
-              <Icon />
-              All for FREE!
-            </Feature>
+            {genFeature("Invite friends with a simple link")}
+            {genFeature("Chat with anyone - anywhere")}
+            {genFeature("All for FREE!")}
           </FeatureList>
         </FlexCentered>
       </Section>

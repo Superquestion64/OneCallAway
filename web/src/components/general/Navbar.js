@@ -9,7 +9,23 @@ import { Btn, Flex, FlexItem, StyledLink } from "../../styles/General.styled";
 
 import { Link } from "react-scroll";
 
-const Navbar = ({ landing }) => {
+// navRoutes = [{path, title}]
+const Navbar = ({ navItems = [] }) => {
+  const renderNavItems = navItems.map(navItem => {
+    const { title, path } = navItem;
+
+    if (title === "features") {
+      <Link to={path} key={title} spy={true} smooth={true} duration={1000}>
+        <Btn>{title}</Btn>
+      </Link>;
+    }
+    return (
+      <StyledLink to={path} key={title}>
+        <Btn>{title}</Btn>
+      </StyledLink>
+    );
+  });
+
   return (
     <StyledNavbar>
       <Flex ai="center">
@@ -20,18 +36,7 @@ const Navbar = ({ landing }) => {
           </SiteLogo>
         </FlexItem>
         <NavLinks>
-          <Flex ai="center">
-            {landing ? (
-              <Link to="features" spy={true} smooth={true} duration={1000}>
-                <Btn>Features</Btn>
-              </Link>
-            ) : null}
-
-            <Btn>Get Chrome Extension</Btn>
-            <StyledLink to="/signin">
-              <Btn>Sign In</Btn>
-            </StyledLink>
-          </Flex>
+          <Flex ai="center">{renderNavItems}</Flex>
         </NavLinks>
       </Flex>
     </StyledNavbar>
