@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOG_OUT } from "../types";
+import { LOGOUT } from "../types";
 import store from "../store";
 
 const api = axios.create({
@@ -21,7 +21,7 @@ api.interceptors.response.use(
   res => res,
   err => {
     if (err.response.status === 401) {
-      store.dispatch({ type: LOG_OUT });
+      store.dispatch({ type: LOGOUT });
     }
   }
 );
