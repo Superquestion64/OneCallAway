@@ -1,9 +1,10 @@
 # Created by Charles Vega
 # Last Modified October 23, 2021
-# This program will record and play audio simultaneously through the use of threads and pyaudio
+# This program will boot up OCA's Web App and implement the Make a Call button
+# The Make a Call button currently runs Sync_Audio
+# It will record and play audio simultaneously through the use of threads and pyaudio
 # Recorded audio from the user's default input device gets sent to the user's default output device
 # Users must signal for this program to terminate by entering any value
-# This program will run when the make a call button is clicked on OCA's web app
 # Dependencies: PyAudio, Flask
 
 import pyaudio
@@ -14,10 +15,25 @@ import queue
 from flask import Flask, render_template
 
 app = Flask(__name__, static_url_path='', template_folder='static')  
+# Event which tells recorder and player threads to stop
+terminate = threading.Event()
 
 # Default directory, website landing page
 @app.route('/')
 def home():
+    # Exit all audio threads
+    global terminate
+    terminate.set()
+    return app.send_static_file('index.html')
+
+# When the user leaves the /voice_call page, exit the voice call
+@app.route('/signup')
+@app.route('/signin')
+@app.route('/dashboard')
+def exit():
+    # Exit all audio threads
+    global terminate
+    terminate.set()
     return app.send_static_file('index.html')
 
 # Will record audio indefinitely until told to terminate
@@ -25,7 +41,8 @@ def home():
 # @device_info has the user's audio device information
 # @audio_stream is a queue to transfer audio data between threads
 # @terminate is an event to terminate this thread
-def record(pa, device_info, audio_stream, terminate):
+def record(pa, device_info, audio_stream):
+    global terminate
     stream_in = pa.open(
         # Sampling frequency
         rate = 44100,
@@ -53,7 +70,8 @@ def record(pa, device_info, audio_stream, terminate):
 # @device_info has the user's audio device information
 # @audio_stream is a queue to transfer audio data between threads
 # @terminate is an event to terminate this thread
-def play(pa, device_info, audio_stream, terminate):
+def play(pa, device_info, audio_stream):
+    global terminate
     stream_out = pa.open(
         # Set the sample format and length
         format = pyaudio.paInt16,
@@ -76,35 +94,24 @@ def play(pa, device_info, audio_stream, terminate):
     stream_out.close()
     print ("Playback finished")
 
-# Waits for user input, then sets terminate to true
-# @terminate is an event shared between each thread to end the program
-def user_input(terminate):
-    # Wait 1 second
-    time.sleep(1)
-    # Request user signal to terminate
-    input("Enter any value to terminate the program: ")
-    # Set terminate to true
-    terminate.set()
-
 # Refresh the voice_call page to run audio_start
 @app.route('/voice_call')
 def audio_start():
-	# Initiate a PyAudio object
+    # Give record and player threads permission to run
+    global terminate
+    terminate.clear()
+    # Initiate a PyAudio object
     pa = pyaudio.PyAudio()
     # Save the information of the user's default audio devices
     device_info = pa.get_default_host_api_info()
     # Queue for audio data
     audio_stream = queue.Queue()
-    # Event which tells recorder and player threads to stop
-    terminate = threading.Event()
-    # Run three threads, one to record audio, one to play audio, the other to terminate the program
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+    # Run two threads, one to record audio and the other to play audio
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
         # Record
-        executor.submit(record, pa, device_info, audio_stream, terminate)
+        executor.submit(record, pa, device_info, audio_stream)
         # Play
-        executor.submit(play, pa, device_info, audio_stream, terminate)
-        # Terminate
-        executor.submit(user_input, terminate)
+        executor.submit(play, pa, device_info, audio_stream)
     # Delete the PyAudio object
     pa.terminate()
     return app.send_static_file('index.html')
