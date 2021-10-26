@@ -3,7 +3,7 @@ import {
   REGISTER_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOG_OUT
+  LOGOUT
 } from "../types";
 
 const initialState = {
@@ -24,7 +24,7 @@ const userReducer = (state = initialState, action) => {
       };
     case REGISTER_FAIL:
     case LOGIN_FAIL:
-    case LOG_OUT:
+    case LOGOUT:
       return {
         ...state,
         token: null,
