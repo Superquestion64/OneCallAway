@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3593e261-efc2-4cbc-a369-36b168fb63ad</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Web_Audio.py</StartupFile>
+    <StartupFile>Voice_Call.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -30,6 +30,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Audio_Server.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Voice_Call.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Sync_Audio.py">

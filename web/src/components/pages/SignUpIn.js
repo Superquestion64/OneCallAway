@@ -24,7 +24,7 @@ import {
   TextField
 } from "./styles/SignUpIn.styled";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser, loginUser } from "../../actions/user";
+import { register, login } from "../../actions/user";
 import { Redirect } from "react-router-dom";
 
 const SignUpIn = ({ location }) => {
@@ -88,8 +88,8 @@ const SignUpIn = ({ location }) => {
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                   setTimeout(() => {
                     pathname === "/signup"
-                      ? dispatch(registerUser(values))
-                      : dispatch(loginUser(values));
+                      ? dispatch(register(values))
+                      : dispatch(login(values));
                     resetForm();
                   }, 1500);
                 }}>
