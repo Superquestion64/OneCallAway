@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3593e261-efc2-4cbc-a369-36b168fb63ad</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Audio_Recorder.py</StartupFile>
+    <StartupFile>Web_Audio.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -35,6 +35,7 @@
     <Compile Include="Sync_Audio.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Web_Audio.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.8-32" />

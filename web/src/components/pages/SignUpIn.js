@@ -22,12 +22,12 @@ import {
   SignBtn,
   StyledForm,
   TextField
-} from "./styles/SignInOut.styled";
+} from "./styles/SignUpIn.styled";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, loginUser } from "../../actions/user";
 import { Redirect } from "react-router-dom";
 
-const SignInOut = ({ location }) => {
+const SignUpIn = ({ location }) => {
   const dispatch = useDispatch();
   const [showPw, setShowPw] = useState(false);
   const [showConfirmPw, setShowConfirmPw] = useState(false);
@@ -54,9 +54,19 @@ const SignInOut = ({ location }) => {
   const initialValues =
     pathname === "/signup" ? signUpInitVals : signInInitVals;
 
+  const navItems = [
+    {
+      title: "get chrome extension",
+      path: "/"
+    },
+    {
+      title: "sign in",
+      path: "/signin"
+    }
+  ];
   return (
     <>
-      <Navbar />
+      <Navbar navItems={navItems} />
       <Container
         p="10rem 4rem"
         mh="100vh"
@@ -179,4 +189,4 @@ const SignInOut = ({ location }) => {
   );
 };
 
-export default SignInOut;
+export default SignUpIn;

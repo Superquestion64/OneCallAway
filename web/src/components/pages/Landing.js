@@ -32,9 +32,32 @@ const Landing = () => {
     return <Redirect to="/dashboard" />;
   }
 
+  const navItems = [
+    {
+      title: "features",
+      path: ""
+    },
+    {
+      title: "get chrome extension",
+      path: "/"
+    },
+    {
+      title: "sign in",
+      path: "/signin"
+    }
+  ];
+
+  const genFeature = feature => {
+    return (
+      <Feature>
+        <Icon />
+        {feature}
+      </Feature>
+    );
+  };
   return (
     <Container mh="100vh">
-      <Navbar landing={true} />
+      <Navbar landing={true} navItems={navItems} />
       <LandingImage>
         <LandingInner>
           <FlexCentered>
@@ -46,12 +69,24 @@ const Landing = () => {
               <Btn
                 hoverColor="rgba(237, 66, 100, 1)"
                 br="1.8rem"
-                fs="1.5rem"
+                fs="1.6rem"
                 m="6rem 0 0 0"
                 bgColor="rgba(237, 66, 100, 0.9)"
                 p="0.8rem 1.5rem"
                 boxShadowColor="#fff">
                 Sign Up
+              </Btn>
+            </StyledLink>
+            <StyledLink to="voice_call">
+              <Btn
+                hoverColor="rgba(50, 50, 160, 1)"
+                br="1.8rem"
+                fs="1.6rem"
+                m="6rem 0 0 0"
+                bgColor="rgba(50, 50, 160, 0.9)"
+                p=".9rem 1.5rem"
+                boxShadowColor="#fff">
+                Make a call
               </Btn>
             </StyledLink>
           </FlexCentered>
@@ -60,26 +95,18 @@ const Landing = () => {
       <Divider />
       <Section bgColor="#fffde7">
         <FlexCentered>
-          <Title fs="2.5rem" margin="0 0 1rem 0" textDecoration="underline">
+          <Title fs="2.5rem" margin="0 0 1rem 0">
             Features
           </Title>
           <FeatureList name="features">
-            <Feature>
-              <Icon />
-              Invite friends with a simple link
-            </Feature>
-            <Feature>
-              <Icon />
-              Chat with anyone - anywhere
-            </Feature>
-            <Feature>
-              <Icon />
-              All for FREE!
-            </Feature>
+            {genFeature("Invite friends with a simple link")}
+            {genFeature("Chat with anyone - anywhere")}
+            {genFeature("All for FREE!")}
           </FeatureList>
         </FlexCentered>
       </Section>
       <Divider />
+
       <Section bgColor="#dcedc8" mb="1.1rem">
         <Title fs="2.5rem" margin="1rem 0" textDecoration="underline">
           What our users are saying...
