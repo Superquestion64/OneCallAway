@@ -18,7 +18,7 @@ export const loadUser = () => async dispatch => {
       payload: data
     });
   } catch (err) {
-    alert(err.response.data.error);
+      if (err.response) {alert(err.response.data.error);}
     dispatch({
       type: AUTH_ERROR
     });
@@ -55,7 +55,7 @@ export const login = formValues => async dispatch => {
 
     alert(JSON.stringify(data));
   } catch (err) {
-    alert(err.response.data.error);
+      alert(err.response.data.error)
 
     dispatch({
       type: LOGIN_FAIL
