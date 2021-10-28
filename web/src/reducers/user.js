@@ -3,7 +3,9 @@ import {
   REGISTER_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT
+  LOGOUT,
+  LOAD_USER,
+  AUTH_ERROR
 } from "../types";
 
 const initialState = {
@@ -17,6 +19,7 @@ const userReducer = (state = initialState, action) => {
   switch (type) {
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
+    case LOAD_USER:
       return {
         ...state,
         ...payload,
@@ -25,6 +28,7 @@ const userReducer = (state = initialState, action) => {
     case REGISTER_FAIL:
     case LOGIN_FAIL:
     case LOGOUT:
+    case AUTH_ERROR:
       return {
         ...state,
         token: null,
