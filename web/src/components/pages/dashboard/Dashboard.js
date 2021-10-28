@@ -15,14 +15,14 @@ const Dashboard = () => {
   return (
     <Wrapper mh="100vh">
       <Navbar navItems={navItems} />
-      <Btn
+      {/* <Btn
         m="3rem 0 0 2rem"
         bgColor="#440A67"
         hoverBgColor="rgba(147, 50, 158, 0.5)"
         p="2.5rem 1.2rem"
         br="2rem">
         Make a call
-      </Btn>
+      </Btn> */}
       <FlexCentered m="2rem 0 0 0">
         <CallLog />
       </FlexCentered>
