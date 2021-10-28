@@ -19,6 +19,7 @@ const App = () => {
   useEffect(() => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
+      dispatch(loadUser());
     }
     dispatch(loadUser());
     // log user out from all tabs if they log out in one tab
