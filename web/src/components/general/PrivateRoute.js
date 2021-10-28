@@ -8,9 +8,7 @@ const PrivateRoute = props => {
 
   if (loading) {
     return <Spinner />;
-  }
-  // If authenticated, render the target page
-  if (isAuthenticated) {
+  } else if (isAuthenticated) {
     return <Route {...props} />;
   }
 
