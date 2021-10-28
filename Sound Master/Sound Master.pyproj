@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3593e261-efc2-4cbc-a369-36b168fb63ad</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Audio_Server.py</StartupFile>
+    <StartupFile>Audio_Client.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
