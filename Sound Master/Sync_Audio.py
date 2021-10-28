@@ -6,7 +6,10 @@
 # Dependencies: PyAudio
 
 import pyaudio
-import time
+import threading
+import concurrent.futures
+import queue
+import time 
 
 # Will record audio indefinitely until told to terminate
 # @pa is a PyAudio object
@@ -73,3 +76,21 @@ def user_input(terminate):
     input("Enter any value to terminate the program: ")
     # Set terminate to true
     terminate.set()
+
+if __name__ == '__main__':
+    # Initiate a PyAudio object
+    pa = pyaudio.PyAudio()
+    # Save the information of the user's default audio devices
+    device_info = pa.get_default_host_api_info()
+    # Queue for audio data
+    audio_stream = queue.Queue()
+    # Event which tells recorder and player threads to stop
+    terminate = threading.Event()
+    # Run three threads, one to record audio, one to play audio, the other to terminate the program
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        # Record
+        executor.submit(record, pa, device_info, audio_stream, terminate)
+        # Play
+        executor.submit(play, pa, device_info, audio_stream, terminate)
+        # Terminate
+        executor.submit(user_input, terminate)

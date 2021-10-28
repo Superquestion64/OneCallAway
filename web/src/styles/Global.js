@@ -12,6 +12,12 @@ const GlobalStyles = createGlobalStyle`
 
   img {
     max-width: 100%;
+  
+  html {
+    margin:0;
+    padding:0;
+    height:100%;
+  }
 }
 `;
 

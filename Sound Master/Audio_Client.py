@@ -23,7 +23,7 @@ MSG_LENGTH = 2048
 
 # NOTE: The client can only connect if the server is accepting clients, and all firewalls are turned off
 
-# UNCOMMENT THE LINE BELOW AND REPLACE SERVER_IP
+# UNCOMMENT THE LINE BELOW AND REPLACE SERVER_IP AS A STRING
 # ADDR = (SERVER_IP, 7777)
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 print("Connecting to the server...")
@@ -108,21 +108,22 @@ def user_input(terminate):
     # Set terminate to true
     terminate.set()
 
-# Initiate a PyAudio object
-pa = pyaudio.PyAudio()
-# Save the information of the user's default audio devices
-device_info = pa.get_default_host_api_info()
-# Event which tells every thread to stop
-terminate = threading.Event()
-# Create three threads
-# First thread records audio from the client's default input device
-# Second thread sends recorded audio to the server
-# Third thread will tell all threads to terminate when given input
-with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-    # Record
-    executor.submit(send_audio, pa, device_info, terminate)
-    # Play
-    executor.submit(receive_audio, pa, device_info, terminate)
-    # Terminate
-    executor.submit(user_input, terminate)
-pa.terminate()
+if __name__ == '__main__':
+    # Initiate a PyAudio object
+    pa = pyaudio.PyAudio()
+    # Save the information of the user's default audio devices
+    device_info = pa.get_default_host_api_info()
+    # Event which tells every thread to stop
+    terminate = threading.Event()
+    # Create three threads
+    # First thread records audio from the client's default input device
+    # Second thread sends recorded audio to the server
+    # Third thread will tell all threads to terminate when given input
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        # Record
+        executor.submit(send_audio, pa, device_info, terminate)
+        # Play
+        executor.submit(receive_audio, pa, device_info, terminate)
+        # Terminate
+        executor.submit(user_input, terminate)
+    pa.terminate()

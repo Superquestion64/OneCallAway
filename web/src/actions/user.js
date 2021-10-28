@@ -3,10 +3,11 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   LOGIN_SUCCESS,
-  LOGIN_FAIL
+  LOGIN_FAIL,
+  LOGOUT
 } from "../types";
 
-export const registerUser = values => async dispatch => {
+export const register = values => async dispatch => {
   try {
     const { data } = await user.post("/register", values);
 
@@ -25,7 +26,7 @@ export const registerUser = values => async dispatch => {
   }
 };
 
-export const loginUser = formValues => async dispatch => {
+export const login = formValues => async dispatch => {
   try {
     const { data } = await user.post("/login", formValues);
 
@@ -43,3 +44,7 @@ export const loginUser = formValues => async dispatch => {
     });
   }
 };
+
+export const logOut = () => ({
+  type: LOGOUT
+});

@@ -1,10 +1,9 @@
 # Created by Charles Vega
-# Last Modified October 15, 2021
-# This program is effectively a server side voice call application
+# Last Modified October 26, 2021
+# This program allows OCA's Web App to boot up voice calls
 # It will create a server that records audio and sends it to a client computer in real time
-# The server can connect to multiple computers and also receive audio data to play from the clients
 # Recorded audio from the server's default input device is sent to the client's default output device
-# Users must signal for this program to terminate by entering any value
+# This device will also create another server that launches the web app locally
 # Dependencies: PyAudio
 
 import pyaudio
@@ -12,32 +11,45 @@ import socket
 import threading
 import concurrent.futures
 import queue
-import time 
 from flask import Flask, render_template
 
-app = Flask(__name__, template_folder='public')
-
-@app.route('/')
-@app.route('/dashboard')
-@app.route('/signup')
-@app.route('/signin')
-def index():
-    return render_template('index.html')
-
-# 2048 bytes of data is sent at a time
+app = Flask(__name__, static_url_path='', template_folder='static') 
 MSG_LENGTH = 2048
 # Create a socket object for internet streaming through IPV4
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # (IPV4 address, free port number)
 SERVER = (socket.gethostbyname(socket.gethostname()), 7777)
-server.bind(SERVER)
+# Event which tells all threads to stop
+terminate = threading.Event()
+
+def voice_call_setup():
+    server.bind(SERVER)
+
+@app.route('/voice_call')
+def return_page():
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+        executor.submit(start)
+        return app.send_static_file('index.html')
+
+# Default directory, website landing page
+# When the user leaves the /voice_call page, exit the voice call
+@app.route('/')
+@app.route('/signup')
+@app.route('/signin')
+@app.route('/dashboard')
+def home():
+    # Exit all audio threads
+    global terminate
+    terminate.set()
+    return app.send_static_file('index.html')
 
 # Will record audio indefinitely until told to terminate
 # Recorded audio is put inside a queue which will be sent to the client
 # @stream_in is a PyAudio object that reads from the server's default input device
 # @audio_stream is a queue to hold recorded audio from the server
 # @terminate is an event to terminate this thread
-def record(stream_in, audio_stream, terminate):
+def record(stream_in, audio_stream):
+    global terminate
     print("Recording in progress...")
     # Will loop until the user signals for the program to terminate
     while not terminate.is_set():
@@ -53,7 +65,8 @@ def record(stream_in, audio_stream, terminate):
 # @connection and address identify the client
 # @stream_out is a PyAudio object that writes to the server's default output device
 # @terminate is an event to terminate this thread
-def receive_audio(connection, address, stream_out, terminate):
+def receive_audio(connection, address, stream_out):
+    global terminate
     print(f"Receiving audio from {address}")
     # Will loop until terminate is true or the client disconnects
     while not terminate.is_set():
@@ -63,24 +76,13 @@ def receive_audio(connection, address, stream_out, terminate):
         except socket.error:
             print(f"AUDIO RECEIVE ERROR from {address}")
             break
-
     print (f"Playback finished from {address}")
-
-# Waits for user input, then sets terminate to true
-# @terminate is an event shared between each thread to end the program
-def user_input(terminate):
-    # Wait 1 second
-    time.sleep(1)
-    # Request user signal to terminate
-    input("At any point press enter to terminate the server ")
-    # Set terminate to true
-    terminate.set()
 
 # Will send audio to the client from the audio queue
 # @connection and address identify the client
 # @audio_stream is a queue of recorded audio from the server
 # @terminate is an event to terminate this thread
-def send_audio(connection, address, audio_stream, terminate):
+def send_audio(connection, address, audio_stream):
     while not terminate.is_set():
         try:
             # Send the recorded audio data to the client
@@ -96,27 +98,29 @@ def send_audio(connection, address, audio_stream, terminate):
 # @stream_out is a PyAudio object that writes to the server's default output device
 # @audio_stream is a queue of recorded audio from the server
 # @terminate is an event to terminate this thread
-def handle_clients(stream_out, audio_stream, terminate):
+def handle_clients(stream_out, audio_stream):
+    global terminate
     # Wait for a new client
     print ("Waiting for a new client...")
     connection, address = server.accept()
     # Create threads to send and receive audio from the new client
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        executor.submit(send_audio, connection, address, audio_stream, terminate)
-        executor.submit(receive_audio, connection, address, stream_out, terminate)
+        executor.submit(send_audio, connection, address, audio_stream)
+        executor.submit(receive_audio, connection, address, stream_out)
         while not terminate.is_set():
             # Wait for a new client
             connection, address = server.accept()
             # Create threads to send and receive audio from the new client
-            executor.submit(send_audio, connection, address, audio_stream, terminate)
-            executor.submit(receive_audio, connection, address, stream_out, terminate)
+            executor.submit(send_audio, connection, address, audio_stream)
+            executor.submit(receive_audio, connection, address, stream_out)
 
 # Main runner function of the server
 # Will wait for a client then dedicate audio resources from the server for the program
 # When one client connects to the server a voice call between two computers is made
 # Multiple clients can connect to the server through handle_clients
-@app.route('/voice_call')
 def start():
+    global terminate
+    terminate.clear()
     print("Starting the server...")
     # Open the server for connections
     server.listen()
@@ -127,8 +131,6 @@ def start():
     device_info = pa.get_default_host_api_info()
     # Queue for audio data
     audio_stream = queue.Queue()
-    # Event which tells all threads to stop
-    terminate = threading.Event()
     stream_in = pa.open(
         # Sampling frequency
         rate = 44100,
@@ -153,32 +155,31 @@ def start():
         # Set the buffer length to 1024
         frames_per_buffer = 1024
     )
-    return render_template('index.html')
     audio_stream = queue.Queue()
     # Wait for a client to connect
     connection, address = server.accept()
 
-    # Make 5 threads
+    # Make 3 threads
     # First thread records audio from the server's default input device
     # Second thread receives audio from the client and plays it to the server's default output device
     # Third thread sends audio from the server to the client
-    # Fourth thread will terminate the above threads
-    # Fifth thread will create more threads for additional clients. This feature is WIP
+    # Fourth thread will create more threads for additional clients. This feature is WIP
     with concurrent.futures.ThreadPoolExecutor() as executor:
         # Record
-        executor.submit(record, stream_in, audio_stream, terminate)
+        executor.submit(record, stream_in, audio_stream)
         # Play
-        executor.submit(receive_audio, connection, address, stream_out, terminate)
+        executor.submit(receive_audio, connection, address, stream_out)
         # Send audio
-        executor.submit(send_audio, connection, address, audio_stream, terminate)
-        # Terminate
-        executor.submit(user_input, terminate)
+        executor.submit(send_audio, connection, address, audio_stream)
         # Add clients
-        #executor.submit(handle_clients, stream_out, audio_stream, terminate)
+        #executor.submit(handle_clients, stream_out, audio_stream)
     # Deallocate audio recources
     stream_out.stop_stream()
     stream_out.close()
     pa.terminate()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+        executor.submit(app.run)
+        executor.submit(voice_call_setup)
+
