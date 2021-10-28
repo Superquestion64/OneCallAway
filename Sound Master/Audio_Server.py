@@ -19,7 +19,7 @@ MSG_LENGTH = 2048
 # Create a socket object for internet streaming through IPV4
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # (IPV4 address, free port number)
-SERVER = (('192.168.1.8'), 7777)
+SERVER = (socket.gethostbyname(socket.gethostname()), 7777)
 server.bind(SERVER)
 
 # Will record audio indefinitely until told to terminate
