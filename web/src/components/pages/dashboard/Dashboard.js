@@ -1,6 +1,6 @@
 import React from "react";
 import { Wrapper } from "../styles/Dashboard.styled";
-import { Btn, FlexCentered } from "../../../styles/General.styled";
+import { Title, FlexCentered } from "../../../styles/General.styled";
 import Navbar from "../../general/Navbar";
 import CallLog from "./CallLog";
 
@@ -23,6 +23,7 @@ const Dashboard = () => {
         br="2rem">
         Make a call
       </Btn> */}
+      <Title>Call Log</Title>
       <FlexCentered m="2rem 0 0 0">
         <CallLog />
       </FlexCentered>
