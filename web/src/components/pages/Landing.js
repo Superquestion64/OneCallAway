@@ -26,11 +26,13 @@ import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 const Landing = () => {
-  const { isAuthenticated } = useSelector(state => state.user);
+  // const { isAuthenticated } = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
+  console.log(user)
 
-  if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
-  }
+  // if (isAuthenticated) {
+  //   return <Redirect to="/dashboard" />;
+  // }
 
   const navItems = [
     {

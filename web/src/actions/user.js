@@ -37,7 +37,10 @@ export const login = formValues => async dispatch => {
 
     alert(JSON.stringify(data));
   } catch (err) {
-    alert(err.response.data.error);
+    // alert(err.response.data.error);
+    //let obj = JSON.parse(JSON.stringify(err))
+    //console.log({'error': err.response.data.error})
+      alert(err.response.data.error)
 
     dispatch({
       type: LOGIN_FAIL

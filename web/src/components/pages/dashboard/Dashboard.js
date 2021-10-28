@@ -3,6 +3,7 @@ import { Wrapper } from "../styles/Dashboard.styled";
 import { Btn, FlexCentered } from "../../../styles/General.styled";
 import Navbar from "../../general/Navbar";
 import CallLog from "./CallLog";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const navItems = [
@@ -11,7 +12,8 @@ const Dashboard = () => {
       path: "/"
     }
   ];
-
+  const user = useSelector(state => state.user);
+  console.log(user)
   return (
     <Wrapper mh="100vh">
       <Navbar navItems={navItems} />

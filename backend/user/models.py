@@ -1,9 +1,9 @@
-from flask import Flask, jsonify, request, session, redirect
+from flask import Flask, jsonify, request, session, redirect, json, Response, abort
 from app import db
 from passlib.hash import pbkdf2_sha256
 import uuid
 import re
-import json
+#mport json
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from email_validator import validate_email, EmailNotValidError
@@ -55,7 +55,7 @@ class User:
                 # Insert the user object into database
                 if db.users.insert_one(user):
                     access_token = create_access_token(identity=user['email'])
-                    return jsonify(access_token=access_token)
+                    return jsonify(token=access_token)
             return jsonify({ "error": "Signup failed"}), 400
         return jsonify({"error": "Password does not match"}), 400
 
@@ -73,9 +73,10 @@ class User:
         #starts session if the passwords are the same
         if user and pbkdf2_sha256.verify(request.json['password'], user['password']):
             access_token = create_access_token(identity=user['email'])
-            return jsonify(access_token=access_token)
-        
+            return jsonify(token=access_token)
+        #abort(401, error = "Invalid login credentials")
         return jsonify({ "error": "Invalid login credentials"}), 401
+
 
     #Update
     def update(self):
