@@ -1,14 +1,13 @@
 # Created by Charles Vega
-# Last Modified October 23, 2021
+# Last Modified October 26, 2021
 # This program will boot up OCA's Web App and implement the Make a Call button
-# The Make a Call button currently runs Sync_Audio
+# The Make a Call button will run Sync_Audio, this is not a voice call
 # It will record and play audio simultaneously through the use of threads and pyaudio
 # Recorded audio from the user's default input device gets sent to the user's default output device
-# Users must signal for this program to terminate by entering any value
+# Users can exit audio features by leaving the /voice_call page
 # Dependencies: PyAudio, Flask
 
 import pyaudio
-import time
 import threading
 import concurrent.futures
 import queue

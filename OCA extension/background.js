@@ -18,7 +18,7 @@ function notification(currentKey) {
 
 function onClickNotification() {
 	chrome.tabs.create({
-		url: "https://google.com"
+		url: "http://localhost:3000/"
 	});
 }
 
