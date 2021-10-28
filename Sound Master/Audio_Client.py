@@ -25,7 +25,7 @@ MSG_LENGTH = 2048
 # NOTE: The client can only connect if the server is accepting clients, and all firewalls are turned off
 
 # UNCOMMENT THE LINE BELOW AND REPLACE SERVER_IP AS A STRING
-ADDR = ('69.206.228.229', 7777)
+#ADDR = (SERVER_IP, 7777)
 app = Flask(__name__, static_url_path='', template_folder='static') 
 client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 MSG_LENGTH = 2048
