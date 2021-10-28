@@ -8,8 +8,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import theme from "../styles/theme";
 import { ThemeProvider } from "styled-components";
 import GlobalStyles from "../styles/Global";
-import PrivateRoute from "./general/PrivateRoute";
-
+import PrivateRoute from "../components/general/PrivateRoute";
 const App = () => {
   return (
     <BrowserRouter>
