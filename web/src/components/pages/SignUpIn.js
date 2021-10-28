@@ -3,7 +3,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Formik } from "formik";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   loginSchema,
   registerationSchema
@@ -28,17 +28,25 @@ import { register, login } from "../../actions/user";
 import { Redirect } from "react-router-dom";
 
 const SignUpIn = ({ location }) => {
+  const { pathname } = location;
   const dispatch = useDispatch();
   const [showPw, setShowPw] = useState(false);
   const [showConfirmPw, setShowConfirmPw] = useState(false);
+  const [path, setPath] = useState(pathname);
+
+  useEffect(() => {
+    if (path !== pathname) {
+      setPath(pathname);
+      window.location.reload();
+    }
+  }, [path, pathname]);
 
   const { isAuthenticated } = useSelector(state => state.user);
 
+  // If the user is authenticated, redirect them to dashboard
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
   }
-
-  const { pathname } = location;
 
   const signUpInitVals = {
     username: "",
@@ -51,8 +59,7 @@ const SignUpIn = ({ location }) => {
     email: "",
     password: ""
   };
-  const initialValues =
-    pathname === "/signup" ? signUpInitVals : signInInitVals;
+  const initialValues = path === "/signup" ? signUpInitVals : signInInitVals;
 
   const navItems = [
     {
@@ -74,20 +81,20 @@ const SignUpIn = ({ location }) => {
         h="60%">
         <Flex bgColor="#f3e5f5" h="75vh" br="6rem">
           <FlexItem fg="1" h="75vh">
-            <Image pathname={pathname === "/signup" ? true : false} />
+            <Image pathname={path === "/signup" ? true : false} />
           </FlexItem>
           <FlexItem
             w="75%"
-            m={pathname === "/signup" ? "4rem 0 0 0" : "8rem 0 0 0"}>
+            m={path === "/signup" ? "6.5rem 0 0 0" : "10rem 0 0 0"}>
             <FlexCentered>
               <Formik
                 initialValues={initialValues}
                 validationSchema={
-                  pathname === "/signup" ? registerationSchema : loginSchema
+                  path === "/signup" ? registerationSchema : loginSchema
                 }
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                   setTimeout(() => {
-                    pathname === "/signup"
+                    path === "/signup"
                       ? dispatch(register(values))
                       : dispatch(login(values));
                     resetForm();
@@ -96,11 +103,11 @@ const SignUpIn = ({ location }) => {
                 {({ values, errors, isSubmitting }) => (
                   <>
                     <Title fs="3rem">
-                      {pathname === "/signup" ? "Sign Up" : "Sign In"}
+                      {path === "/signup" ? "Sign Up" : "Sign In"}
                     </Title>
                     <StyledForm>
                       <Flex fd="column" ai="center">
-                        {pathname === "/signup" ? (
+                        {path === "/signup" ? (
                           <TextField
                             label="Username"
                             name="username"
@@ -130,7 +137,7 @@ const SignUpIn = ({ location }) => {
                             )
                           }}
                         />
-                        {pathname === "/signup" ? (
+                        {path === "/signup" ? (
                           <TextField
                             id="passwordConfirm"
                             name="passwordConfirm"
@@ -155,7 +162,7 @@ const SignUpIn = ({ location }) => {
                           />
                         ) : null}
                         <FlexItem h="auto">
-                          {pathname === "/signup" ? (
+                          {path === "/signup" ? (
                             <>
                               Already have an account?{" "}
                               <StyledLink to="/signin">Sign In</StyledLink>
@@ -172,7 +179,7 @@ const SignUpIn = ({ location }) => {
                           type="submit"
                           variant="contained"
                           disabled={isSubmitting}>
-                          {pathname === "/signup" ? "Sign Up" : "Sign In"}
+                          {path === "/signup" ? "Sign Up" : "Sign In"}
                         </SignBtn>
                         {/* <pre>{JSON.stringify(values, null, 2)}</pre>
                 <pre>{JSON.stringify(errors, null, 2)}</pre> */}

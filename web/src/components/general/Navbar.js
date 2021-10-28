@@ -6,11 +6,14 @@ import {
   StyledNavbar
 } from "./styles/Navbar.styled";
 import { Btn, Flex, FlexItem, StyledLink } from "../../styles/General.styled";
-
+import { useDispatch } from "react-redux";
 import { Link } from "react-scroll";
+import { logOut } from "../../actions/user";
 
 // navRoutes = [{path, title}]
 const Navbar = ({ navItems = [] }) => {
+  const dispatch = useDispatch();
+
   const renderNavItems = navItems.map(navItem => {
     const { title, path } = navItem;
     if (title === "features") {
@@ -19,6 +22,10 @@ const Navbar = ({ navItems = [] }) => {
           <Btn>{title}</Btn>
         </Link>
       );
+    }
+
+    if (title === "sign out") {
+      return <Btn onClick={() => dispatch(logOut())}>{title}</Btn>;
     }
     return (
       <StyledLink to={path} key={title}>

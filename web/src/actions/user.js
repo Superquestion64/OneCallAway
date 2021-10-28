@@ -4,8 +4,26 @@ import {
   REGISTER_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT
+  LOGOUT,
+  AUTH_ERROR,
+  LOAD_USER
 } from "../types";
+
+export const loadUser = () => async dispatch => {
+  try {
+    const { data } = await user.get("/authorize");
+
+    dispatch({
+      type: LOAD_USER,
+      payload: data
+    });
+  } catch (err) {
+    alert(err.response.data.error);
+    dispatch({
+      type: AUTH_ERROR
+    });
+  }
+};
 
 export const register = values => async dispatch => {
   try {

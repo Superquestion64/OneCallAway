@@ -10,6 +10,7 @@ export const Container = styled.div`
   padding: ${({ p }) => p || ""};
   background: ${({ bg }) => bg || "none"};
   background-color: ${({ bgColor }) => bgColor || "#fff"};
+  color: ${({ c }) => c || "#000"};
 `;
 
 // Text
@@ -75,6 +76,7 @@ export const FlexCentered = styled.div`
   align-items: center;
   display: flex;
   margin: ${({ m }) => m || ""};
+  padding: ${({ p }) => p || ""};
 `;
 
 export const Flex = styled.div`
