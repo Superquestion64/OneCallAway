@@ -10,7 +10,8 @@ import {
 
 const initialState = {
   token: localStorage.getItem("token"),
-  isAuthenticated: false
+  isAuthenticated: false,
+  loading: true
 };
 
 const userReducer = (state = initialState, action) => {
@@ -23,7 +24,8 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         ...payload,
-        isAuthenticated: true
+        isAuthenticated: true,
+        loading: false
       };
     case REGISTER_FAIL:
     case LOGIN_FAIL:
@@ -33,7 +35,8 @@ const userReducer = (state = initialState, action) => {
         ...state,
         token: null,
         user: null,
-        isAuthenticated: false
+        isAuthenticated: false,
+        loading: false
       };
     default:
       return state;

@@ -24,7 +24,7 @@ api.interceptors.response.use(
       store.dispatch({ type: LOGOUT });
     }
 
-    Promise.reject(err);
+    return Promise.reject(err);
   }
 );
 
