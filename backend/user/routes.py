@@ -1,6 +1,6 @@
-from flask import Flask, jsonify, json
+from flask import Flask, jsonify, json, Response
 from flask_cors import CORS, cross_origin
-from app import app
+from app import app, jwt
 from user.models import User
 from flask_jwt_extended import jwt_required, get_jwt
 from datetime import datetime
@@ -32,11 +32,10 @@ def update():
 @cross_origin()
 @jwt_required()
 def authorize():
-    exp_timestamp = get_jwt()["exp"]
-    now = datetime.now(timezone.utc)
-    target_timestamp = datetime.timestamp(now + timedelta(minutes=0))
-    if target_timestamp < exp_timestamp:
-        return jsonify({"error": "Token Expired"}), 401
-    else:
-        resp = jsonify(success=True)
-        return resp
+    status_code = Response(status=200)
+    return status_code
+
+#Change default message for expire token
+@jwt.expired_token_loader
+def my_expired_token_callback(jwt_header, jwt_payload):
+    return jsonify({"error": "Session has expired"}), 401
