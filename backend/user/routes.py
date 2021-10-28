@@ -13,8 +13,8 @@ def register():
     return User().register()
 
 @app.route('/logout', methods=['GET'])
-@jwt_required()
 @cross_origin()
+@jwt_required()
 def signout():
     return User().signout()
 
@@ -24,19 +24,18 @@ def login():
     return User().login()
 
 @app.route('/update', methods=['PATCH'])
-@jwt_required()
 @cross_origin()
 def update():
     return User().update()
 
 @app.route('/authorize', methods=['GET'])
-@jwt_required()
 @cross_origin()
+@jwt_required()
 def authorize():
     exp_timestamp = get_jwt()["exp"]
     now = datetime.now(timezone.utc)
     target_timestamp = datetime.timestamp(now + timedelta(minutes=0))
-    if target_timestamp > exp_timestamp:
+    if target_timestamp < exp_timestamp:
         return jsonify({"error": "Token Expired"}), 401
     else:
         resp = jsonify(success=True)
