@@ -77,7 +77,7 @@ const Landing = () => {
                 Sign Up
               </Btn>
             </StyledLink>
-            <StyledLink to="voice_call">
+            <StyledLink to="/voice_call">
               <Btn
                 hoverColor="rgba(50, 50, 160, 1)"
                 br="1.8rem"
