@@ -3,12 +3,18 @@ import { Wrapper } from "../styles/Dashboard.styled";
 import { Title, FlexCentered } from "../../../styles/General.styled";
 import Navbar from "../../general/Navbar";
 import CallLog from "./CallLog";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../../actions/user";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
   const navItems = [
     {
       title: "sign out",
-      path: "/"
+      path: "/signin",
+      onClick() {
+        dispatch(logOut());
+      }
     }
   ];
   return (
