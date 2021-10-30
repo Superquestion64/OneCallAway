@@ -1,8 +1,8 @@
 # Created by Charles Vega
 # Last Modified October 29, 2021
-# This program will connect to OCA's audio server as a client
+# This program will connect to OCA's voice call server as a client
 # The client will have access to their own local version of the web app through flask
-# To connect to the audio server, the client will have to enter OCA's /voice_call page
+# To connect to the voice call server, the client will have to enter OCA's /voice_call page
 # When two clients are connected to the server, they will be joined in a voice call
 # Recorded audio from the client's default input device is sent to the other client's default output device, and vice versa
 # Users must signal for the client to end connection with the server by entering any value
@@ -19,12 +19,6 @@ from flask import Flask, render_template, redirect, url_for, request
 client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 # This is configured to connect only to local networks
 ADDR = (socket.gethostbyname(socket.gethostname()), 7777)
-print("Connecting to the server...")
-client.connect(ADDR)
-print("Connection successful")
-# The client will not run until the server sends a message
-msg = client.recv(100)
-print(msg.decode("utf-8"))
 # This flag will only let the client enter one voice call
 connected = True
 # 2048 bytes of data is sent at a time, frames_per_buffer * 2
@@ -32,13 +26,22 @@ MSG_LENGTH = 2048
 
 app = Flask(__name__, static_url_path='', template_folder='static') 
 
-# Default directory, website landing page
+# Display the web app for the user
 @app.route('/')
 @app.route('/signup')
 @app.route('/signin')
 @app.route('/dashboard')
 def home():
     return app.send_static_file('index.html')
+
+def client_setup():
+    print("Connecting to the server...")
+    client.connect(ADDR)
+    print("Connection successful")
+    # The client will not run until the server sends a message
+    msg = client.recv(100)
+    print(msg.decode("utf-8"))
+
 
 
 # Will record audio indefinitely until told to terminate
@@ -125,9 +128,11 @@ def user_input(terminate):
 # This function will wait until there is another client to voice call with
 @app.route('/voice_call')
 def start():
+    global connected
     if (connected):
         # This function will only run once
         connected = False
+        print("Waiting for a response from the server...")
         # The voice call cannot be started until the second client connects
         # The server will know when this happens
         client.recv(100)
@@ -137,7 +142,7 @@ def start():
         pa = pyaudio.PyAudio()
         # Save the information of the user's default audio devices
         device_info = pa.get_default_host_api_info()
-        # Event which tells every thread to stop
+        # Event which tells every thread to end
         terminate = threading.Event()
         # Create three threads
         # First thread thread sends recorded audio to the server intended for the other client
@@ -155,5 +160,6 @@ def start():
     
 
 if __name__ == '__main__':
-    app.run()
-        
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        executor.submit(app.run)
+        executor.submit(client_setup)
