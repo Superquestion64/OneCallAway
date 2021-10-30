@@ -1,5 +1,6 @@
 import React from "react";
-
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import {
   Btn,
   Container,
@@ -8,6 +9,7 @@ import {
   StyledLink,
   Title
 } from "../../styles/General.styled";
+import Navbar from "../general/Navbar";
 import {
   Feature,
   FeatureList,
@@ -21,9 +23,6 @@ import {
   Stars,
   Subtitle
 } from "./styles/Landing.styled";
-import Navbar from "../general/Navbar";
-import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
 
 const Landing = () => {
   const { isAuthenticated } = useSelector(state => state.user);
@@ -57,7 +56,7 @@ const Landing = () => {
   };
   return (
     <Container mh="100vh">
-      <Navbar landing={true} navItems={navItems} />
+      <Navbar navItems={navItems} />
       <LandingImage>
         <LandingInner>
           <FlexCentered>

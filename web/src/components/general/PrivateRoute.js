@@ -1,10 +1,29 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { logOut } from "../../actions/user";
+import {
+  Container,
+  FlexCentered,
+  FlexItem,
+  Text
+} from "../../styles/General.styled";
 import Spinner from "../../utils/Spinner";
-import { Text, FlexCentered, FlexItem } from "../../styles/General.styled";
+import Navbar from "./Navbar";
+
 const PrivateRoute = props => {
+  const dispatch = useDispatch();
   const { loading, isAuthenticated } = useSelector(state => state.user);
+
+  const navItems = [
+    {
+      title: "sign out",
+      path: "/signin",
+      onClick() {
+        dispatch(logOut());
+      }
+    }
+  ];
 
   if (loading) {
     return (
@@ -15,8 +34,16 @@ const PrivateRoute = props => {
         </FlexItem>
       </FlexCentered>
     );
-  } else if (isAuthenticated) {
-    return <Route {...props} />;
+  } else if (!isAuthenticated) {
+    return (
+      <>
+        <Container mh="100vh">
+          <h1>hello</h1>
+          <Navbar navItems={navItems} />
+          <Route {...props} />
+        </Container>
+      </>
+    );
   }
 
   // If unauthenticated, redirect user to home page

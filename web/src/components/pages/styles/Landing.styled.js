@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import styled from "styled-components";
 import LandingBg from "../../../images/LandingBg.jpeg";
 
 // Main landing
