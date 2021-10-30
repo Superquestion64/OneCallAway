@@ -1,17 +1,13 @@
 # Created by Charles Vega
-# Last Modified October 28, 2021
-# This program is effectively a server side voice call application
-# It will create a server that records audio and sends it to a client computer in real time
-# The server can connect to multiple computers and also receive audio data to play from the clients
-# Recorded audio from the server's default input device is sent to the client's default output device
-# Users must signal for this program to terminate by entering any value
-# Dependencies: PyAudio
+# Last Modified October 29, 2021
+# This will boot up OCA's voice call server
+# The server will wait for pairs of clients who wish to join a voice call
+# For every two clients who connect to the server, a new voice call is made
+# Users must signal for the server to stop accepting new clients by entering any value
 
-import pyaudio
 import socket
 import threading
 import concurrent.futures
-import queue
 import time 
 
 # 2048 bytes of data is sent at a time
@@ -22,152 +18,95 @@ server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 SERVER = (socket.gethostbyname(socket.gethostname()), 7777)
 server.bind(SERVER)
 
-# Will record audio indefinitely until told to terminate
-# Recorded audio is put inside a queue which will be sent to the client
-# @stream_in is a PyAudio object that reads from the server's default input device
-# @audio_stream is a queue to hold recorded audio from the server
-# @terminate is an event to terminate this thread
-def record(stream_in, audio_stream, terminate):
-    print("Recording in progress...")
-    # Will loop until the user signals for the program to terminate
-    while not terminate.is_set():
-        audio_stream.put(stream_in.read(stream_in._frames_per_buffer))
-    # End audio recording and deallocate audio resources
-    stream_in.stop_stream()
-    stream_in.close()
-    print("Voice call finished")
-
-# Will play audio sent from a client
-# If the client disconnects this function terminates
-# @pa is a PyAudio object
-# @connection and address identify the client
-# @stream_out is a PyAudio object that writes to the server's default output device
-# @terminate is an event to terminate this thread
-def receive_audio(connection, address, stream_out, terminate):
-    print(f"Receiving audio from {address}")
-    # Will loop until terminate is true or the client disconnects
-    while not terminate.is_set():
-        # Receive and play the audio from the client
-        try:
-            stream_out.write(connection.recv(MSG_LENGTH))
-        except socket.error:
-            print(f"AUDIO RECEIVE ERROR from {address}")
-            break
-
-    print (f"Playback finished from {address}")
-
 # Waits for user input, then sets terminate to true
 # @terminate is an event shared between each thread to end the program
 def user_input(terminate):
     # Wait 1 second
     time.sleep(1)
     # Request user signal to terminate
-    input("At any point press enter to terminate the server ")
+    input("At any point press enter to stop accepting new connections ")
     # Set terminate to true
     terminate.set()
 
-# Will send audio to the client from the audio queue
-# @connection and address identify the client
-# @audio_stream is a queue of recorded audio from the server
-# @terminate is an event to terminate this thread
-def send_audio(connection, address, audio_stream, terminate):
+# exchange_audio will always be called by two threads at a time
+# In one thread audio from connection1 gets sent to audio from connection2
+# In the other, audio from connection2 gets sent to audio from connection1
+# When either client disconnects or the server wishes to terminate, both connections will close automatically
+# @connection1 and connection2 are two seperate clients who wish to join in a voice call
+# @address indicates the IP address of a thread's connection1
+# @terminate will tell this function to close
+def exchange_audio (connection1, connection2, address, terminate):
+    print(f"Receiving audio from {address}")
+    # Will loop until terminate is true
     while not terminate.is_set():
         try:
-            # Send the recorded audio data to the client
-            connection.send(audio_stream.get())
+            connection2.send(connection1.recv(MSG_LENGTH))
         except socket.error:
             # Close connection with the client when a send fails
-            connection.close()
             print(f"Connection lost with {address}")
             break
-
-# WIP Function
-# This function handles multiple clients
-# @stream_out is a PyAudio object that writes to the server's default output device
-# @audio_stream is a queue of recorded audio from the server
-# @terminate is an event to terminate this thread
-def handle_clients(stream_out, audio_stream, terminate):
-    # Wait for a new client
-    print ("Waiting for a new client...")
-    connection, address = server.accept()
-    # Create threads to send and receive audio from the new client
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        executor.submit(send_audio, connection, address, audio_stream, terminate)
-        executor.submit(receive_audio, connection, address, stream_out, terminate)
-        while not terminate.is_set():
-            # Wait for a new client
-            connection, address = server.accept()
-            # Create threads to send and receive audio from the new client
-            executor.submit(send_audio, connection, address, audio_stream, terminate)
-            executor.submit(receive_audio, connection, address, stream_out, terminate)
+    print (f"Ending connection with {address}")
+    connection1.close()
 
 # Main runner function of the server
-# Will wait for a client then dedicate audio resources from the server for the program
-# When one client connects to the server a voice call between two computers is made
-# Multiple clients can connect to the server through handle_clients
-
+# Will wait for two clients at a time then join them in a voice call
+# Each voice call will take two threads to manage
+# One thread will receive audio from one client then send it to the other
+# The second thread will perform the same task as the first thread but in reverse direction
 def start():
     print("Starting the server...")
     # Open the server for connections
     server.listen()
     print(f"Server is accepting clients on {SERVER}")
-    # Initiate a PyAudio object
-    pa = pyaudio.PyAudio()
-    # Save the infromation of the user's default audio devices
-    device_info = pa.get_default_host_api_info()
-    # Queue for audio data
-    audio_stream = queue.Queue()
     # Event which tells all threads to stop
     terminate = threading.Event()
-    stream_in = pa.open(
-        # Sampling frequency
-        rate = 44100,
-        # Mono sound
-        channels = 1,
-        # 16 bit format, each word is 2 bytes
-        format = pyaudio.paInt16,
-        input = True,
-        # Default device will be used for recording
-        input_device_index = device_info["defaultInputDevice"],
-        frames_per_buffer = 1024
-    )
-    stream_out = pa.open(
-        # Set the sample format and length
-        format = pyaudio.paInt16,
-        channels = 1,
-        # Set the sampling rate
-        rate = 44100,
-        output = True,
-        # Play to the user's default output device
-        output_device_index = device_info["defaultOutputDevice"],
-        # Set the buffer length to 1024
-        frames_per_buffer = 1024
-    )
-    audio_stream = queue.Queue()
-    # Wait for a client to connect
-    connection, address = server.accept()
-
-    # Make 5 threads
-    # First thread records audio from the server's default input device
-    # Second thread receives audio from the client and plays it to the server's default output device
-    # Third thread sends audio from the server to the client
-    # Fourth thread will terminate the above threads
-    # Fifth thread will create more threads for additional clients. This feature is WIP
+    # Wait for the first client to connect
+    print("Waiting for the first client to connect...")
+    connection1, address1 = server.accept()
+    connection1.send(bytes("Your friend should be connecting to the server soon! Feel free to check out the web app!", "utf-8"))
+    print(f"Connection successful with {address1}")
+    # Wait for the second client to connect
+    print("Waiting for the second client to connect...")
+    connection2, address2 = server.accept()
+    connection2.send(bytes("Your friend should be connecting to the server soon! Feel free to check out the web app!", "utf-8"))
+    print(f"Connection successful with {address2}")
+    # Sleeps are necessary so the clients sync up
+    # The sends below determine when the clients are both on the /voice_call page
+    time.sleep(1)
+    connection1.send(bytes("Waiting for both clients to access the /voice_call page", "utf-8"))
+    connection2.send(bytes("Waiting for both clients to access the /voice_call page", "utf-8"))
+    time.sleep(1)
+    connection1.send(bytes("Your friend is ready to chat! Your voice call should start soon!", "utf-8"))
+    connection2.send(bytes("Your friend is ready to chat! Your voice call should start soon!", "utf-8"))
+    # Create threads to exchange audio between clients
+    # 1 to 1 voice calls are created indefinitely until terminate is set
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        # Record
-        executor.submit(record, stream_in, audio_stream, terminate)
-        # Play
-        executor.submit(receive_audio, connection, address, stream_out, terminate)
-        # Send audio
-        executor.submit(send_audio, connection, address, audio_stream, terminate)
+        # Exchange audio data between the clients, creating a call
+        executor.submit(exchange_audio, connection1, connection2, address1, terminate)
+        executor.submit(exchange_audio, connection2, connection1, address2, terminate)
         # Terminate
         executor.submit(user_input, terminate)
-        # Add clients
-        #executor.submit(handle_clients, stream_out, audio_stream, terminate)
-    # Deallocate audio recources
-    stream_out.stop_stream()
-    stream_out.close()
-    pa.terminate()
+        # This loop will create new 1 to 1 voice calls
+        while not terminate.is_set():
+            # Wait for a new client
+            print ("Waiting for two new clients...")
+            connection1, address1 = server.accept()
+            connection1.send(bytes("Your friend should be connecting to the server soon! Feel free to check out the web app!", "utf-8"))
+            print(f"Connection successful with {address1}")
+            # Wait for the second client to connect
+            print("Waiting for the second client to connect...")
+            connection2, address2 = server.accept()
+            connection2.send(bytes("Your friend should be connecting to the server soon! Feel free to check out the web app!", "utf-8"))
+            time.sleep(1)
+            connection1.send(bytes("Waiting for both clients to access the /voice_call page", "utf-8"))
+            connection2.send(bytes("Waiting for both clients to access the /voice_call page", "utf-8"))
+            time.sleep(1)
+            connection1.send(bytes("Your friend is ready to chat! Your voice call should start soon!", "utf-8"))
+            connection2.send(bytes("Your friend is ready to chat! Your voice call should start soon!", "utf-8"))
+            print(f"Connection successful with {address2}")
+            # Exchange audio data between the clients, creating a call
+            executor.submit(exchange_audio, connection1, connection2, address1, terminate)
+            executor.submit(exchange_audio, connection2, connection1, address2, terminate)
 
 if __name__ == "__main__":
     start()

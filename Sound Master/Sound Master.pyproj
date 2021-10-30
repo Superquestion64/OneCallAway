@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3593e261-efc2-4cbc-a369-36b168fb63ad</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Audio_Client.py</StartupFile>
+    <StartupFile>Test_Server.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -12,6 +12,7 @@
     <Name>Sound Master</Name>
     <RootNamespace>Sound Master</RootNamespace>
     <InterpreterId>Global|PythonCore|3.8-32</InterpreterId>
+    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,12 +30,14 @@
     <Compile Include="Audio_Player.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Audio_Server.py">
+    <Compile Include="Test_Server.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Sync_Audio.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Test_Client.py" />
+    <Compile Include="Voice_Call.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.8-32" />
