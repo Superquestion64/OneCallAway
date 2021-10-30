@@ -13,12 +13,12 @@ import concurrent.futures
 import queue
 from flask import Flask, render_template
 
-app = Flask(__name__, static_url_path='', template_folder='static') 
+app = Flask(__name__, static_url_path='', template_folder='static')
 MSG_LENGTH = 2048
 # Create a socket object for internet streaming through IPV4
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # (IPV4 address, free port number)
-SERVER = (socket.gethostbyname(socket.gethostname()), 7777)
+SERVER = ('', 7777)  # socket.gethostbyname(socket.gethostname())
 # Event which tells all threads to stop
 terminate = threading.Event()
 
@@ -33,6 +33,7 @@ def return_page():
 
 # Default directory, website landing page
 # When the user leaves the /voice_call page, exit the voice call
+
 @app.route('/')
 @app.route('/signup')
 @app.route('/signin')
@@ -48,6 +49,8 @@ def home():
 # @stream_in is a PyAudio object that reads from the server's default input device
 # @audio_stream is a queue to hold recorded audio from the server
 # @terminate is an event to terminate this thread
+
+
 def record(stream_in, audio_stream):
     global terminate
     print("Recording in progress...")
@@ -65,6 +68,8 @@ def record(stream_in, audio_stream):
 # @connection and address identify the client
 # @stream_out is a PyAudio object that writes to the server's default output device
 # @terminate is an event to terminate this thread
+
+
 def receive_audio(connection, address, stream_out):
     global terminate
     print(f"Receiving audio from {address}")
@@ -76,7 +81,7 @@ def receive_audio(connection, address, stream_out):
         except socket.error:
             print(f"AUDIO RECEIVE ERROR from {address}")
             break
-    print (f"Playback finished from {address}")
+    print(f"Playback finished from {address}")
 
 # Will send audio to the client from the audio queue
 # @connection and address identify the client
@@ -101,7 +106,7 @@ def send_audio(connection, address, audio_stream):
 def handle_clients(stream_out, audio_stream):
     global terminate
     # Wait for a new client
-    print ("Waiting for a new client...")
+    print("Waiting for a new client...")
     connection, address = server.accept()
     # Create threads to send and receive audio from the new client
     with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -123,7 +128,7 @@ def start():
     terminate.clear()
     print("Starting the server...")
     # Open the server for connections
-    server.listen()
+    server.listen(5)
     print(f"Server is accepting clients on {SERVER}")
     # Initiate a PyAudio object
     pa = pyaudio.PyAudio()
@@ -133,27 +138,27 @@ def start():
     audio_stream = queue.Queue()
     stream_in = pa.open(
         # Sampling frequency
-        rate = 44100,
+        rate=44100,
         # Mono sound
-        channels = 1,
+        channels=2,
         # 16 bit format, each word is 2 bytes
-        format = pyaudio.paInt16,
-        input = True,
+        format=pyaudio.paInt16,
+        input=True,
         # Default device will be used for recording
-        input_device_index = device_info["defaultInputDevice"],
-        frames_per_buffer = 1024
+        input_device_index=device_info["defaultInputDevice"],
+        frames_per_buffer=1024
     )
     stream_out = pa.open(
         # Set the sample format and length
-        format = pyaudio.paInt16,
-        channels = 1,
+        format=pyaudio.paInt16,
+        channels=2,
         # Set the sampling rate
-        rate = 44100,
-        output = True,
+        rate=44100,
+        output=True,
         # Play to the user's default output device
-        output_device_index = device_info["defaultOutputDevice"],
+        output_device_index=device_info["defaultOutputDevice"],
         # Set the buffer length to 1024
-        frames_per_buffer = 1024
+        frames_per_buffer=1024
     )
     audio_stream = queue.Queue()
     # Wait for a client to connect
@@ -178,8 +183,8 @@ def start():
     stream_out.close()
     pa.terminate()
 
+
 if __name__ == "__main__":
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
         executor.submit(app.run)
         executor.submit(voice_call_setup)
-

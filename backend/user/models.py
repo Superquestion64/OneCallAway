@@ -1,11 +1,12 @@
-from flask import Flask, jsonify, request, session, redirect
+from flask import Flask, jsonify, request, session, redirect, json, Response, abort
 from app import db
 from passlib.hash import pbkdf2_sha256
 import uuid
 import re
-import json
+#mport json
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
+from email_validator import validate_email, EmailNotValidError
 
 class User:
         
@@ -18,10 +19,14 @@ class User:
     
     @staticmethod
     def valid_email(email):
-        regex = r"^(?:[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*|(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"
-        if re.match(regex, email):
+        try:
+            # Validate.
+            valid = validate_email(email)
+            # Update with the normalized form.
+            email = valid.email
             return True
-        return False
+        except:
+            return False
 
     def register(self):
         #print(request.form)
@@ -50,7 +55,7 @@ class User:
                 # Insert the user object into database
                 if db.users.insert_one(user):
                     access_token = create_access_token(identity=user['email'])
-                    return jsonify(access_token=access_token)
+                    return jsonify(token=access_token)
             return jsonify({ "error": "Signup failed"}), 400
         return jsonify({"error": "Password does not match"}), 400
 
@@ -68,9 +73,10 @@ class User:
         #starts session if the passwords are the same
         if user and pbkdf2_sha256.verify(request.json['password'], user['password']):
             access_token = create_access_token(identity=user['email'])
-            return jsonify(access_token=access_token)
-        
+            return jsonify(token=access_token)
+        #abort(401, error = "Invalid login credentials")
         return jsonify({ "error": "Invalid login credentials"}), 401
+
 
     #Update
     def update(self):
@@ -96,12 +102,14 @@ class User:
         if db.users.find_one({"username": update_user['username']}):
             #Check whether the username is the current user's
             if (current['username'] != update_user['username']):
-                return jsonify({"error":"Username in use"}), 400
+                return jsonify({'Username in use'}), 400
         #Check to see if new password is a valid password, if it is encrypt it and update the user infor
-        if self.valid_password(request.json['password']):
+        if self.valid_password(request.json['password']) and self.valid_email(update_user['email']):
             update_user['password'] = pbkdf2_sha256.encrypt(update_user['password'])
             db.users.update_one({"email": current_user}, {"$set": update_user})
             access_token = create_access_token(identity=update_user['email'])
             return jsonify(access_token=access_token)
+        elif self.valid_email(update_user['email']) == False:
+            return jsonify({"error": "Email is invalid"}), 400
         else:
             return jsonify({"error": "Password is invalid"}),400

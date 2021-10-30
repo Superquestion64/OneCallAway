@@ -1,5 +1,5 @@
 # Created by Charles Vega
-# Last Modified October 15, 2021
+# Last Modified October 28, 2021
 # This program is effectively a server side voice call application
 # It will create a server that records audio and sends it to a client computer in real time
 # The server can connect to multiple computers and also receive audio data to play from the clients
@@ -13,16 +13,6 @@ import threading
 import concurrent.futures
 import queue
 import time 
-from flask import Flask, render_template
-
-app = Flask(__name__, template_folder='public')
-
-@app.route('/')
-@app.route('/dashboard')
-@app.route('/signup')
-@app.route('/signin')
-def index():
-    return render_template('index.html')
 
 # 2048 bytes of data is sent at a time
 MSG_LENGTH = 2048
@@ -115,7 +105,7 @@ def handle_clients(stream_out, audio_stream, terminate):
 # Will wait for a client then dedicate audio resources from the server for the program
 # When one client connects to the server a voice call between two computers is made
 # Multiple clients can connect to the server through handle_clients
-@app.route('/voice_call')
+
 def start():
     print("Starting the server...")
     # Open the server for connections
@@ -153,7 +143,6 @@ def start():
         # Set the buffer length to 1024
         frames_per_buffer = 1024
     )
-    return render_template('index.html')
     audio_stream = queue.Queue()
     # Wait for a client to connect
     connection, address = server.accept()
@@ -181,4 +170,4 @@ def start():
     pa.terminate()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    start()

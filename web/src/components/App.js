@@ -21,7 +21,6 @@ const App = () => {
       setAuthToken(localStorage.token);
       dispatch(loadUser());
     }
-
     // log user out from all tabs if they log out in one tab
     window.addEventListener("storage", () => {
       if (!localStorage.token) dispatch({ type: LOGOUT });

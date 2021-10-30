@@ -11,7 +11,6 @@ const Dashboard = () => {
       path: "/"
     }
   ];
-
   return (
     <Wrapper mh="100vh">
       <Navbar navItems={navItems} />
@@ -23,8 +22,11 @@ const Dashboard = () => {
         br="2rem">
         Make a call
       </Btn> */}
+
       <FlexCentered m="2rem 0 0 0">
-        <Title>Call Log</Title>
+        <Title margin="7rem 0" fs="5rem">
+          Call Log
+        </Title>
         <CallLog />
       </FlexCentered>
     </Wrapper>
