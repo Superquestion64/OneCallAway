@@ -16,10 +16,16 @@ export const Container = styled.div`
 // Text
 export const Title = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Ephesis&display=swap");
-  font-family: "Ephesis", cursive;
+  font-family: "Ephesis", "cursive";
   font-size: ${({ fs }) => fs || "8rem"};
-  margin: ${({ margin }) => margin || "3.5rem 0"};
-  text-decoration: ${({ textDecoration }) => textDecoration || "none"};
+  margin: ${({ m }) => m || "3.5rem 0"};
+  text-decoration: ${({ td }) => td || "none"};
+`;
+
+export const Text = styled.div`
+  font-size: ${({ fs }) => fs || "1rem"};
+  text-decoration: ${({ td }) => td || "none"};
+  margin: ${({ m }) => m || "0"};
 `;
 
 // Styled button
