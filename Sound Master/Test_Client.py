@@ -1,11 +1,12 @@
 # Created by Charles Vega
-# Last Modified October 28, 2021
-# This program is effectively a client side voice call application
-# It will create a client that records audio and sends it to a server computer in real time
-# The client can only connect to the server computer, but it can receive audio data to play from the server
-# Recorded audio from the client's default input device is sent to the server's default output device
-# Users must signal for this program to terminate by entering any value
-# Dependencies: PyAudio
+# Last Modified October 29, 2021
+# This program will connect to OCA's audio server as a client
+# The client will have access to their own local version of the web app through flask
+# To connect to the audio server, the client will have to enter OCA's /voice_call page
+# When two clients are connected to the server, they will be joined in a voice call
+# Recorded audio from the client's default input device is sent to the other client's default output device, and vice versa
+# Users must signal for the client to end connection with the server by entering any value
+# Dependencies: PyAudio, Flask
 
 import pyaudio
 import socket
@@ -15,10 +16,19 @@ import queue
 import time
 from flask import Flask, render_template, redirect, url_for, request
 
+# Create the client and connect to the server
+client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+ADDR = (socket.gethostbyname(socket.gethostname()), 7777)
+print("Connecting to the server...")
+client.connect(ADDR)
+print("Connection successful")
+# The client will not run until the server sends a message
+msg = client.recv(100)
+print(msg.decode("utf-8"))
+# This flag will only let the client enter one voice call
+connected = True
 # 2048 bytes of data is sent at a time, frames_per_buffer * 2
 MSG_LENGTH = 2048
-client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-ADDR = ('69.206.228.229', 7777)
 
 # NOTE: FOR THIS PROGRAM TO WORK ADDR MUST BE DEFINED
 # Uncomment ADDR below and replace SERVER_IP with the IP address of the server
@@ -41,18 +51,13 @@ def home():
     # Exit all audio threads
     return app.send_static_file('index.html')
 
-def voice_call_setup():
-    print("Connecting to the server...")
-    client.connect(ADDR)
-    print("Connection successful")
 
 # Will record audio indefinitely until told to terminate
-# Recorded audio is sent to the server
+# Recorded audio is sent to the server, and passed to the other client
 # @pa is a PyAudio object
 # @device_info has the user's audio device information
-# @terminate is an event to terminate this thread
+# @terminate is an event to terminate the voice call
 def send_audio(pa, device_info, terminate):
-    global client
     stream_in = pa.open(
         # Sampling frequency
         rate = 44100,
@@ -76,18 +81,18 @@ def send_audio(pa, device_info, terminate):
             terminate.set()
             break
     # End audio recording and deallocate audio resources
+    # Disconnect from the audio server
     print("Ending Connection with Server")
     client.close()
     stream_in.stop_stream()
     stream_in.close()
     print("Audio Recording Finished")
 
-# Will play audio sent from the server
+# Will play audio sent from the other client
 # @pa is a PyAudio object
 # @device_info has the user's audio device information
-# @terminate is an event to terminate this thread
+# @terminate is an event to terminate the voice call
 def receive_audio(pa, device_info, terminate):
-    global client
     stream_out = pa.open(
         # Set the sample format and length
         format = pyaudio.paInt16,
@@ -116,7 +121,7 @@ def receive_audio(pa, device_info, terminate):
     print ("Audio Playback Finished")
 
 # Waits for user input, then sets terminate to true
-# @terminate is an event shared between each thread to end the program
+# @terminate is an event shared between each thread to end the voice call
 def user_input(terminate):
     # Wait 2 seconds
     time.sleep(2)
@@ -126,31 +131,40 @@ def user_input(terminate):
     # Set terminate to true
     terminate.set()
 
+# This function is only allowed to run once, this is moderated by the bool connected
+# When the client enters the /voice_call page they will enter a voice call with another client
+# This function will wait until there is another client to voice call with
 @app.route('/voice_call')
 def start():
-    # Initiate a PyAudio object
-    pa = pyaudio.PyAudio()
-    # Save the information of the user's default audio devices
-    device_info = pa.get_default_host_api_info()
-    # Event which tells every thread to stop
-    terminate = threading.Event()
-    # Create three threads
-    # First thread records audio from the client's default input device
-    # Second thread sends recorded audio to the server
-    # Third thread will tell all threads to terminate when given input
-    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-        # Record
-        executor.submit(send_audio, pa, device_info, terminate)
-        # Play
-        executor.submit(receive_audio, pa, device_info, terminate)
-        # Terminate
-        executor.submit(user_input, terminate)
-    pa.terminate()
+    if (connected):
+        # This function will only run once
+        connected = False
+        # The voice call cannot be started until the second client connects
+        # The server will know when this happens
+        client.recv(100)
+        msg = client.recv(100)
+        print(msg.decode("utf-8"))
+        # Initiate a PyAudio object
+        pa = pyaudio.PyAudio()
+        # Save the information of the user's default audio devices
+        device_info = pa.get_default_host_api_info()
+        # Event which tells every thread to stop
+        terminate = threading.Event()
+        # Create three threads
+        # First thread thread sends recorded audio to the server intended for the other client
+        # Second thread plays audio from the server passed by the other client
+        # Third thread will tell all threads to terminate when given input
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+            # Record
+            executor.submit(send_audio, pa, device_info, terminate)
+            # Play
+            executor.submit(receive_audio, pa, device_info, terminate)
+            # Terminate
+            executor.submit(user_input, terminate)
+        pa.terminate()
     return app.send_static_file('index.html')
+    
 
 if __name__ == '__main__':
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-        # Host web page
-        executor.submit(app.run)
-        # Set up connection with server
-        executor.submit(voice_call_setup)
+    app.run()
+        
