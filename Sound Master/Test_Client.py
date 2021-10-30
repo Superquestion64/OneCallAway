@@ -1,5 +1,5 @@
 # Created by Charles Vega
-# Last Modified October 29, 2021
+# Last Modified October 30, 2021
 # This program will connect to OCA's voice call server as a client
 # The client will have access to their own local version of the web app through flask
 # To connect to the voice call server, the client will have to enter OCA's /voice_call page
@@ -34,7 +34,11 @@ app = Flask(__name__, static_url_path='', template_folder='static')
 def home():
     return app.send_static_file('index.html')
 
+
+# Called by a thread along with flask at program start
+# This will connect the client to the server
 def client_setup():
+    global client
     print("Connecting to the server...")
     client.connect(ADDR)
     print("Connection successful")
@@ -50,6 +54,7 @@ def client_setup():
 # @device_info has the user's audio device information
 # @terminate is an event to terminate the voice call
 def send_audio(pa, device_info, terminate):
+    global client
     stream_in = pa.open(
         # Sampling frequency
         rate = 44100,
@@ -85,6 +90,7 @@ def send_audio(pa, device_info, terminate):
 # @device_info has the user's audio device information
 # @terminate is an event to terminate the voice call
 def receive_audio(pa, device_info, terminate):
+    global client
     stream_out = pa.open(
         # Set the sample format and length
         format = pyaudio.paInt16,
@@ -129,6 +135,7 @@ def user_input(terminate):
 @app.route('/voice_call')
 def start():
     global connected
+    global client
     if (connected):
         # This function will only run once
         connected = False
