@@ -15,7 +15,7 @@ MSG_LENGTH = 2048
 # Create a socket object for internet streaming through IPV4
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # (IPV4 address, free port number)
-SERVER = (socket.gethostbyname(socket.gethostname()), 7777)
+SERVER = ('', 7777)
 server.bind(SERVER)
 
 # Waits for user input, then sets terminate to true

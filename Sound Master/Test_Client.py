@@ -18,7 +18,7 @@ from flask import Flask, render_template, redirect, url_for, request
 # Create the client and connect to the server
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # This is configured to connect only to local networks
-ADDR = ('69.206.228.229', 7777)
+ADDR = ('192.168.1.3', 7777)
 print("Connecting to the server...")
 client.connect(ADDR)
 print("Connection successful")
@@ -31,9 +31,11 @@ connected = True
 # 2048 bytes of data is sent at a time, frames_per_buffer * 2
 MSG_LENGTH = 2048
 
-app = Flask(__name__, static_url_path='', template_folder='static') 
+app = Flask(__name__, static_url_path='', template_folder='static')
 
 # Display the web app for the user
+
+
 @app.route('/')
 @app.route('/signup')
 @app.route('/signin')
@@ -46,19 +48,20 @@ def home():
 # @pa is a PyAudio object
 # @device_info has the user's audio device information
 # @terminate is an event to terminate the voice call
+
+
 def send_audio(pa, device_info, terminate):
-    global client
     stream_in = pa.open(
         # Sampling frequency
-        rate = 44100,
+        rate=44100,
         # Mono sound
-        channels = 1,
+        channels=2,
         # 16 bit format, each word is 2 bytes
-        format = pyaudio.paInt16,
-        input = True,
+        format=pyaudio.paInt16,
+        input=True,
         # Default device will be used for recording
-        input_device_index = device_info["defaultInputDevice"],
-        frames_per_buffer = 1024
+        input_device_index=device_info["defaultInputDevice"],
+        frames_per_buffer=1024
     )
     print("Sending audio to the server...")
     # Will loop until the user signals for the program to terminate
@@ -82,19 +85,20 @@ def send_audio(pa, device_info, terminate):
 # @pa is a PyAudio object
 # @device_info has the user's audio device information
 # @terminate is an event to terminate the voice call
+
+
 def receive_audio(pa, device_info, terminate):
-    global client
     stream_out = pa.open(
         # Set the sample format and length
-        format = pyaudio.paInt16,
-        channels = 1,
+        format=pyaudio.paInt16,
+        channels=2,
         # Set the sampling rate
-        rate = 44100,
-        output = True,
+        rate=44100,
+        output=True,
         # Play to the user's default output device
-        output_device_index = device_info["defaultOutputDevice"],
+        output_device_index=device_info["defaultOutputDevice"],
         # Set the buffer length to 1024
-        frames_per_buffer = 1024
+        frames_per_buffer=1024
     )
     print("Receiving audio from the server...")
     # Will loop until the server or client disconnects
@@ -109,10 +113,12 @@ def receive_audio(pa, device_info, terminate):
     # End audio playback and deallocate audio resources
     stream_out.stop_stream()
     stream_out.close()
-    print ("Audio Playback Finished")
+    print("Audio Playback Finished")
 
 # Waits for user input, then sets terminate to true
 # @terminate is an event shared between each thread to end the voice call
+
+
 def user_input(terminate):
     # Wait 2 seconds
     time.sleep(2)
@@ -125,10 +131,11 @@ def user_input(terminate):
 # This function is only allowed to run once, this is moderated by the bool connected
 # When the client enters the /voice_call page they will enter a voice call with another client
 # This function will wait until there is another client to voice call with
+
+
 @app.route('/voice_call')
 def start():
     global connected
-    global client
     if (connected):
         # This function will only run once
         connected = False
@@ -157,7 +164,8 @@ def start():
             executor.submit(user_input, terminate)
         pa.terminate()
     return app.send_static_file('index.html')
-    
+
+
 if __name__ == '__main__':
     with concurrent.futures.ThreadPoolExecutor() as executor:
         executor.submit(app.run)

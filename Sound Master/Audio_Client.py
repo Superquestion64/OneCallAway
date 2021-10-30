@@ -24,7 +24,7 @@ MSG_LENGTH = 2048
 # NOTE: The client can only connect if the server is accepting clients, and all firewalls are turned off
 
 # UNCOMMENT THE LINE BELOW AND REPLACE SERVER_IP AS A STRING
-#ADDR = (SERVER_IP, 7777)
+ADDR = ('192.168.1.3', 7777)
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 print("Connecting to the server...")
 client.connect(ADDR)
