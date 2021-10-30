@@ -95,7 +95,7 @@ const Landing = () => {
       <Divider />
       <Section bgColor="#fffde7">
         <FlexCentered>
-          <Title fs="2.5rem" margin="0 0 1rem 0">
+          <Title fs="2.5rem" m="0 0 1rem 0">
             Features
           </Title>
           <FeatureList name="features">
@@ -108,7 +108,7 @@ const Landing = () => {
       <Divider />
 
       <Section bgColor="#dcedc8" mb="1.1rem">
-        <Title fs="2.5rem" margin="1rem 0" textDecoration="underline">
+        <Title fs="2.5rem" m="1rem 0">
           What our users are saying...
         </Title>
         <FlexCentered>

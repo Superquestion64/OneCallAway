@@ -85,7 +85,7 @@ const SignUpIn = ({ location }) => {
           </FlexItem>
           <FlexItem
             w="75%"
-            m={path === "/signup" ? "6.5rem 0 0 0" : "10rem 0 0 0"}>
+            m={path === "/signup" ? "5rem 0 0 0" : "10rem 0 0 0"}>
             <FlexCentered>
               <Formik
                 initialValues={initialValues}
