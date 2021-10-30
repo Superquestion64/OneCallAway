@@ -12,12 +12,12 @@ import pyaudio
 import socket
 import threading
 import concurrent.futures
-import queue
 import time
 from flask import Flask, render_template, redirect, url_for, request
 
 # Create the client and connect to the server
 client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+# This is configured to connect only to local networks
 ADDR = (socket.gethostbyname(socket.gethostname()), 7777)
 print("Connecting to the server...")
 client.connect(ADDR)
@@ -30,25 +30,14 @@ connected = True
 # 2048 bytes of data is sent at a time, frames_per_buffer * 2
 MSG_LENGTH = 2048
 
-# NOTE: FOR THIS PROGRAM TO WORK ADDR MUST BE DEFINED
-# Uncomment ADDR below and replace SERVER_IP with the IP address of the server
-# If on a shared local network with the server use the IPV4 address of the server to replace SERVER_IP
-# Otherwise the public IP address of the server should replace SERVER_IP
-
-# NOTE: The client can only connect if the server is accepting clients, and all firewalls are turned off
-
-# UNCOMMENT THE LINE BELOW AND REPLACE SERVER_IP AS A STRING
 app = Flask(__name__, static_url_path='', template_folder='static') 
-MSG_LENGTH = 2048
 
 # Default directory, website landing page
-# When the user leaves the /voice_call page, exit the voice call
 @app.route('/')
 @app.route('/signup')
 @app.route('/signin')
 @app.route('/dashboard')
 def home():
-    # Exit all audio threads
     return app.send_static_file('index.html')
 
 

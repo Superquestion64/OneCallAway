@@ -29,8 +29,8 @@ def user_input(terminate):
     terminate.set()
 
 # exchange_audio will always be called by two threads at a time
-# In one thread audio from connection1 gets sent to audio from connection2
-# In the other, audio from connection2 gets sent to audio from connection1
+# In one thread audio from connection1 gets sent to connection2
+# In the other, audio from connection2 gets sent to connection1
 # When either client disconnects or the server wishes to terminate, both connections will close automatically
 # @connection1 and connection2 are two seperate clients who wish to join in a voice call
 # @address indicates the IP address of a thread's connection1
