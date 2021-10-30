@@ -16,9 +16,16 @@ import time
 from flask import Flask, render_template, redirect, url_for, request
 
 # Create the client and connect to the server
-client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # This is configured to connect only to local networks
-ADDR = (socket.gethostbyname(socket.gethostname()), 7777)
+ADDR = ('69.206.228.229', 7777)
+print("Connecting to the server...")
+client.connect(ADDR)
+print("Connection successful")
+# The client will not run until the server sends a message
+msg = client.recv(100)
+print(msg.decode("utf-8"))
+
 # This flag will only let the client enter one voice call
 connected = True
 # 2048 bytes of data is sent at a time, frames_per_buffer * 2
@@ -33,20 +40,6 @@ app = Flask(__name__, static_url_path='', template_folder='static')
 @app.route('/dashboard')
 def home():
     return app.send_static_file('index.html')
-
-
-# Called by a thread along with flask at program start
-# This will connect the client to the server
-def client_setup():
-    global client
-    print("Connecting to the server...")
-    client.connect(ADDR)
-    print("Connection successful")
-    # The client will not run until the server sends a message
-    msg = client.recv(100)
-    print(msg.decode("utf-8"))
-
-
 
 # Will record audio indefinitely until told to terminate
 # Recorded audio is sent to the server, and passed to the other client
@@ -165,8 +158,6 @@ def start():
         pa.terminate()
     return app.send_static_file('index.html')
     
-
 if __name__ == '__main__':
     with concurrent.futures.ThreadPoolExecutor() as executor:
         executor.submit(app.run)
-        executor.submit(client_setup)
