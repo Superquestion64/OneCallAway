@@ -23,8 +23,8 @@ const Dashboard = () => {
         br="2rem">
         Make a call
       </Btn> */}
-      <Title>Call Log</Title>
       <FlexCentered m="2rem 0 0 0">
+        <Title>Call Log</Title>
         <CallLog />
       </FlexCentered>
     </Wrapper>
