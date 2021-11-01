@@ -40,6 +40,7 @@ app = Flask(__name__, static_url_path='', template_folder='static')
 @app.route('/signup')
 @app.route('/signin')
 @app.route('/dashboard')
+@app.route('/voice_call')
 def home():
     return app.send_static_file('index.html')
 
