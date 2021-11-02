@@ -12,13 +12,17 @@ import {
 export const loadUser = () => async dispatch => {
   try {
     const { data } = await user.get("/authorize");
-
     dispatch({
       type: LOAD_USER,
       payload: data
     });
   } catch (err) {
-      if (err.response) {alert(err.response.data.error);}
+    console.error(err);
+    if (err.response) {
+      alert(err.response.data.error);
+    } else {
+      alert("unable to authorize");
+    }
     dispatch({
       type: AUTH_ERROR
     });
@@ -36,7 +40,12 @@ export const register = values => async dispatch => {
 
     alert(JSON.stringify(data));
   } catch (err) {
-    alert(err.response.data.error);
+    console.error(err);
+    if (err.response) {
+      alert(err.response.data.error);
+    } else {
+      alert("unable to register");
+    }
 
     dispatch({
       type: REGISTER_FAIL
@@ -46,8 +55,8 @@ export const register = values => async dispatch => {
 
 export const login = formValues => async dispatch => {
   try {
+    // const { data } = await user.post("/login", formValues);
     const { data } = await user.post("/login", formValues);
-
     dispatch({
       type: LOGIN_SUCCESS,
       payload: data
@@ -55,8 +64,12 @@ export const login = formValues => async dispatch => {
 
     alert(JSON.stringify(data));
   } catch (err) {
-      alert(err.response.data.error)
-
+    if (err.response) {
+      alert(err.response.data.error);
+    } else {
+      alert("unable to authorize");
+    }
+    console.error("login error: ", err);
     dispatch({
       type: LOGIN_FAIL
     });

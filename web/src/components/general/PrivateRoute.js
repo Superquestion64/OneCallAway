@@ -34,7 +34,7 @@ const PrivateRoute = props => {
         </FlexItem>
       </FlexCentered>
     );
-  } else if (!isAuthenticated) {
+  } else if (isAuthenticated) {
     return (
       <>
         <Container mh="100vh">
@@ -47,6 +47,7 @@ const PrivateRoute = props => {
   }
 
   // If unauthenticated, redirect user to home page
+  console.log();
   return <Redirect to="/signin" />;
 };
 
