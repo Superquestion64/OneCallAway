@@ -38,7 +38,7 @@ const PrivateRoute = props => {
     return (
       <>
         <Container mh="100vh">
-          {/* <Navbar navItems={navItems} /> */}
+          <Navbar navItems={navItems} />
           <Route {...props} />
         </Container>
       </>
