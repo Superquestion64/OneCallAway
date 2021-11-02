@@ -33,6 +33,9 @@
 
 let key = "";
 
+/**
+ * A function that accesses the call key and then changes the information on the dom
+ */
 function updatePopup() {
   chrome.storage.sync.get(["callKey"], function (data) {
     document.getElementById("C-K").innerText = data.callKey;
@@ -47,6 +50,9 @@ function updatePopup() {
 //   });
 // };
 
+/**
+ * The listener that updates the extensions dom using updatePopup
+ */
 document.addEventListener("DOMContentLoaded", updatePopup);
 
 // function timedRefresh(timeoutPeriod) {
