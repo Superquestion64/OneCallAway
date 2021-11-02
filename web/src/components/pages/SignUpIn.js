@@ -30,17 +30,16 @@ import {
 const SignUpIn = ({ location }) => {
   const dispatch = useDispatch();
   const { pathname } = location;
-  const path = pathname;
   const [showPw, setShowPw] = useState(false);
   const [showConfirmPw, setShowConfirmPw] = useState(false);
-  // const [path, setPath] = useState(pathname);
+  const [path, setPath] = useState(pathname);
 
-  // useEffect(() => {
-  //   if (path !== pathname) {
-  //     setPath(pathname);
-  //     window.location.reload();
-  //   }
-  // }, [path, pathname]);
+  useEffect(() => {
+    if (path !== pathname) {
+      setPath(pathname);
+      window.location.reload();
+    }
+  }, [path, pathname]);
 
   const { isAuthenticated } = useSelector(state => state.user);
 
