@@ -94,11 +94,11 @@ const SignUpIn = ({ location }) => {
                 }
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                   setTimeout(() => {
-                    setSubmitting(false);
                     path === "/signup"
                       ? dispatch(register(values))
                       : dispatch(login(values));
                     // resetForm();
+                    setSubmitting(false);
                   }, 1500);
                 }}>
                 {({ values, errors, isSubmitting }) => (
