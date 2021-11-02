@@ -1,0 +1,22 @@
+###
+
+POST http://localhost:3080/users HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "Candy",
+    "lastName": "Honey",
+    "email": "gress411@gmail.com",
+    "password": "aa1a1@@WWaa11@@WW",
+    "passwordConfirm": "aa1a1@@WWaa11@@WW" 
+}
+
+###
+
+POST http://localhost:3005/users/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "gress411@gmail.com",
+    "password": "aa1a1@@WWaa11@@WW"
+}

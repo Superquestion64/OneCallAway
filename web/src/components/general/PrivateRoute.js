@@ -38,8 +38,7 @@ const PrivateRoute = props => {
     return (
       <>
         <Container mh="100vh">
-          <h1>hello</h1>
-          <Navbar navItems={navItems} />
+          {/* <Navbar navItems={navItems} /> */}
           <Route {...props} />
         </Container>
       </>
@@ -47,7 +46,6 @@ const PrivateRoute = props => {
   }
 
   // If unauthenticated, redirect user to home page
-  console.log();
   return <Redirect to="/signin" />;
 };
 
