@@ -37,8 +37,8 @@ export const register = values => async dispatch => {
       type: REGISTER_SUCCESS,
       payload: data
     });
-
     alert(JSON.stringify(data));
+    console.log(data);
   } catch (err) {
     console.error(err);
     if (err.response) {
@@ -55,7 +55,6 @@ export const register = values => async dispatch => {
 
 export const login = formValues => async dispatch => {
   try {
-    // const { data } = await user.post("/login", formValues);
     const { data } = await user.post("/login", formValues);
     dispatch({
       type: LOGIN_SUCCESS,

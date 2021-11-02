@@ -45,7 +45,6 @@ const SignUpIn = ({ location }) => {
 
   // If the user is authenticated, redirect them to dashboard
   if (isAuthenticated) {
-    console.log("authenticated");
     return <Redirect to="/dashboard" />;
   }
 
