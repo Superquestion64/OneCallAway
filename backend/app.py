@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, session, redirect
+from flask import Flask
 from flask_cors import CORS, cross_origin
 from dotenv import load_dotenv
 import pymongo
