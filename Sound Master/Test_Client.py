@@ -87,7 +87,7 @@ def receive_audio(pa, device_info, terminate):
     stream_out = pa.open(
         # Set the sample format and length
         format = pyaudio.paInt16,
-        channels = 1,
+        channels = 2,
         # Set the sampling rate
         rate = 44100,
         output = True,
