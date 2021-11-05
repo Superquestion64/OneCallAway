@@ -46,10 +46,10 @@ def exchange_audio(connection1, connection2, address, terminate):
         try:
             connection2.send(connection1.recv(MSG_LENGTH))
         except socket.error:
-            # Close connection with the client when a send fails
-            connection1.close()
             print(f"Connection lost with {address}")
             break
+    # End connection with client once voice call finishes
+    connection1.close()
     print(f"Ending connection with {address}")
 
 # Main runner function of the server
