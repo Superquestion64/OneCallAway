@@ -22,10 +22,8 @@ const Navbar = ({ navItems = [] }) => {
     return (
       <StyledLink to={path} key={title}>
         <Btn
-          onClick={
-            typeof navItem.onClick === "function"
-              ? () => navItem.onClick()
-              : null
+          onClick={() =>
+            typeof navItem.onClick === "function" ? navItem.onClick() : null
           }>
           {title}
         </Btn>

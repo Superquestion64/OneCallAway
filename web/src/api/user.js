@@ -8,7 +8,12 @@ const api = axios.create({
     "Content-Type": "application/json"
   }
 });
-
+// const api = axios.create({
+//   baseURL: "http://localhost:3080",
+//   headers: {
+//     "Content-Type": "application/json"
+//   }
+// });
 /**
   intercept any error responses from the api
   and check if the token is no longer valid.
