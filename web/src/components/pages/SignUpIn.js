@@ -3,7 +3,10 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Formik } from "formik";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { login, register } from "../../actions/user";
 import {
   loginSchema,
   registerationSchema
@@ -23,13 +26,10 @@ import {
   StyledForm,
   TextField
 } from "./styles/SignUpIn.styled";
-import { useDispatch, useSelector } from "react-redux";
-import { register, login } from "../../actions/user";
-import { Redirect } from "react-router-dom";
 
 const SignUpIn = ({ location }) => {
-  const { pathname } = location;
   const dispatch = useDispatch();
+  const { pathname } = location;
   const [showPw, setShowPw] = useState(false);
   const [showConfirmPw, setShowConfirmPw] = useState(false);
   const [path, setPath] = useState(pathname);
@@ -97,7 +97,8 @@ const SignUpIn = ({ location }) => {
                     path === "/signup"
                       ? dispatch(register(values))
                       : dispatch(login(values));
-                    resetForm();
+                    // resetForm();
+                    setSubmitting(false);
                   }, 1500);
                 }}>
                 {({ values, errors, isSubmitting }) => (

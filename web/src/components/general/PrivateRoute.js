@@ -34,11 +34,10 @@ const PrivateRoute = props => {
         </FlexItem>
       </FlexCentered>
     );
-  } else if (!isAuthenticated) {
+  } else if (isAuthenticated) {
     return (
       <>
         <Container mh="100vh">
-          <h1>hello</h1>
           <Navbar navItems={navItems} />
           <Route {...props} />
         </Container>
@@ -46,8 +45,9 @@ const PrivateRoute = props => {
     );
   }
 
+  alert("😔😔😔😔😔😔😔😔");
   // If unauthenticated, redirect user to home page
-  return <Redirect to="/signin" />;
+  return <Redirect to="/" />;
 };
 
 export default PrivateRoute;
