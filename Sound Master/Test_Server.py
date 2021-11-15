@@ -1,5 +1,5 @@
 # Created by Charles Vega
-# Last Modified October 29, 2021
+# Last Modified November 15, 2021
 # This will boot up OCA's voice call server
 # The server will wait for pairs of clients who wish to join a voice call
 # For every two clients who connect to the server, a new voice call is made
@@ -44,7 +44,12 @@ def exchange_audio(connection1, connection2, address, terminate):
     # Will loop until terminate is true
     while not terminate.is_set():
         try:
-            connection2.send(connection1.recv(MSG_LENGTH))
+            audio_data = connection1.recv(MSG_LENGTH)
+            try:
+                connection2.send(audio_data)
+            except socket.error:
+                print("Audio send error")
+                break
         except socket.error:
             print(f"Connection lost with {address}")
             break
@@ -52,10 +57,76 @@ def exchange_audio(connection1, connection2, address, terminate):
     connection1.close()
     print(f"Ending connection with {address}")
 
+
+# This will connect to a client and return their address and connection
+def getClient():
+    # connected determines if a successful connection has been made
+    connected = False
+    connection, address = None
+    # Wait for a first client to successfully connect
+    while not connected:
+        connection, address = server.accept()
+        connected = True
+        try:
+            connection.send(bytes(
+                "Your friend should be connecting to the server soon! Feel free to check out the web app!", "utf-8"))
+        except socket.error:
+            print("Failed to connect to the first client")
+            connected = False
+    return connection, address
+
+# This function will synchronize the given clients for a voice call
+def syncClients(connection1, connection2, address1, address2):
+    # For every attempted send we initiate a try and except statement
+    # At most 2 sends should be delivered to each client
+    # If a client abruptly connects we close connection with them and their partner
+    try:
+        connection1.send(
+            bytes("Waiting for both clients to access the /voice_call page", "utf-8"))
+        try:
+            connection2.send(bytes("Waiting for both clients to access the /voice_call page", "utf-8"))
+            time.sleep(1)
+            try:
+                connection1.send(bytes(
+                    "Your friend is ready to chat! Your voice call should start soon!", "utf-8"))
+                try:
+                    connection2.send(bytes(
+                        "Your friend is ready to chat! Your voice call should start soon!", "utf-8"))
+                except socket.error:
+                    print(f"Connection abruptly terminated with {address2}")
+                    print(f"Closing connections with {address2} and {address1}")
+                    connection1.close()
+                    connection2.close()
+            except socket.error:
+                print(f"Connection abruptly terminated with {address1}")
+                print(f"Closing connections with {address1} and {address2}")
+                connection1.close()
+                connection2.close()
+        except socket.error:
+            print(f"Connection abruptly terminated with {address2}")
+            print(f"Closing connection with {address2}")
+            connection2.close()
+            try:
+                connection1.send(bytes("DISCONNECTED", "utf-8"))
+            except socket.error:
+                print(f"Connection abruptly terminated with {address1}")
+            print(f"Closing connection with {address1}")
+            connection1.close()
+    except socket.error:
+        print(f"Connection abruptly terminated with {address1}")
+        print(f"Closing connection with {address1}")
+        connection1.close()
+        try:
+            connection2.send(bytes("DISCONNECTED", "utf-8"))
+        except socket.error:
+            print(f"Connection abruptly terminated with {address2}")
+        print(f"Closing connection with {address2}")
+        connection2.close()
+
 # Main runner function of the server
 # Will wait for two clients at a time then join them in a voice call
-# Each voice call will take two threads to manage
-# One thread will receive audio from one client then send it to the other
+# Each voice call will create a pair of threads
+# The first thread will receive audio from one client then send it to the other
 # The second thread will perform the same task as the first thread but in reverse direction
 
 
@@ -66,30 +137,13 @@ def start():
     print(f"Server is accepting clients on {SERVER}")
     # Event which tells all threads to stop
     terminate = threading.Event()
-    # Wait for the first client to connect
     print("Waiting for the first client to connect...")
-    connection1, address1 = server.accept()
-    connection1.send(bytes(
-        "Your friend should be connecting to the server soon! Feel free to check out the web app!", "utf-8"))
+    connection1, address1 = getClient()
     print(f"Connection successful with {address1}")
-    # Wait for the second client to connect
     print("Waiting for the second client to connect...")
-    connection2, address2 = server.accept()
-    connection2.send(bytes(
-        "Your friend should be connecting to the server soon! Feel free to check out the web app!", "utf-8"))
+    connection2, address2 = getClient()
     print(f"Connection successful with {address2}")
-    # Sleeps are necessary so the clients sync up
-    # The sends below determine when the clients are both on the /voice_call page
-    time.sleep(1)
-    connection1.send(
-        bytes("Waiting for both clients to access the /voice_call page", "utf-8"))
-    connection2.send(
-        bytes("Waiting for both clients to access the /voice_call page", "utf-8"))
-    time.sleep(1)
-    connection1.send(bytes(
-        "Your friend is ready to chat! Your voice call should start soon!", "utf-8"))
-    connection2.send(bytes(
-        "Your friend is ready to chat! Your voice call should start soon!", "utf-8"))
+    syncClients(connection1, connection2, address1, address2)
     # Create threads to exchange audio between clients
     # 1 to 1 voice calls are created indefinitely until terminate is set
     with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -104,26 +158,13 @@ def start():
         while not terminate.is_set():
             # Wait for a new client
             print("Waiting for two new clients...")
-            connection1, address1 = server.accept()
-            connection1.send(bytes(
-                "Your friend should be connecting to the server soon! Feel free to check out the web app!", "utf-8"))
+            connection1, address1 = getClient()
             print(f"Connection successful with {address1}")
             # Wait for the second client to connect
             print("Waiting for the second client to connect...")
-            connection2, address2 = server.accept()
-            connection2.send(bytes(
-                "Your friend should be connecting to the server soon! Feel free to check out the web app!", "utf-8"))
-            time.sleep(1)
-            connection1.send(
-                bytes("Waiting for both clients to access the /voice_call page", "utf-8"))
-            connection2.send(
-                bytes("Waiting for both clients to access the /voice_call page", "utf-8"))
-            time.sleep(1)
-            connection1.send(bytes(
-                "Your friend is ready to chat! Your voice call should start soon!", "utf-8"))
-            connection2.send(bytes(
-                "Your friend is ready to chat! Your voice call should start soon!", "utf-8"))
+            connection2, address2 = getClient()
             print(f"Connection successful with {address2}")
+            syncClients(connection1, connection2, address1, address2)
             # Exchange audio data between the clients, creating a call
             executor.submit(exchange_audio, connection1,
                             connection2, address1, terminate)

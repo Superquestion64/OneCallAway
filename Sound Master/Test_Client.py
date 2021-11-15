@@ -1,5 +1,5 @@
 # Created by Charles Vega
-# Last Modified October 30, 2021
+# Last Modified November 15, 2021
 # This program will connect to OCA's voice call server as a client
 # The client will have access to their own local version of the web app through flask
 # To connect to the voice call server, the client will have to enter OCA's /voice_call page
@@ -27,7 +27,7 @@ msg = client.recv(100)
 print(msg.decode("utf-8"))
 
 # This flag will only let the client enter one voice call
-connected = True
+allow_connection = True
 # 2048 bytes of data is sent at a time, frames_per_buffer * 2
 MSG_LENGTH = 2048
 
@@ -91,13 +91,8 @@ def send_audio(pa, device_info, terminate):
 def receive_audio(pa, device_info, terminate):
     stream_out = pa.open(
         # Set the sample format and length
-<<<<<<< HEAD
-        format = pyaudio.paInt16,
-        channels = 2,
-=======
         format=pyaudio.paInt16,
         channels=2,
->>>>>>> fc7fd5df0d945fef7aa11c1ad87f092d0b45e74a
         # Set the sampling rate
         rate=44100,
         output=True,
@@ -141,34 +136,49 @@ def user_input(terminate):
 
 @app.route('/voice_call')
 def start():
-    global connected
-    if (connected):
+    global allow_connection
+    if (allow_connection):
         # This function will only run once
-        connected = False
+        allow_connection = False
         print("Waiting for a response from the server...")
         # The voice call cannot be started until the second client connects
         # The server will know when this happens
-        client.recv(100)
+        # When disconnected from the server, the client will no longer try to make a voice call
+        connected = True
         msg = client.recv(100)
-        print(msg.decode("utf-8"))
-        # Initiate a PyAudio object
-        pa = pyaudio.PyAudio()
-        # Save the information of the user's default audio devices
-        device_info = pa.get_default_host_api_info()
-        # Event which tells every thread to end
-        terminate = threading.Event()
-        # Create three threads
-        # First thread thread sends recorded audio to the server intended for the other client
-        # Second thread plays audio from the server passed by the other client
-        # Third thread will tell all threads to terminate when given input
-        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-            # Record
-            executor.submit(send_audio, pa, device_info, terminate)
-            # Play
-            executor.submit(receive_audio, pa, device_info, terminate)
-            # Terminate
-            executor.submit(user_input, terminate)
-        pa.terminate()
+        msg = msg.decode("utf-8")
+        if (msg == "DISCONNECTED"):
+            connected = False
+        if (connected):
+            msg = client.recv(100)
+            msg = msg.decode("utf-8")
+            if (msg == "DISCONNECTED"):
+                connected = False
+            else:
+                print(msg.decode("utf-8"))
+            if (connected):
+                # Initiate a PyAudio object
+                pa = pyaudio.PyAudio()
+                # Save the information of the user's default audio devices
+                device_info = pa.get_default_host_api_info()
+                # Event which tells every thread to end
+                terminate = threading.Event()
+                # Create three threads
+                # First thread thread sends recorded audio to the server intended for the other client
+                # Second thread plays audio from the server passed by the other client
+                # Third thread will tell all threads to terminate when given input
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    # Record
+                    executor.submit(send_audio, pa, device_info, terminate)
+                    # Play
+                    executor.submit(receive_audio, pa, device_info, terminate)
+                    # Terminate
+                    executor.submit(user_input, terminate)
+                pa.terminate()
+            else:
+                print("Disconnected from the server, a voice call couldn't be made")
+        else:
+            print("Disconnected from the server, a voice call couldn't be made")
     return app.send_static_file('index.html')
 
 
