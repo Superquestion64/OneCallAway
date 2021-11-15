@@ -33,6 +33,7 @@ const SignUpIn = ({ location }) => {
   const [showPw, setShowPw] = useState(false);
   const [showConfirmPw, setShowConfirmPw] = useState(false);
   const [path, setPath] = useState(pathname);
+  const { isAuthenticated } = useSelector(state => state.user);
 
   useEffect(() => {
     if (path !== pathname) {
@@ -40,8 +41,6 @@ const SignUpIn = ({ location }) => {
       window.location.reload();
     }
   }, [path, pathname]);
-
-  const { isAuthenticated } = useSelector(state => state.user);
 
   // If the user is authenticated, redirect them to dashboard
   if (isAuthenticated) {
