@@ -8,7 +8,7 @@ const fs = require("fs");
 // Relative path to copy files from
 const targetSource = './build'; 
 // Relative path to copy files to
-const targetDestination = '../Sound Master/static';
+const targetDestination = '../Old Sound/static';
 
 /**
  * Remove directory recursively
