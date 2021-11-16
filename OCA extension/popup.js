@@ -43,23 +43,7 @@ function updatePopup() {
   });
 }
 
-// document.getElementById("C-K").onmouseover = function () {
-//   console.log("something happened");
-//   navigator.clipboard.writeText(key).then(() => {
-//     console.log(`"${key}" was copied to clipboard.`);
-//   });
-// };
-
 /**
  * The listener that updates the extensions dom using updatePopup
  */
 document.addEventListener("DOMContentLoaded", updatePopup);
-
-// function timedRefresh(timeoutPeriod) {
-//   setTimeout(function () {
-//     location.reload(true);
-//   }, timeoutPeriod);
-//   console.log("refreshed");
-// }
-
-// window.onload = timedRefresh(650);

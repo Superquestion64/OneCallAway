@@ -1,50 +1,166 @@
-import React, { useEffect } from "react";
-import {
-  Btn,
-  Container,
-  FlexCentered,
-  Title
-} from "../../styles/General.styled";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import TextField from "@material-ui/core/TextField";
+import PhoneIcon from "@material-ui/icons/Phone";
+import React, { useEffect, useRef, useState } from "react";
+import Peer from "simple-peer";
+import io from "socket.io-client";
+import "./App.css";
 
-const VoiceCall = () => {
+const socket = io.connect("http://localhost:7000");
+function VoiceCall() {
+  const [me, setMe] = useState("");
+  const [stream, setStream] = useState();
+  const [receivingCall, setReceivingCall] = useState(false);
+  const [caller, setCaller] = useState("");
+  const [callerSignal, setCallerSignal] = useState();
+  const [callAccepted, setCallAccepted] = useState(false);
+  const [idToCall, setIdToCall] = useState("");
+  const [callEnded, setCallEnded] = useState(false);
+  const [name, setName] = useState("");
+  const myVideo = useRef();
+  const userVideo = useRef();
+  const connectionRef = useRef();
+
   useEffect(() => {
-    if (!localStorage.getItem("firstLoad")) {
-      localStorage["firstLoad"] = true;
-      window.location.reload();
-    } else {
-      localStorage.removeItem("firstLoad");
-    }
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((stream) => {
+        setStream(stream);
+        myVideo.current.srcObject = stream;
+      });
+
+    socket.on("me", (id) => {
+      setMe(id);
+      navigator.clipboard.writeText(id);
+    });
+
+    socket.on("callUser", (data) => {
+      setReceivingCall(true);
+      setCaller(data.from);
+      setName(data.name);
+      setCallerSignal(data.signal);
+    });
   }, []);
+
+  const callUser = (id) => {
+    const peer = new Peer({
+      initiator: true,
+      trickle: false,
+      stream: stream,
+    });
+    peer.on("signal", (data) => {
+      socket.emit("callUser", {
+        userToCall: id,
+        signalData: data,
+        from: me,
+        name: name,
+      });
+    });
+    peer.on("stream", (stream) => {
+      userVideo.current.srcObject = stream;
+    });
+    socket.on("callAccepted", (signal) => {
+      setCallAccepted(true);
+      peer.signal(signal);
+    });
+
+    connectionRef.current = peer;
+  };
+
+  const answerCall = () => {
+    setCallAccepted(true);
+    const peer = new Peer({
+      initiator: false,
+      trickle: false,
+      stream: stream,
+    });
+    peer.on("signal", (data) => {
+      socket.emit("answerCall", { signal: data, to: caller });
+    });
+    peer.on("stream", (stream) => {
+      userVideo.current.srcObject = stream;
+    });
+
+    peer.signal(callerSignal);
+    connectionRef.current = peer;
+  };
+
+  const leaveCall = () => {
+    setCallEnded(true);
+    connectionRef.current.destroy();
+    window.location.reload(true);
+  };
+
   return (
-    <Container
-      c="#fff"
-      mh="100vh"
-      bg='linear-gradient(rgba(0, 0, 0, 0.5), rgba(67, 67, 67, 0.5)), url("https://images.unsplash.com/photo-1598257006458-087169a1f08d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80") no-repeat center center/cover'>
-      <FlexCentered h="90vh">
-        <Title>Make a Call</Title>
-        <Btn
-          hoverColor="#FF0000"
-          br="1.8rem"
-          fs="1.6rem"
-          m="6rem 0 0 0"
-          bgColor="#950101"
-          p=".9rem 1.5rem"
-          boxShadowColor="#fff">
-          Button 1
-        </Btn>
-        <Btn
-          hoverColor="#D8E9A8"
-          br="1.8rem"
-          fs="1.6rem"
-          m="6rem 0 0 0"
-          bgColor="#4E9F3D"
-          p=".9rem 1.5rem"
-          boxShadowColor="#fff">
-          Button 2
-        </Btn>
-      </FlexCentered>
-    </Container>
+    <>
+    <br></br>
+      <h1 style={{ textAlign: "center", color: "#EEEEEE", fontSize: "70px" }}>One Call Away</h1>
+      <br></br>
+      <div className="myId">
+          <TextField
+            id="filled-basic"
+            label="ID to call"
+            variant="filled"
+            value={idToCall}
+            onChange={(e) => setIdToCall(e.target.value)}
+          />
+          <div className="call-button">
+            {callAccepted && !callEnded ? (
+              <Button variant="contained" color="secondary" onClick={leaveCall}>
+                End Call
+              </Button>
+            ) : (
+              <IconButton
+                color="primary"
+                aria-label="call"
+                onClick={() => callUser(idToCall)}
+              >
+                <PhoneIcon fontSize="large" />
+              </IconButton>
+            )}
+            
+          </div>
+        </div>
+      <div className="container">
+        <div className="video-container">
+          <div className="video">
+            {stream && (
+              <video
+                playsInline
+                muted
+                ref={myVideo}
+                autoPlay
+                style={{ width: "650px" }}
+              />
+            )}
+          </div>
+          <div className="video">
+            {callAccepted && !callEnded ? (
+              <video
+                playsInline
+                ref={userVideo}
+                autoPlay
+                style={{ width: "650px" }}
+              />
+            ) : null}
+          </div>
+        </div>
+      </div>
+      <br></br>
+      <div>
+          {receivingCall && !callAccepted ? (
+            <div className="caller">
+              <h1>A person is calling...</h1>
+              <Button variant="contained" color="primary" onClick={answerCall}>
+                Answer
+              </Button>
+            </div>
+          ) : null}
+        </div>
+        <br></br>
+    </>
   );
-};
+}
 
 export default VoiceCall;

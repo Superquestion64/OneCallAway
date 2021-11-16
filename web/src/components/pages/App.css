@@ -1,0 +1,61 @@
+.container {
+	display: grid;
+	grid-template-columns: 7fr 3fr;
+}
+
+.myId {
+	border-radius: 20px;
+	background: #AAD8D3; 
+	background: -webkit-linear-gradient(to right, #AAD8D3, #EEEEEE, #AAD8D3);
+	background: linear-gradient(
+		to right,
+		#AAD8D3
+		#EEEEEE,
+		#AAD8D3
+	); 
+	height: 300px;
+	width: 400px;
+	padding: 2rem;
+	text-align: center;
+	margin: auto;
+	display: grid;
+	justify-content: center;
+	align-content: center;
+}
+
+.call-button {
+	color: #393E46;
+	text-align: center;
+	margin-top: 3rem;
+}
+
+.video-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	align-content: center;
+	margin-top: 10rem;
+	margin-left: 10rem;
+}
+
+.video {
+	text-align: center;
+	margin-top: -3rem;
+	margin-left: 3rem;
+}
+
+.caller {
+	text-align: center;
+	margin:40px;
+	color: #fff;
+}
+
+body {
+	background: #4776e6;
+	background: -webkit-linear-gradient(to right, #393E46, #00ADB5, #393E46);
+	background: linear-gradient(
+		to right,
+		#393E46,
+		#00ADB5,
+		#393E46
+	);
+}

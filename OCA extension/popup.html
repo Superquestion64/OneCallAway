@@ -14,7 +14,7 @@
                 position: relative;
                 left: 45px;
                 top: 8px;
-                background-color: rgb(230, 191, 84);
+                background-color: #00ADB5;
             }
 
             .modal-header {
@@ -53,14 +53,14 @@
 
             a {
                 text-decoration: none;
-                color: rgb(189, 0, 0);
+                color: #393E46;
             }
 
             #M-I {
                 position: relative;
                 font-size: 22px;
                 right: 19px;
-                top: 85px;
+                top: 58px;
             }
 
             #R-C-K {
@@ -79,15 +79,19 @@
                 top: 25px;
             }
 
+            strong, em {
+                color: #eeeeeebe
+            }
+
         </style>
     </head>
     <body>
         <div class="modal-header">
             <a href ="http://localhost:3000/"><!--temporary-->
-            <h1 class="logo">
+                <h1 class="logo">
                 <img src="images/OCA_Logo.png" alt="One Call Away" class="logo-icon" One Call Away>
-            </h1>
-            <span class="version">(1.0.0)</span>
+                </h1>
+                <span class="version">(1.0.0)</span>
             </a>
         </div>
         <div class="modal-content">
@@ -97,10 +101,9 @@
         </div>
         <div class="modal-settings">
             <a href="setup.html">
-                <p id="M-I" style="margin: 0;"><strong>Keybind Setup</strong></p>
+                <p id="M-I" style="margin-bottom: 200;"><strong>Keybind Setup</strong></p>
             </a>
             <br>
-            <p id="R-C-K">Most recent call key: <br><h2 id="C-K"></h2></p>
         </div>
         <script src="popup.js"></script>
     </body>
