@@ -13,7 +13,7 @@
 		#EEEEEE,
 		#AAD8D3
 	); 
-	height: 300px;
+	height: 400px;
 	width: 400px;
 	padding: 2rem;
 	text-align: center;
@@ -26,7 +26,7 @@
 .call-button {
 	color: #393E46;
 	text-align: center;
-	margin-top: 3rem;
+	margin-top: 1rem;
 }
 
 .video-container {
