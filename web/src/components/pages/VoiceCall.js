@@ -9,7 +9,7 @@ import Peer from "simple-peer";
 import io from "socket.io-client";
 import "./App.css";
 
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect("http://localhost:7000");
 
 function VoiceCall() {
   const [me, setMe] = useState("");
@@ -53,6 +53,10 @@ function VoiceCall() {
   const turnOffVid = () => {
     stream.getVideoTracks()[0].enabled = !stream.getVideoTracks()[0].enabled;
   };
+
+  const newCallKey = () => {
+    window.location.reload(true);
+  }
 
   const callUser = (id) => {
     const peer = new Peer({
@@ -111,7 +115,7 @@ function VoiceCall() {
       </h1>
       <br></br>
       <div className="myId">
-        <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
+        <CopyToClipboard text={socket.id} style={{ marginBottom: "2rem" }}>
           <Button
             variant="contained"
             color="primary"
@@ -129,7 +133,12 @@ function VoiceCall() {
         />
         <div className="call-button">
           {callAccepted && !callEnded ? (
-            <Button variant="contained" color="secondary" onClick={leaveCall} style={{margin: "20px"}}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={leaveCall}
+              style={{ margin: "20px" }}
+            >
               Leave Call
             </Button>
           ) : (
@@ -148,9 +157,13 @@ function VoiceCall() {
               color="primary"
               aria-label="turnOffMic"
               onClick={() => turnOffMic()}
-              style={{marginTop: "10px", borderRadius: "20px", border: "1px solid"}}
+              style={{
+                marginTop: "10px",
+                borderRadius: "20px",
+                border: "1px solid",
+              }}
             >
-              <h1 style={{fontSize: "25px"}}>Toggle Audio</h1>
+              <h1 style={{ fontSize: "20px" }}>Toggle Audio</h1>
             </IconButton>
           </div>
           <div>
@@ -158,9 +171,29 @@ function VoiceCall() {
               color="primary"
               aria-label="turnOffVid"
               onClick={() => turnOffVid()}
-              style={{marginTop: "10px", marginBottom: "-5px", borderRadius: "20px", border: "1px solid"}}
+              style={{
+                marginTop: "10px",
+                marginBottom: "-5px",
+                borderRadius: "20px",
+                border: "1px solid",
+              }}
             >
-              <h1 style={{fontSize: "25px"}}>Toggle Video</h1>
+              <h1 style={{ fontSize: "20px", }}>Toggle Video</h1>
+            </IconButton>
+          </div>
+          <div>
+            <IconButton
+              color="primary"
+              aria-label="newCallKey"
+              onClick={() => newCallKey()}
+              style={{
+                marginTop: "40px",
+                borderRadius: "20px",
+                borderColor: "#393E46",
+                border: "1px solid",
+              }}
+            >
+              <h1 style={{ fontSize: "25px", color: "#393E46" }}>Generate New Call ID</h1>
             </IconButton>
           </div>
         </div>
@@ -170,7 +203,7 @@ function VoiceCall() {
           <div className="video">
             {stream && (
               <video
-                id = "vid1"
+                id="vid1"
                 playsInline
                 muted
                 ref={myVideo}
@@ -182,7 +215,7 @@ function VoiceCall() {
           <div className="video">
             {callAccepted && !callEnded ? (
               <video
-              id = "vid2"
+                id="vid2"
                 playsInline
                 ref={userVideo}
                 autoPlay
