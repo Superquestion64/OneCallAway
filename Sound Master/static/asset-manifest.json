@@ -1,15 +1,5 @@
 {
   "files": {
-<<<<<<< HEAD
-    "main.js": "/static/js/main.d9652ed3.chunk.js",
-    "main.js.map": "/static/js/main.d9652ed3.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.71c5bbf3.js",
-    "runtime-main.js.map": "/static/js/runtime-main.71c5bbf3.js.map",
-    "static/js/2.82f7365b.chunk.js": "/static/js/2.82f7365b.chunk.js",
-    "static/js/2.82f7365b.chunk.js.map": "/static/js/2.82f7365b.chunk.js.map",
-    "index.html": "/index.html",
-    "static/js/2.82f7365b.chunk.js.LICENSE.txt": "/static/js/2.82f7365b.chunk.js.LICENSE.txt",
-=======
     "main.js": "/static/js/main.37539ec5.chunk.js",
     "main.js.map": "/static/js/main.37539ec5.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.71c5bbf3.js",
@@ -18,19 +8,13 @@
     "static/js/2.698e0dc0.chunk.js.map": "/static/js/2.698e0dc0.chunk.js.map",
     "index.html": "/index.html",
     "static/js/2.698e0dc0.chunk.js.LICENSE.txt": "/static/js/2.698e0dc0.chunk.js.LICENSE.txt",
->>>>>>> b4f3e8c52812d51eb271a184fb9a0119c60baa22
     "static/media/LandingBg.ba19a0ce.jpeg": "/static/media/LandingBg.ba19a0ce.jpeg",
     "static/media/SignInBg.43e7b3d2.jpeg": "/static/media/SignInBg.43e7b3d2.jpeg",
     "static/media/SignUpBg.bcb05f5f.jpeg": "/static/media/SignUpBg.bcb05f5f.jpeg"
   },
   "entrypoints": [
     "static/js/runtime-main.71c5bbf3.js",
-<<<<<<< HEAD
-    "static/js/2.82f7365b.chunk.js",
-    "static/js/main.d9652ed3.chunk.js"
-=======
     "static/js/2.698e0dc0.chunk.js",
     "static/js/main.37539ec5.chunk.js"
->>>>>>> b4f3e8c52812d51eb271a184fb9a0119c60baa22
   ]
 }
