@@ -29,4 +29,4 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(7000, () => console.log("server is running on port 7000"));
+server.listen(7000, () => console.log("server is running on port 5000"));

@@ -9,7 +9,7 @@ import Peer from "simple-peer";
 import io from "socket.io-client";
 import "./App.css";
 
-const socket = io.connect("http://localhost:7000");
+const socket = io.connect("http://localhost:5000");
 
 function VoiceCall() {
   const [me, setMe] = useState("");
