@@ -42,7 +42,7 @@ export const register = values => async dispatch => {
   } catch (err) {
     console.error(err);
     if (err.response) {
-      alert(err.response.data.error);
+      alert(err.response.data);
     } else {
       alert("unable to register");
     }
@@ -64,7 +64,7 @@ export const login = formValues => async dispatch => {
     alert(JSON.stringify(data));
   } catch (err) {
     if (err.response) {
-      alert(err.response.data.error);
+      alert(err.response.data);
     } else {
       alert("unable to authorize");
     }
