@@ -3,3 +3,5 @@ Sound Master/.vs
 .vs
 web/build
 web/node_modules
+node_modules
+backend/node_modules
