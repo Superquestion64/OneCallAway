@@ -1,13 +1,16 @@
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import TextField from "@material-ui/core/TextField";
+import AssignmentIcon from "@material-ui/icons/Assignment";
 import PhoneIcon from "@material-ui/icons/Phone";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import React, { useEffect, useRef, useState } from "react";
 import Peer from "simple-peer";
 import io from "socket.io-client";
 import "./App.css";
 
 const socket = io.connect("http://localhost:7000");
+
 function VoiceCall() {
   const [me, setMe] = useState("");
   const [stream, setStream] = useState();
@@ -42,6 +45,14 @@ function VoiceCall() {
       setCallerSignal(data.signal);
     });
   }, []);
+
+  const turnOffMic = () => {
+    stream.getAudioTracks()[0].enabled = !stream.getAudioTracks()[0].enabled;
+  };
+
+  const turnOffVid = () => {
+    stream.getVideoTracks()[0].enabled = !stream.getVideoTracks()[0].enabled;
+  };
 
   const callUser = (id) => {
     const peer = new Peer({
@@ -94,39 +105,72 @@ function VoiceCall() {
 
   return (
     <>
-    <br></br>
-      <h1 style={{ textAlign: "center", color: "#EEEEEE", fontSize: "70px" }}>One Call Away</h1>
+      <br></br>
+      <h1 style={{ textAlign: "center", color: "#EEEEEE", fontSize: "70px" }}>
+        One Call Away
+      </h1>
       <br></br>
       <div className="myId">
-          <TextField
-            id="filled-basic"
-            label="ID to call"
-            variant="filled"
-            value={idToCall}
-            onChange={(e) => setIdToCall(e.target.value)}
-          />
-          <div className="call-button">
-            {callAccepted && !callEnded ? (
-              <Button variant="contained" color="secondary" onClick={leaveCall}>
-                End Call
-              </Button>
-            ) : (
-              <IconButton
-                color="primary"
-                aria-label="call"
-                onClick={() => callUser(idToCall)}
-              >
-                <PhoneIcon fontSize="large" />
-              </IconButton>
-            )}
-            
+        <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AssignmentIcon fontSize="large" />}
+          >
+            Copy ID
+          </Button>
+        </CopyToClipboard>
+        <TextField
+          id="filled-basic"
+          label="ID to call"
+          variant="filled"
+          value={idToCall}
+          onChange={(e) => setIdToCall(e.target.value)}
+        />
+        <div className="call-button">
+          {callAccepted && !callEnded ? (
+            <Button variant="contained" color="secondary" onClick={leaveCall} style={{margin: "20px"}}>
+              Leave Call
+            </Button>
+          ) : (
+            <IconButton
+              color="primary"
+              aria-label="call"
+              onClick={() => callUser(idToCall)}
+            >
+              <PhoneIcon fontSize="large" />
+            </IconButton>
+          )}
+        </div>
+        <div className="video-settings">
+          <div>
+            <IconButton
+              color="primary"
+              aria-label="turnOffMic"
+              onClick={() => turnOffMic()}
+              style={{marginTop: "10px", borderRadius: "20px", border: "1px solid"}}
+            >
+              <h1 style={{fontSize: "25px"}}>Toggle Audio</h1>
+            </IconButton>
+          </div>
+          <div>
+            <IconButton
+              color="primary"
+              aria-label="turnOffVid"
+              onClick={() => turnOffVid()}
+              style={{marginTop: "10px", marginBottom: "-5px", borderRadius: "20px", border: "1px solid"}}
+            >
+              <h1 style={{fontSize: "25px"}}>Toggle Video</h1>
+            </IconButton>
           </div>
         </div>
+      </div>
       <div className="container">
         <div className="video-container">
           <div className="video">
             {stream && (
               <video
+                id = "vid1"
                 playsInline
                 muted
                 ref={myVideo}
@@ -138,6 +182,7 @@ function VoiceCall() {
           <div className="video">
             {callAccepted && !callEnded ? (
               <video
+              id = "vid2"
                 playsInline
                 ref={userVideo}
                 autoPlay
@@ -149,16 +194,16 @@ function VoiceCall() {
       </div>
       <br></br>
       <div>
-          {receivingCall && !callAccepted ? (
-            <div className="caller">
-              <h1>A person is calling...</h1>
-              <Button variant="contained" color="primary" onClick={answerCall}>
-                Answer
-              </Button>
-            </div>
-          ) : null}
-        </div>
-        <br></br>
+        {receivingCall && !callAccepted ? (
+          <div className="caller">
+            <h1>A person is calling...</h1>
+            <Button variant="contained" color="primary" onClick={answerCall}>
+              Answer
+            </Button>
+          </div>
+        ) : null}
+      </div>
+      <br></br>
     </>
   );
 }
