@@ -11,12 +11,17 @@ const server1 = http.createServer(app2);
 const PORT2 = process.env.PORT || 7000;
 const io1 = require("socket.io")(server1, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "0.0.0.0",
     methods: ["GET", "POST"],
   },
 });
 
-const { addUser, removeUser, getUser, getUserInParty } = require("./backend/users");
+const {
+  addUser,
+  removeUser,
+  getUser,
+  getUserInParty,
+} = require("./backend/users");
 const router = require("./backend/router");
 const app3 = express();
 const server2 = http.createServer(app3);
@@ -127,3 +132,7 @@ io2.on("connection", (socket) => {
 server2.listen(PORT3, () => console.log(`Server started on port ${PORT3}`));
 
 //---------------------------------------------------------------------------------------------------
+
+if (process.env.NODE_ENV === "production") {
+  app1.use(express.static("frontend/build"));
+}
