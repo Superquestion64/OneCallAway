@@ -8,7 +8,7 @@ const socketio = require("socket.io");
 const http = require("http");
 const app2 = express();
 const server1 = http.createServer(app2);
-const PORT2 = process.env.PORT || 7000;
+const PORT2 = 0; //process.env.PORT || 7000;
 const io1 = require("socket.io")(server1, {
   cors: {
     origin: "0.0.0.0",
@@ -26,7 +26,7 @@ const router = require("./backend/router");
 const app3 = express();
 const server2 = http.createServer(app3);
 const io2 = socketio(server2);
-const PORT3 = process.env.PORT || 9000;
+const PORT3 = 0; //process.env.PORT || 9000;
 app3.use(router);
 app3.use(cors());
 
@@ -35,7 +35,7 @@ app3.use(cors());
 
 dotenv.config();
 //Set port to 5000
-const PORT1 = process.env.PORT || 5000;
+const PORT1 = 0; //process.env.PORT || 5000;
 const app1 = express();
 app1.use(express.json());
 //Allows request through cross-origin
