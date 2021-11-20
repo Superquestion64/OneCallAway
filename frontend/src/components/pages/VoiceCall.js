@@ -7,7 +7,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import React, { useEffect, useRef, useState } from "react";
 import Peer from "simple-peer";
 import io from "socket.io-client";
-import "./App.css";
+import "./styles/App.css";
 
 const socket = io.connect("http://localhost:7000");
 
@@ -108,7 +108,7 @@ function VoiceCall() {
   };
 
   return (
-    <>
+    <div class="vc_bg_color">
       <br></br>
       <h1 style={{ textAlign: "center", color: "#EEEEEE", fontSize: "70px" }}>
         One Call Away
@@ -237,7 +237,7 @@ function VoiceCall() {
         ) : null}
       </div>
       <br></br>
-    </>
+    </div>
   );
 }
 

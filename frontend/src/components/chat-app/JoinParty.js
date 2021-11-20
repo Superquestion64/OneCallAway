@@ -9,7 +9,7 @@ import {
 	Button
 } from "@material-ui/core";
 
-export default props => {
+const JoinParty = (prop) => {
 	const [name, setName] = useState("");
 	const [party, setParty] = useState("");
 
@@ -106,3 +106,5 @@ export default props => {
 		</Container>
 	);
 };
+
+export default JoinParty;

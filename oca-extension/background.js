@@ -4,8 +4,8 @@
 function notification() {
   chrome.notifications.create({
     title: "KEY",
-    message: "Call is generating!",
-    iconUrl: "icon_128.png",
+    message: "Your call is generating! Click the notification to be taken to it!",
+    iconUrl: "images/icon_128.png",
     type: "basic",
   });
 }

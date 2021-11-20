@@ -49,7 +49,7 @@
 	color: #fff;
 }
 
-body {
+.vc_bg_color {
 	background: #4776e6;
 	background: -webkit-linear-gradient(to right, #393E46, #00ADB5, #393E46);
 	background: linear-gradient(
