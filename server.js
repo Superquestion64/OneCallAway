@@ -1,7 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const connectDB = require("./config/db");
-const userRoutes = require("./routes/userRoutes");
+const connectDB = require("./backend/config/db");
+const userRoutes = require("./backend/routes/userRoutes");
 const cors = require("cors");
 const socketio = require("socket.io");
 
@@ -15,8 +15,8 @@ const io1 = require("socket.io")(server1, {
   },
 });
 
-const { addUser, removeUser, getUser, getUserInParty } = require("./users");
-const router = require("./router");
+const { addUser, removeUser, getUser, getUserInParty } = require("./backend/users");
+const router = require("./backend/router");
 const app3 = express();
 const server2 = http.createServer(app3);
 const io2 = socketio(server2);
