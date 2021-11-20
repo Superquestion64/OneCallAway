@@ -8,6 +8,7 @@ const socketio = require("socket.io");
 const http = require("http");
 const app2 = express();
 const server1 = http.createServer(app2);
+const PORT2 = process.env.PORT || 7000;
 const io1 = require("socket.io")(server1, {
   cors: {
     origin: "http://localhost:3000",
@@ -20,6 +21,7 @@ const router = require("./backend/router");
 const app3 = express();
 const server2 = http.createServer(app3);
 const io2 = socketio(server2);
+const PORT3 = process.env.PORT || 9000;
 app3.use(router);
 app3.use(cors());
 
@@ -32,7 +34,7 @@ if (process.env.NODE_ENV === "production") {
 
 dotenv.config();
 //Set port to 5000
-const PORT = process.env.PORT;
+const PORT1 = process.env.PORT || 5000;
 const app1 = express();
 app1.use(express.json());
 //Allows request through cross-origin
@@ -42,7 +44,7 @@ connectDB();
 // Handling user routes
 app1.use("/", userRoutes);
 
-app1.listen(PORT, console.log(`Server started on PORT ${PORT}`));
+app1.listen(PORT1, console.log(`Server started on PORT ${PORT1}`));
 
 //---------------------------------------------------------------------------------------------------
 // Audio and video server
@@ -66,7 +68,7 @@ io1.on("connection", (socket) => {
   });
 });
 
-server1.listen(7000, () => console.log("Server started on PORT 7000"));
+server1.listen(PORT2, () => console.log(`Server started on PORT ${PORT2}`));
 
 //---------------------------------------------------------------------------------------------------
 // Chat app server
@@ -122,6 +124,6 @@ io2.on("connection", (socket) => {
   });
 });
 
-server2.listen(9000, () => console.log(`Server started on port ${9000}`));
+server2.listen(PORT3, () => console.log(`Server started on port ${PORT3}`));
 
 //---------------------------------------------------------------------------------------------------
