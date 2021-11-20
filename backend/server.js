@@ -67,57 +67,61 @@ server1.listen(7000, () => console.log("Server started on PORT 7000"));
 //---------------------------------------------------------------------------------------------------
 // Chat app server
 
-io2.on("connection", socket => {
-	console.log("New connection ! YAY");
+io2.on("connection", (socket) => {
+  console.log("New connection ! YAY");
 
-	socket.on("join", ({ name, party }, callback) => {
-		// console.log(name, party); // display the name and the party of the user
-		const { error, user } = addUser({ id: socket.id, name, party });
+  socket.on("join", ({ name, party }, callback) => {
+    // console.log(name, party); // display the name and the party of the user
+    const { error, user } = addUser({ id: socket.id, name, party });
 
-		if (error) return callback(error);
+    if (error) return callback(error);
 
-		socket.emit("message", {
-			user: "#root",
-			text: `Welcome ${user.name}, be nice.`
-		});
-		socket.broadcast.to(user.party).emit("message", {
-			user: "#root",
-			text: `${user.name}, has joined the party.`
-		});
+    socket.emit("message", {
+      user: "#root",
+      text: `Welcome ${user.name}, be nice.`,
+    });
+    socket.broadcast.to(user.party).emit("message", {
+      user: "#root",
+      text: `${user.name}, has joined the party.`,
+    });
 
-		io2.to(user.party).emit("partyData", {
-			party: user.party,
-			users: getUserInParty(user.party)
-		});
+    io2.to(user.party).emit("partyData", {
+      party: user.party,
+      users: getUserInParty(user.party),
+    });
 
-		socket.join(user.party);
+    socket.join(user.party);
 
-		callback();
-	});
+    callback();
+  });
 
-	socket.on("sendMessage", (message, callback) => {
-		const user = getUser(socket.id);
+  socket.on("sendMessage", (message, callback) => {
+    const user = getUser(socket.id);
 
-		io2.to(user.party).emit("message", { user: user.name, text: message });
-		callback();
-	});
+    io2.to(user.party).emit("message", { user: user.name, text: message });
+    callback();
+  });
 
-	socket.on("disconnect", () => {
-		const user = removeUser(socket.id);
+  socket.on("disconnect", () => {
+    const user = removeUser(socket.id);
 
-		if (user) {
-			io2.to(user.party).emit("message", {
-				user: "#root",
-				text: `${user.name} left the party.`
-			});
-			io2.to(user.room).emit("partyData", {
-				party: user.party,
-				users: getUserInParty(user.party)
-			});
-		}
-	});
+    if (user) {
+      io2.to(user.party).emit("message", {
+        user: "#root",
+        text: `${user.name} left the party.`,
+      });
+      io2.to(user.room).emit("partyData", {
+        party: user.party,
+        users: getUserInParty(user.party),
+      });
+    }
+  });
 });
 
 server2.listen(9000, () => console.log(`Server started on port ${9000}`));
 
 //---------------------------------------------------------------------------------------------------
+
+if (process.env.NODE_ENV === "production") {
+  app1.use(express.static(frontend / build));
+}

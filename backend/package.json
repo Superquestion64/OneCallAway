@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "heroku-postbuild": "cd backend && npm install && npm start",
-    "start": "nodemon backend/server.js"
+    "heroku-postbuild": "cd frontend && npm install && npm run build",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",

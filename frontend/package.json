@@ -36,10 +36,8 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "heroku-postbuild": "cd frontend && npm install && npm start",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "node postbuild.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
