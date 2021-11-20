@@ -26,7 +26,7 @@ app3.use(router);
 app3.use(cors());
 
 if (process.env.NODE_ENV === "production") {
-  app1.use(express.static("frontend/build"));
+  app2.use(express.static("frontend/build"));
 }
 
 //---------------------------------------------------------------------------------------------------
