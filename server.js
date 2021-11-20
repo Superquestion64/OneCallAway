@@ -30,10 +30,6 @@ const PORT3 = process.env.PORT || 9000;
 app3.use(router);
 app3.use(cors());
 
-if (process.env.NODE_ENV === "production") {
-  app2.use(express.static("frontend/build"));
-}
-
 //---------------------------------------------------------------------------------------------------
 // Database server
 
