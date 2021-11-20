@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "heroku-postbuild": "cd backend && npm install && npm start",
     "start": "nodemon backend/server.js"
   },
   "author": "",
