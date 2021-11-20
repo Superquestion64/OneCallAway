@@ -24,18 +24,7 @@ app3.use(router);
 app3.use(cors());
 
 if (process.env.NODE_ENV === "production") {
-  app1.use(express.static(path.join(__dirname, "./frontend/build")));
-
-  app1.get("*", function (_, res) {
-    res.sendFile(
-      path.join(__dirname, "./frontend/build/index.html"),
-      function (err) {
-        if (err) {
-          res.status(500).send(err);
-        }
-      }
-    );
-  });
+  app1.use(express.static("frontend/build"));
 }
 
 //---------------------------------------------------------------------------------------------------
