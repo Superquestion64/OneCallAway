@@ -17,15 +17,12 @@ import {
   FlexCentered,
   FlexItem,
   StyledLink,
-  Title
+  Title,
+  TextField,
+  StyledForm
 } from "../../styles/General.styled";
 import Navbar from "../general/Navbar";
-import {
-  Image,
-  SignBtn,
-  StyledForm,
-  TextField
-} from "./styles/SignUpIn.styled";
+import { Image, SignBtn } from "./styles/SignUpIn.styled";
 
 const SignUpIn = ({ location }) => {
   const dispatch = useDispatch();
@@ -105,7 +102,7 @@ const SignUpIn = ({ location }) => {
                     <Title fs="3rem">
                       {path === "/signup" ? "Sign Up" : "Sign In"}
                     </Title>
-                    <StyledForm>
+                    <StyledForm h="80%">
                       <Flex fd="column" ai="center">
                         {path === "/signup" ? (
                           <TextField

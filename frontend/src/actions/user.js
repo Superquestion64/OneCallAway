@@ -7,7 +7,7 @@ import {
   LOGOUT,
   AUTH_ERROR,
   LOAD_USER
-} from "../types";
+} from "./types";
 
 export const loadUser = () => async dispatch => {
   try {
@@ -21,7 +21,8 @@ export const loadUser = () => async dispatch => {
     if (err.response) {
       alert(err.response.data.error);
     } else {
-      alert("unable to authorize");
+      // alert("unable to authorize");
+      console.log("unable to authorize");
     }
     dispatch({
       type: AUTH_ERROR

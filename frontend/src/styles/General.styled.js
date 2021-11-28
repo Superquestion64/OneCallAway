@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import FormikTextField from "../utils/FormikTextField";
+import { Form } from "formik";
 
 export const Container = styled.div`
   height: ${({ h }) => h || "100%"};
@@ -26,6 +28,11 @@ export const Text = styled.div`
   font-size: ${({ fs }) => fs || "1rem"};
   text-decoration: ${({ td }) => td || "none"};
   margin: ${({ m }) => m || "0"};
+`;
+
+export const TextField = styled(FormikTextField)`
+  width: 100%;
+  margin: 10rem;
 `;
 
 // Styled button
@@ -83,9 +90,12 @@ export const FlexCentered = styled.div`
   display: flex;
   margin: ${({ m }) => m || ""};
   padding: ${({ p }) => p || ""};
+  background-color: ${({ bgColor }) => bgColor || ""};
+  border-radius: ${({ br }) => br || ""};
 `;
 
 export const Flex = styled.div`
+  margin: ${({ m }) => m || 0};
   background-color: ${({ bgColor }) => bgColor || ""};
   height: ${({ h }) => h || "100%"};
   width: 100%;
@@ -114,4 +124,10 @@ export const StyledLink = styled(Link)`
   &:hover {
     color: ${({ c }) => c || "#fff"};
   }
+`;
+
+export const StyledForm = styled(Form)`
+  height: ${({ h }) => h || "100%"};
+  width: ${({ w }) => w || "80%"};
+  margin: ${({ m }) => m || ""};
 `;

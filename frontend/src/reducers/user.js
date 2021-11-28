@@ -6,7 +6,7 @@ import {
   LOGOUT,
   LOAD_USER,
   AUTH_ERROR
-} from "../types";
+} from "../actions/types";
 
 const initialState = {
   token: localStorage.getItem("token"),

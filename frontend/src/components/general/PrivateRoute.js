@@ -45,7 +45,6 @@ const PrivateRoute = props => {
     );
   }
 
-  alert("😔😔😔😔😔😔😔😔");
   // If unauthenticated, redirect user to home page
   return <Redirect to="/" />;
 };

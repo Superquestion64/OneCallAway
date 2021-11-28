@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import FormikTextField from "../../../utils/FormikTextField";
-import { Form } from "formik";
+
 import SignInBg from "../../../images/SignInBg.jpeg";
 import SignUpBg from "../../../images/SignUpBg.jpeg";
 
@@ -12,11 +11,6 @@ export const Image = styled.div`
   height: 75vh;
   width: 100%;
   border-radius: 6rem 0 0 6rem;
-`;
-
-export const TextField = styled(FormikTextField)`
-  width: 100%;
-  margin: 10rem;
 `;
 
 export const SignBtn = styled.button`
@@ -51,9 +45,4 @@ export const SignBtn = styled.button`
   &:hover {
     background-color: rgba(233, 30, 99, 0.6);
   }
-`;
-
-export const StyledForm = styled(Form)`
-  height: 80%;
-  width: 80%;
 `;
