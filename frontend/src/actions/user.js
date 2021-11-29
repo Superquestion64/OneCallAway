@@ -76,6 +76,20 @@ export const login = formValues => async dispatch => {
   }
 };
 
-export const logOut = () => ({
-  type: LOGOUT
-});
+export const logOut = () => async dispatch =>{
+  try {
+    const { data } = await user.get("/logout");
+    dispatch({
+      type: LOGOUT,
+      payload: data
+    });
+    alert(JSON.stringify(data));
+  } catch (err) {
+    if (err.response) {
+      alert(err.response.data);
+    } else {
+      alert("Unable to Logout");
+    }
+    console.error("logout error: ", err);
+  }
+};
