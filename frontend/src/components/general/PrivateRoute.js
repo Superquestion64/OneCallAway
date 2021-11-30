@@ -26,6 +26,10 @@ const PrivateRoute = props => {
     {
       title: "edit profile",
       path: "/profile-form"
+    },
+    {
+      title: "update interests",
+      path: "/interests"
     }
   ];
 

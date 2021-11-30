@@ -17,6 +17,8 @@ import "../styles/styles.css";
 import JoinParty from "../components/chat-app/JoinParty";
 import Party from "../components/chat-app/Party";
 import ProfileForm from "../components/pages/profile/ProfileForm";
+import InterestForm from "../components/pages/profile/InterestForm";
+
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,7 +26,7 @@ const App = () => {
       setAuthToken(localStorage.token);
     }
     dispatch(loadUser());
-    // log user out from all tabs if they log out in one tab
+    // log user out from entire window if they log out from one tab
     window.addEventListener("storage", () => {
       if (!localStorage.token) dispatch({ type: LOGOUT });
     });
@@ -43,6 +45,7 @@ const App = () => {
           <Route exact path="/chat_party" component={Party} />
           <PrivateRoute path="/dashboard" exact component={Dashboard} />
           <PrivateRoute path="/profile-form" exact component={ProfileForm} />
+          <PrivateRoute path="/interests" exact component={InterestForm} />
         </Switch>
         <Footer />
       </ThemeProvider>
