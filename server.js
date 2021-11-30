@@ -1,41 +1,17 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const connectDB = require("./backend/config/db");
-const userRoutes = require("./backend/routes/userRoutes");
-const cors = require("cors");
 const socketio = require("socket.io");
-
 const http = require("http");
-const app2 = express();
-const server1 = http.createServer(app2);
-const PORT2 = 0; //process.env.PORT || 7000;
-const io1 = require("socket.io")(server1, {
-  cors: {
-    origin: "0.0.0.0",
-    methods: ["GET", "POST"],
-  },
-});
-
-const {
-  addUser,
-  removeUser,
-  getUser,
-  getUserInParty,
-} = require("./backend/users");
-const router = require("./backend/router");
-const app3 = express();
-const server2 = http.createServer(app3);
-const io2 = socketio(server2);
-const PORT3 = 0; //process.env.PORT || 9000;
-app3.use(router);
-app3.use(cors());
+const cors = require("cors");
 
 //---------------------------------------------------------------------------------------------------
 // Database server
+const connectDB = require("./backend/config/db");
+const userRoutes = require("./backend/routes/userRoutes");
 
-dotenv.config();
+dotenv.config()
 //Set port to 5000
-const PORT1 = 0; //process.env.PORT || 5000;
+const PORT1 = 5000; //process.env.PORT || 5000;
 const app1 = express();
 app1.use(express.json());
 //Allows request through cross-origin
@@ -49,6 +25,16 @@ app1.listen(PORT1, console.log(`Server started on PORT ${PORT1}`));
 
 //---------------------------------------------------------------------------------------------------
 // Audio and video server
+const app2 = express();
+const server1 = http.createServer(app2);
+const PORT2 = 7000; //process.env.PORT || 7000;
+const io1 = require("socket.io")(server1, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
+
 io1.on("connection", (socket) => {
   socket.emit("me", socket.id);
 
@@ -73,6 +59,19 @@ server1.listen(PORT2, () => console.log(`Server started on PORT ${PORT2}`));
 
 //---------------------------------------------------------------------------------------------------
 // Chat app server
+const {
+  addUser,
+  removeUser,
+  getUser,
+  getUserInParty,
+} = require("./backend/users");
+const router = require("./backend/router");
+const app3 = express();
+const server2 = http.createServer(app3);
+const io2 = socketio(server2);
+const PORT3 = 9000; //process.env.PORT || 9000;
+app3.use(router);
+app3.use(cors());
 
 io2.on("connection", (socket) => {
   console.log("New connection ! YAY");
