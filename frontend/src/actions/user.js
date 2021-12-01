@@ -7,7 +7,7 @@ import {
   LOGOUT,
   AUTH_ERROR,
   LOAD_USER
-} from "../types";
+} from "./types";
 
 export const loadUser = () => async dispatch => {
   try {
@@ -21,7 +21,8 @@ export const loadUser = () => async dispatch => {
     if (err.response) {
       alert(err.response.data.error);
     } else {
-      alert("unable to authorize");
+      // alert("unable to authorize");
+      console.log("unable to authorize");
     }
     dispatch({
       type: AUTH_ERROR
@@ -75,6 +76,20 @@ export const login = formValues => async dispatch => {
   }
 };
 
-export const logOut = () => ({
-  type: LOGOUT
-});
+export const logOut = () => async dispatch =>{
+  try {
+    const { data } = await user.get("/logout");
+    dispatch({
+      type: LOGOUT,
+      payload: data
+    });
+    alert(JSON.stringify(data));
+  } catch (err) {
+    if (err.response) {
+      alert(err.response.data);
+    } else {
+      alert("Unable to Logout");
+    }
+    console.error("logout error: ", err);
+  }
+};

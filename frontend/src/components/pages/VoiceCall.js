@@ -7,7 +7,8 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import React, { useEffect, useRef, useState } from "react";
 import Peer from "simple-peer";
 import io from "socket.io-client";
-import "./App.css";
+import "./styles/App.css";
+import user from "../../api/user";
 
 // if(window.location.href === "http://localhost:3000/voice_call")
 // {
@@ -119,8 +120,31 @@ function VoiceCall() {
     window.location.reload(true);
   };
 
+  const createLog = (id) => {
+    user.post("/call/CreateCallLog", {
+      call_id:id
+    })
+    .then(res => {console.log(`statusCode: ${res.status}`)
+        console.log(res)
+    })
+    .catch(error => {
+        console.error(error)
+    })
+  };
+  const addtoLog = () => {
+    user.patch("/call/AddUsertoLog", {
+      call_id:socket.id
+    })
+    .then(res => {console.log(`statusCode: ${res.status}`)
+        console.log(res)
+    })
+    .catch(error => {
+        console.error(error.response)
+    })
+  };
+
   return (
-    <>
+    <div className="vc_bg_color">
       <br></br>
       <h1 style={{ textAlign: "center", color: "#EEEEEE", fontSize: "70px" }}>
         One Call Away
@@ -157,7 +181,7 @@ function VoiceCall() {
             <IconButton
               color="primary"
               aria-label="call"
-              onClick={() => callUser(idToCall)}
+              onClick={() => {createLog(idToCall);callUser(idToCall)}}
             >
               <PhoneIcon fontSize="large" />
             </IconButton>
@@ -242,14 +266,14 @@ function VoiceCall() {
         {receivingCall && !callAccepted ? (
           <div className="caller">
             <h1>A person is calling...</h1>
-            <Button variant="contained" color="primary" onClick={answerCall}>
+            <Button variant="contained" color="primary" onClick={()=>{answerCall();addtoLog()}}>
               Answer
             </Button>
           </div>
         ) : null}
       </div>
       <br></br>
-    </>
+    </div>
   );
 }
 

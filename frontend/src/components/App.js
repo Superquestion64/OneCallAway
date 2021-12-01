@@ -6,13 +6,18 @@ import { loadUser } from "../actions/user";
 import PrivateRoute from "../components/general/PrivateRoute";
 import GlobalStyles from "../styles/Global";
 import theme from "../styles/theme";
-import { LOGOUT } from "../types";
+import { LOGOUT } from "../actions/types";
 import setAuthToken from "../utils/setAuthToken";
 import Footer from "./general/Footer";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Landing from "./pages/Landing";
 import SignUpIn from "./pages/SignUpIn";
 import VoiceCall from "./pages/VoiceCall";
+import "../styles/styles.css";
+import JoinParty from "../components/chat-app/JoinParty";
+import Party from "../components/chat-app/Party";
+import ProfileForm from "../components/pages/profile/ProfileForm";
+import InterestForm from "../components/pages/profile/InterestForm";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -21,7 +26,7 @@ const App = () => {
       setAuthToken(localStorage.token);
     }
     dispatch(loadUser());
-    // log user out from all tabs if they log out in one tab
+    // log user out from entire window if they log out from one tab
     window.addEventListener("storage", () => {
       if (!localStorage.token) dispatch({ type: LOGOUT });
     });
@@ -35,8 +40,12 @@ const App = () => {
           <Route path="/" exact component={Landing} />
           <Route path="/signup" exact component={SignUpIn} />
           <Route path="/signin" exact component={SignUpIn} />
-          <PrivateRoute path="/dashboard" exact component={Dashboard} />
           <Route path="/voice_call" exact component={VoiceCall} />
+          <Route exact path="/chat" component={JoinParty} />
+          <Route exact path="/chat_party" component={Party} />
+          <PrivateRoute path="/dashboard" exact component={Dashboard} />
+          <PrivateRoute path="/profile-form" exact component={ProfileForm} />
+          <PrivateRoute path="/interests" exact component={InterestForm} />
         </Switch>
         <Footer />
       </ThemeProvider>
