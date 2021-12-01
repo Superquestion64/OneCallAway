@@ -13,9 +13,6 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Landing from "./pages/Landing";
 import SignUpIn from "./pages/SignUpIn";
 import VoiceCall from "./pages/VoiceCall";
-import "../styles/styles.css";
-import JoinParty from "../components/chat-app/JoinParty";
-import Party from "../components/chat-app/Party";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -40,8 +37,6 @@ const App = () => {
           <Route path="/signin" exact component={SignUpIn} />
           <PrivateRoute path="/dashboard" exact component={Dashboard} />
           <Route path="/voice_call" exact component={VoiceCall} />
-          <Route exact path="/chat" component={JoinParty} />
-			    <Route exact path="/chat_party" component={Party} />
         </Switch>
         <Footer />
       </ThemeProvider>

@@ -7,9 +7,14 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import React, { useEffect, useRef, useState } from "react";
 import Peer from "simple-peer";
 import io from "socket.io-client";
-import "./styles/App.css";
+import "./App.css";
 
-const socket = io.connect("http://localhost:7000");
+// if(window.location.href === "http://localhost:3000/voice_call")
+// {
+//   const socket = io("http://localhost:5000");
+// }
+
+const socket = io("http://localhost:5000");
 
 function VoiceCall() {
   const [me, setMe] = useState("");
@@ -26,6 +31,8 @@ function VoiceCall() {
   const connectionRef = useRef();
 
   useEffect(() => {
+    //alert(socket.connected + ": " + socket.id)
+
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
@@ -44,6 +51,11 @@ function VoiceCall() {
       setName(data.name);
       setCallerSignal(data.signal);
     });
+
+    return () => {
+      // close socket on unmount
+      socket.close();
+    }
   }, []);
 
   const turnOffMic = () => {
@@ -108,7 +120,7 @@ function VoiceCall() {
   };
 
   return (
-    <div class="vc_bg_color">
+    <>
       <br></br>
       <h1 style={{ textAlign: "center", color: "#EEEEEE", fontSize: "70px" }}>
         One Call Away
@@ -237,7 +249,7 @@ function VoiceCall() {
         ) : null}
       </div>
       <br></br>
-    </div>
+    </>
   );
 }
 
