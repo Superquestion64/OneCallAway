@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path')
 const dotenv = require("dotenv");
 const connectDB = require("./backend/config/db");
 const userRoutes = require("./backend/routes/userRoutes");
@@ -109,11 +110,11 @@ io1.on("connection", (socket) => {
 //   });
 // });
 
-server.listen(PORT, console.log(`Server started on PORT ${PORT}`));
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("frontend/build"));
   app.get("/*", function(req, res) {
     res.sendFile(path.join(__dirname, "./frontend/build/index.html"));
   }); 
 }
+
+server.listen(PORT, console.log(`Server started on PORT ${PORT}`));
