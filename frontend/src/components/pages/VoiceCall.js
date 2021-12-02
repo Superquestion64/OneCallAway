@@ -15,7 +15,7 @@ import user from "../../api/user";
 //   const socket = io("http://localhost:5000");
 // }
 
-const socket = io("http://localhost:5000");
+const socket = io(`https://one-call-away.herokuapp.com:${process.env.PORT}`);
 
 function VoiceCall() {
   const [me, setMe] = useState("");
