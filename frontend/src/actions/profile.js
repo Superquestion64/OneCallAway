@@ -9,8 +9,7 @@ export const updateProfile = formData => async dispatch => {
       type: UPDATE_PROFILE,
       payload: res.data
     });
-
-    alert("profile updated successfully");
+    alert(res.data);
   } catch (err) {
     console.log(err);
     alert("Cannot update profile");
@@ -19,13 +18,13 @@ export const updateProfile = formData => async dispatch => {
 
 export const updateInterests = formData => async dispatch => {
   try {
-    const res = await user.patch("/interests", formData);
+    const res = await user.patch("/add_interest", formData);
 
     dispatch({
       type: UPDATE_INTERESTS,
       payload: res.data
     });
-    alert("interests update successful");
+    alert(res.data);
   } catch (err) {
     console.log(err);
     alert("Cannot update interests");

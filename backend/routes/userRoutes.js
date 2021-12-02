@@ -10,7 +10,7 @@ router.route('/login').post(loginUser);
 router.route('/authorize').get(LoggedInRequired, authorizeUser);
 router.route('/logout').get(LoggedInRequired, signoutUser);
 router.route('/update_profile').patch(LoggedInRequired, updateUser);
-router.route('/add_interest').post(LoggedInRequired, addInterest);
+router.route('/add_interest').patch(LoggedInRequired, addInterest);
 router.route('/search').get(LoggedInRequired, searchUser);
 router.route('/call/CreateCallLog').post(CreateLog);
 router.route('/call/AddUsertoLog').patch(AddtoLog);

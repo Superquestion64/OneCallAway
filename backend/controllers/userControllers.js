@@ -43,7 +43,6 @@ const registerUser = asyncHandler(async(req, res) => {
                     password,
                     user_status,
                 });
-                console.log("else");
                 if (user) {
                     res.status(201).json({
                         // _id:user._id,
@@ -88,48 +87,51 @@ const updateUser = asyncHandler(async(req,res) => {
     //Find the user in database using the token provided, if found check to see which fields are not empty,
     //Updates the info, if email and username are not already taken
     const user = await User.findById(req.user._id);
+    let email = false;
+    let password = false;
     if (user){
-        if (req.body.username) {
-            req.body.username = req.body.username.toLowerCase();
-            if (req.body.username != user.username){
-                exist = await User.findOne({username:req.body.username});
-                if (exist) {
-                    res.status(400).send('Username already exists');
-                }
-                else{
-                    user.username = req.body.username;
-                }
-            }
-        }
         if (req.body.email) {
             if (validator.validate(req.body.email)){
                 req.body.email = req.body.email.toLowerCase();
                 if (req.body.email != user.email){
                     exist = await User.findOne({email:req.body.email});
-                    if (exist) {
-                        res.status(400).send('Email already exists');
-                    }
-                    else {
+                    if (exist == null) {
                         user.email = req.body.email;
+                        email = true;
                     }
                 }
-            }
-            else {
-                res.status(400).send('Invalid email address');
+                else {
+                    email = true
+                }
             }
         }
         if (req.body.password) {
             if((req.body.password == password_regex)){
-                res.status(400).send('Invalid password');
+                password = false;
             }
             else{
                 user.password = req.body.password;
+                password = true;
             }
         }
-        const updateUser = await user.save();
-        res.json({
-            token:generateToken(updateUser._id),
-        });
+        user.save(function(err){
+            if(err){
+                console.log(err);
+                return;
+            }
+        })
+        if (email && password) {
+            res.status(200).send("Email and password update sucessful");
+        }
+        else if (email && !password) {
+            res.status(200).send("Email updated sucessfully. Failed to update password");
+        }
+        else if (!email && password) {
+            res.status(200).send("Password updated sucessfully. Failed to update email");
+        }
+        else {
+            res.status(400).send("Invalid email and password");
+        }
     }
     else {
         res.status(404).send("User not found");
@@ -147,7 +149,12 @@ const signoutUser = asyncHandler(async(req, res) => {
     //changes the user status to offline and logs the user out
     const user = await User.findById(req.user._id);
     user.user_status = loggedOut;
-    await user.save();
+    user.save(function(err){
+        if(err){
+            console.log(err);
+            return;
+        }
+    })
     res.status(200).send("Sucessfully Logged Out");
 });
 
@@ -155,26 +162,32 @@ const signoutUser = asyncHandler(async(req, res) => {
 const addInterest = asyncHandler(async(req, res) => {
     //Change the interest to lowercase, check to see if user can be found with token
     //Check to see if interest has already been added
-    const interest = req.body.interest.toLowerCase();
+    const interest = req.body;
     const userID = req.user._id;
-    
     const user = await User.findById(userID);
-    const Exist = await User.findOne({_id:userID,tags:interest});
+    let update = false;
     if (user) {
         if (interest) {
-            if (Exist == null) {
-                //If interest has not been added already, add new interest to the database under the user
-                user.tags.push(interest);
-                user.save(function(err){
+            for(var i = 0; i < interest.length; i++) {
+                lower = interest[i].toLowerCase();
+                var Exist = await User.findOne({_id:userID,tags:lower});
+                if (Exist == null) {
+                    //If interest has not been added already, add new interest to the database under the user
+                    user.tags.push(lower);
+                    update = true;
+                }
+            }
+            user.save(function(err){
                 if(err){
                     console.log(err);
                     return;
                 }
+            })
+            if(update != false) {
                 res.status(200).send("Interest added sucessfully");
-                })
             }
             else {
-                res.status(400).send("Interest already exists");
+                res.status(200).send("Interest already exists");
             }
         } 
     }
