@@ -12,10 +12,10 @@ import user from "../../api/user";
 
 let socket;
 
-// if(window.location.href === "https://one-call-away.herokuapp.com/voice_call")
-// {
-//   socket = io("https://one-call-away.herokuapp.com");
-// }
+if(window.location.href === "https://one-call-away.herokuapp.com/voice_call")
+{
+  socket = io("https://one-call-away.herokuapp.com");
+}
 
 //const socket = io(`https://one-call-away.herokuapp.com`);
 
@@ -35,10 +35,6 @@ function VoiceCall() {
 
   useEffect(() => {
     //alert(socket.connected + ": " + socket.id)
-    if(window.location.href === "https://one-call-away.herokuapp.com/voice_call")
-    {
-      socket = io("https://one-call-away.herokuapp.com");
-    }
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
