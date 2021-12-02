@@ -10,12 +10,14 @@ import io from "socket.io-client";
 import "./styles/App.css";
 import user from "../../api/user";
 
-// if(window.location.href === "http://localhost:3000/voice_call")
-// {
-//   const socket = io("http://localhost:5000");
-// }
+let socket;
 
-const socket = io(`https://one-call-away.herokuapp.com`);
+if(window.location.href === "https://one-call-away.herokuapp.com/voice_call")
+{
+  socket = io("https://one-call-away.herokuapp.com");
+}
+
+//const socket = io(`https://one-call-away.herokuapp.com`);
 
 function VoiceCall() {
   const [me, setMe] = useState("");
