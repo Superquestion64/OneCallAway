@@ -15,6 +15,7 @@ let socket;
 if(window.location.href === "https://one-call-away.herokuapp.com/voice_call")
 {
   socket = io("https://one-call-away.herokuapp.com");
+  window.location.reload(true);
 }
 
 //const socket = io(`https://one-call-away.herokuapp.com`);
