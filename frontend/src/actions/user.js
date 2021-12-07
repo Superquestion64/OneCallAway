@@ -83,7 +83,6 @@ export const logOut = () => async dispatch => {
       type: LOGOUT,
       payload: data
     });
-    alert(JSON.stringify(data));
   } catch (err) {
     if (err.response) {
       alert(err.response.data);
