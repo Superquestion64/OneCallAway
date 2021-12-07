@@ -11,6 +11,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import PersonIcon from "@mui/icons-material/Person";
+import { Text } from "../../../styles/General.styled";
 
 const CallLog = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const CallLog = () => {
 
   const renderCallMembers = names => {
     return names.map(name => (
-      <List>
+      <List key={name}>
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
@@ -35,22 +36,31 @@ const CallLog = () => {
     ));
   };
 
-  const renderCallLog = callLog.map(call => (
+  const renderCallLog = callLog.map(({ call_id, usernames }) => (
     <Accordion
       sx={{
         width: "60vw"
-      }}>
+      }}
+      key={call_id}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header">
-        <p>{call.call_id}</p>
+        <p>{call_id}</p>
       </AccordionSummary>
-      <AccordionDetails>{renderCallMembers(call.usernames)}</AccordionDetails>
+      <AccordionDetails>{renderCallMembers(usernames)}</AccordionDetails>
     </Accordion>
   ));
 
-  return <>{renderCallLog}</>;
+  return (
+    <>
+      {callLog.length ? (
+        renderCallLog
+      ) : (
+        <Text fs="2rem">No calls made yet</Text>
+      )}
+    </>
+  );
 };
 
 export default CallLog;

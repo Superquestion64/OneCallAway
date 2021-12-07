@@ -102,7 +102,6 @@ export const getCallLog = () => async dispatch => {
     });
     console.log("call log", data);
   } catch (err) {
-    alert("unable to fetch call log");
     console.error(err);
   }
 };

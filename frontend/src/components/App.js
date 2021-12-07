@@ -4,13 +4,10 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { LOGOUT } from "../actions/types";
 import { loadUser } from "../actions/user";
-import JoinParty from "../components/chat-app/JoinParty";
-import Party from "../components/chat-app/Party";
 import PrivateRoute from "../components/general/PrivateRoute";
 import InterestForm from "../components/pages/profile/InterestForm";
 import ProfileForm from "../components/pages/profile/ProfileForm";
 import GlobalStyles from "../styles/Global";
-import "../styles/styles.css";
 import theme from "../styles/theme";
 import setAuthToken from "../utils/setAuthToken";
 import Footer from "./general/Footer";
@@ -18,8 +15,6 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Landing from "./pages/Landing";
 import SignUpIn from "./pages/SignUpIn";
 import VoiceCall from "./pages/VoiceCall";
-import ProfileForm from "../components/pages/profile/ProfileForm";
-import InterestForm from "../components/pages/profile/InterestForm";
 
 const App = () => {
   const dispatch = useDispatch();
