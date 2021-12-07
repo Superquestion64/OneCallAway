@@ -60,11 +60,9 @@ const CreateLog = asyncHandler(async(req,res)=> {
 });
 
 const AddtoLog = asyncHandler(async(req,res)=> {
-    
     const call_id = req.body.call_id;
-    console.log(call_id);
     const Call = await Call_Log.findOne({call_id:call_id});
-    if (req.headers.authorization &&req.headers.authorization.startsWith("Bearer")) {
+    if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
         try {
         token = req.headers.authorization.split(" ")[1];
         //decode token id
@@ -110,10 +108,9 @@ const AddtoLog = asyncHandler(async(req,res)=> {
 });
 
 const GetUserFromLog = asyncHandler(async(req, res, next)=> {
-    console.log("MY");
     const userId = req.user._id;
     const user = await User.findById(userId);
-    const calls = await Call_Log.find({usernames:user.username}, '-_id').limit(1);
+    const calls = await Call_Log.find({usernames:user.username}, '-_id').limit(10);
     if (calls) {
         res.status(200).json(calls);
     }

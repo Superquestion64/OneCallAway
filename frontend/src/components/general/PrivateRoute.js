@@ -22,6 +22,14 @@ const PrivateRoute = props => {
       onClick() {
         dispatch(logOut());
       }
+    },
+    {
+      title: "edit profile",
+      path: "/profile-form"
+    },
+    {
+      title: "update interests",
+      path: "/interests"
     }
   ];
 

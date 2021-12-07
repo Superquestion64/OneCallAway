@@ -2,18 +2,18 @@ import axios from "axios";
 import { LOGOUT } from "../actions/types";
 import store from "../store";
 
-const api = axios.create({
-  baseURL: "http://localhost:5000",
-  headers: {
-    "Content-Type": "application/json"
-  }
-});
 // const api = axios.create({
-//   baseURL: "http://localhost:3080",
+//   baseURL: "https://one-call-away.herokuapp.com",
 //   headers: {
 //     "Content-Type": "application/json"
 //   }
 // });
+const api = axios.create({
+  baseURL: "https://one-call-away.herokuapp.com",
+  headers: {
+    "Content-Type": "application/json"
+  }
+});
 /**
   intercept any error responses from the api
   and check if the token is no longer valid.

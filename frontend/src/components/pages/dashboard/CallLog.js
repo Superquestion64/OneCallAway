@@ -1,43 +1,64 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useDispatch, useSelector } from "react-redux";
+import { getCallLog } from "../../../actions/user";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import PersonIcon from "@mui/icons-material/Person";
+import { Text } from "../../../styles/General.styled";
 
 const CallLog = () => {
-  const oneDayAgo = new Date(new Date().setDate(new Date().getDate() - 1));
-  const twoDaysAgo = new Date(new Date().setDate(new Date().getDate() - 2));
+  const dispatch = useDispatch();
+  const callLog = useSelector(state => state.user.callLog);
+
+  useEffect(() => {
+    dispatch(getCallLog());
+  }, [dispatch]);
+
+  const renderCallMembers = names => {
+    return names.map(name => (
+      <List key={name}>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText primary={name} />
+          </ListItemButton>
+        </ListItem>
+      </List>
+    ));
+  };
+
+  const renderCallLog = callLog.map(({ call_id, usernames }) => (
+    <Accordion
+      sx={{
+        width: "60vw"
+      }}
+      key={call_id}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header">
+        <p>{call_id}</p>
+      </AccordionSummary>
+      <AccordionDetails>{renderCallMembers(usernames)}</AccordionDetails>
+    </Accordion>
+  ));
 
   return (
     <>
-      <Accordion
-        sx={{
-          width: "60vw"
-        }}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header">
-          <p>{oneDayAgo.toLocaleString()}</p>
-        </AccordionSummary>
-        <AccordionDetails>
-          <p>Call details</p>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        sx={{
-          width: "60vw"
-        }}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header">
-          <p>{twoDaysAgo.toLocaleString()}</p>
-        </AccordionSummary>
-        <AccordionDetails>
-          <p>Call details</p>
-        </AccordionDetails>
-      </Accordion>
+      {callLog.length ? (
+        renderCallLog
+      ) : (
+        <Text fs="2rem">No calls made yet</Text>
+      )}
     </>
   );
 };

@@ -16,7 +16,7 @@ function notification() {
  */
 function onClickNotification() {
   chrome.tabs.create({
-    url: "http://localhost:3000/voice_call",
+    url: "https://one-call-away.herokuapp.com/voice_call",
   });
 }
 

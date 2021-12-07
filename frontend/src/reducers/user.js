@@ -5,13 +5,15 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   LOAD_USER,
-  AUTH_ERROR
+  AUTH_ERROR,
+  GET_CALL_LOG
 } from "../actions/types";
 
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: false,
-  loading: true
+  loading: true,
+  callLog: []
 };
 
 const userReducer = (state = initialState, action) => {
@@ -37,6 +39,11 @@ const userReducer = (state = initialState, action) => {
         user: null,
         isAuthenticated: false,
         loading: false
+      };
+    case GET_CALL_LOG:
+      return {
+        ...state,
+        callLog: payload
       };
     default:
       return state;

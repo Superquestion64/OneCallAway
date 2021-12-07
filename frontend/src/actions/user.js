@@ -6,7 +6,8 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   AUTH_ERROR,
-  LOAD_USER
+  LOAD_USER,
+  GET_CALL_LOG
 } from "./types";
 
 export const loadUser = () => async dispatch => {
@@ -19,7 +20,7 @@ export const loadUser = () => async dispatch => {
   } catch (err) {
     console.error(err);
     if (err.response) {
-      alert(err.response.data.error);
+      console.log("unable to load user");
     } else {
       // alert("unable to authorize");
       console.log("unable to authorize");
@@ -38,8 +39,7 @@ export const register = values => async dispatch => {
       type: REGISTER_SUCCESS,
       payload: data
     });
-    alert(JSON.stringify(data));
-    console.log(data);
+    console.log("register data", data);
   } catch (err) {
     console.error(err);
     if (err.response) {
@@ -62,7 +62,7 @@ export const login = formValues => async dispatch => {
       payload: data
     });
 
-    alert(JSON.stringify(data));
+    console.log("login data", data);
   } catch (err) {
     if (err.response) {
       alert(err.response.data);
@@ -76,14 +76,13 @@ export const login = formValues => async dispatch => {
   }
 };
 
-export const logOut = () => async dispatch =>{
+export const logOut = () => async dispatch => {
   try {
     const { data } = await user.get("/logout");
     dispatch({
       type: LOGOUT,
       payload: data
     });
-    alert(JSON.stringify(data));
   } catch (err) {
     if (err.response) {
       alert(err.response.data);
@@ -91,5 +90,18 @@ export const logOut = () => async dispatch =>{
       alert("Unable to Logout");
     }
     console.error("logout error: ", err);
+  }
+};
+
+export const getCallLog = () => async dispatch => {
+  try {
+    const { data } = await user.get("/call/GetCallLog");
+    dispatch({
+      type: GET_CALL_LOG,
+      payload: data
+    });
+    console.log("call log", data);
+  } catch (err) {
+    console.error(err);
   }
 };

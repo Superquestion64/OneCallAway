@@ -7,3 +7,5 @@ export const AUTH_ERROR = "AUTH_ERROR";
 export const LOAD_USER = "LOAD_USER";
 export const GET_PROFILE = "GET_PROFILE";
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
+export const UPDATE_INTERESTS = "UPDATE_INTERESTS";
+export const GET_CALL_LOG = "GET_CALL_LOG";
