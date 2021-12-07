@@ -30,8 +30,7 @@ const server1 = http.createServer(app2);
 const PORT2 = 7000; //process.env.PORT || 7000;
 const io1 = require("socket.io")(server1, {
   cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
+    origin: "*",
   },
 });
 

@@ -10,7 +10,7 @@ import io from "socket.io-client";
 import "./styles/App.css";
 import user from "../../api/user";
 
-const socket = io.connect("http://localhost:7000");
+const socket = io.connect("/");
 
 function VoiceCall() {
   const [me, setMe] = useState("");

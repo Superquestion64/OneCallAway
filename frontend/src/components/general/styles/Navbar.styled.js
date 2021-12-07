@@ -5,9 +5,9 @@ export const StyledNavbar = styled.div`
   height: 4rem;
   background-image: linear-gradient(
     -225deg,
-    #ffe29f 0%,
-    #ffa99f 48%,
-    #ff719a 100%
+    #610094 0%,
+    #150050 48%,
+    #000000 100%
   );
 `;
 
