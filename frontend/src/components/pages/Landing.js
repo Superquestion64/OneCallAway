@@ -125,7 +125,11 @@ const Landing = () => {
         <FlexCentered>
           <ReviewSection>
             <FlexCentered>
-              <Stars>⭐ ⭐ ⭐ ⭐ ⭐</Stars>
+              <Stars>
+                <span role="img" aria-label="star">
+                  ⭐ ⭐ ⭐ ⭐ ⭐
+                </span>
+              </Stars>
               <Review>
                 This site makes it crazy easy for me to hop in a call with my
                 bros during a game. What a revolutionary product!

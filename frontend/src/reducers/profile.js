@@ -5,7 +5,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  profile: null,
+  profile: {},
   interests: []
 };
 
