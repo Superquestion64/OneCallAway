@@ -24,7 +24,7 @@ import {
   Subtitle
 } from "./styles/Landing.styled";
 
-const Landing = () => {
+const Landing = () => {  
   const { isAuthenticated } = useSelector(state => state.user);
 
   if (isAuthenticated) {
@@ -86,18 +86,6 @@ const Landing = () => {
                 p=".9rem 1.5rem"
                 boxShadowColor="#fff">
                 Make a call
-              </Btn>
-            </StyledLink>
-            <StyledLink to="/chat">
-              <Btn
-                hoverColor="rgba(50, 50, 160, 1)"
-                br="1.8rem"
-                fs="1.6rem"
-                m="6rem 0 0 0"
-                bgColor="rgba(50, 50, 160, 0.9)"
-                p=".9rem 1.5rem"
-                boxShadowColor="#fff">
-                Chat with friends
               </Btn>
             </StyledLink>
           </FlexCentered>

@@ -18,6 +18,8 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Landing from "./pages/Landing";
 import SignUpIn from "./pages/SignUpIn";
 import VoiceCall from "./pages/VoiceCall";
+import ProfileForm from "../components/pages/profile/ProfileForm";
+import InterestForm from "../components/pages/profile/InterestForm";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -41,8 +43,6 @@ const App = () => {
           <Route path="/signup" exact component={SignUpIn} />
           <Route path="/signin" exact component={SignUpIn} />
           <Route path="/voice_call" exact component={VoiceCall} />
-          <Route exact path="/chat" component={JoinParty} />
-          <Route exact path="/chat_party" component={Party} />
           <PrivateRoute path="/dashboard" exact component={Dashboard} />
           <PrivateRoute path="/profile-form" exact component={ProfileForm} />
           <PrivateRoute path="/interests" exact component={InterestForm} />

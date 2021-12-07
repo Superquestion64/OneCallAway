@@ -10,7 +10,14 @@ import io from "socket.io-client";
 import "./styles/App.css";
 import user from "../../api/user";
 
-const socket = io.connect("http://localhost:7000");
+let socket;
+
+if(window.location.href === "https://one-call-away.herokuapp.com/voice_call")
+{
+  socket = io("https://one-call-away.herokuapp.com");
+}
+
+//const socket = io(`https://one-call-away.herokuapp.com`);
 
 function VoiceCall() {
   const [me, setMe] = useState("");
@@ -27,6 +34,8 @@ function VoiceCall() {
   const connectionRef = useRef();
 
   useEffect(() => {
+    //alert(socket.connected + ": " + socket.id)
+
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
@@ -45,6 +54,11 @@ function VoiceCall() {
       setName(data.name);
       setCallerSignal(data.signal);
     });
+
+    return () => {
+      // close socket on unmount
+      socket.close();
+    }
   }, []);
 
   const turnOffMic = () => {
