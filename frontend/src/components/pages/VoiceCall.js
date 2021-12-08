@@ -68,6 +68,7 @@ function VoiceCall() {
     return () => {
       // close socket on unmount
       socket.close();
+      window.location.reload(true);
     }
   }, []);
 
