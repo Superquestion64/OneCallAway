@@ -1,14 +1,15 @@
 import user from "../api/user";
 import {
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT,
   AUTH_ERROR,
+  GET_CALL_LOG,
   LOAD_USER,
-  GET_CALL_LOG
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  LOGOUT,
+  REGISTER_FAIL,
+  REGISTER_SUCCESS
 } from "./types";
+import { successUser, errorUser } from "../notification";
 
 export const loadUser = () => async dispatch => {
   try {
@@ -17,6 +18,7 @@ export const loadUser = () => async dispatch => {
       type: LOAD_USER,
       payload: data
     });
+    successUser("Welcome to OCA!");
   } catch (err) {
     console.error(err);
     if (err.response) {
@@ -41,9 +43,8 @@ export const register = values => async dispatch => {
     });
     console.log("register data", data);
   } catch (err) {
-    console.error(err);
     if (err.response) {
-      alert(err.response.data);
+      errorUser(err.response.data);
     } else {
       alert("unable to register");
     }
@@ -61,15 +62,11 @@ export const login = formValues => async dispatch => {
       type: LOGIN_SUCCESS,
       payload: data
     });
-
+    successUser("Successfully logged in");
     console.log("login data", data);
   } catch (err) {
-    if (err.response) {
-      alert(err.response.data);
-    } else {
-      alert("unable to authorize");
-    }
-    console.error("login error: ", err);
+    errorUser(err.response.data);
+    console.error("login error: ", err.response.data);
     dispatch({
       type: LOGIN_FAIL
     });
