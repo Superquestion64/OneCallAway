@@ -26,8 +26,8 @@ const ProfileForm = () => {
   const dispatch = useDispatch();
   const [showPw, setShowPw] = useState(false);
   return (
-    <Container p="10rem 4rem" mh="100vh" bgColor="rgba(224, 247, 250, 0.8)">
-      <FlexCentered bgColor="#f3e5f5" h="75vh" br="2rem">
+    <Container p="10rem 4rem" mh="100vh" bgColor="#6B4F4F">
+      <FlexCentered bgColor="#EED6C4" h="75vh" br="2rem">
         <Formik
           initialValues={initialValues}
           validationSchema={profileSchema}
@@ -63,11 +63,11 @@ const ProfileForm = () => {
                     }}
                   />
                   <Btn
-                    hoverColor="rgba(237, 66, 100, 1)"
+                    hoverColor="#483434"
                     br="1.8rem"
                     fs="1.6rem"
                     m="6rem 0 0 0"
-                    bgColor="rgba(237, 66, 100, 0.9)"
+                    bgColor="#483434"
                     p="0.8rem 1.5rem"
                     boxShadowColor="#fff"
                     type="submit"
