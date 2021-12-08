@@ -1,12 +1,12 @@
 import user from "../api/user";
 import { UPDATE_PROFILE, UPDATE_INTERESTS } from "./types";
-import { successUser, errorUser } from "../notification";
+import { successFlag, errorFlag } from "../notification";
 
 //update profile
 export const updateProfile = formData => async dispatch => {
   try {
     const res = await user.patch("/update_profile", formData);
-    successUser("profile updated successfully");
+    successFlag("profile updated successfully");
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
@@ -14,7 +14,7 @@ export const updateProfile = formData => async dispatch => {
     alert(res.data);
   } catch (err) {
     console.log(err);
-    // errorUser(err.response.data)
+    // errorFlag(err.response.data)
     alert("Cannot update profile");
   }
 };
