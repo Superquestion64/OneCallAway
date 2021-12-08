@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 
-export const successUser = (message, duration = 3000) => {
+export const successFlag = (message, duration = 3000) => {
   toast.success(message, {
     position: toast.POSITION.TOP_LEFT,
     autoClose: duration,
@@ -8,7 +8,7 @@ export const successUser = (message, duration = 3000) => {
   });
 };
 
-export const errorUser = message => {
+export const errorFlag = message => {
   toast.error(message, {
     autoClose: 3000,
     pauseOnFocusLoss: false

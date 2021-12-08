@@ -9,7 +9,7 @@ import {
   REGISTER_FAIL,
   REGISTER_SUCCESS
 } from "./types";
-import { successUser, errorUser } from "../notification";
+import { successFlag, errorFlag } from "../notification";
 
 export const loadUser = () => async dispatch => {
   try {
@@ -18,7 +18,7 @@ export const loadUser = () => async dispatch => {
       type: LOAD_USER,
       payload: data
     });
-    successUser("Welcome to OCA!");
+    successFlag("Welcome to OCA!");
   } catch (err) {
     console.error(err);
     if (err.response) {
@@ -44,7 +44,7 @@ export const register = values => async dispatch => {
     console.log("register data", data);
   } catch (err) {
     if (err.response) {
-      errorUser(err.response.data);
+      errorFlag(err.response.data);
     } else {
       alert("unable to register");
     }
@@ -62,10 +62,10 @@ export const login = formValues => async dispatch => {
       type: LOGIN_SUCCESS,
       payload: data
     });
-    successUser("Successfully logged in");
+    successFlag("Successfully logged in");
     console.log("login data", data);
   } catch (err) {
-    errorUser(err.response.data);
+    errorFlag(err.response.data);
     console.error("login error: ", err.response.data);
     dispatch({
       type: LOGIN_FAIL
