@@ -10,16 +10,24 @@ import io from "socket.io-client";
 import "./styles/App.css";
 import user from "../../api/user";
 
-let socket;
+// let socket;
 
-if(window.location.href === "https://one-call-away.herokuapp.com/voice_call")
-{
-  socket = io("https://one-call-away.herokuapp.com");
-}
+// if(window.location.href === "https://one-call-away.herokuapp.com/voice_call")
+// {
+//   socket = io("https://one-call-away.herokuapp.com");
+// }
 
 //const socket = io(`https://one-call-away.herokuapp.com`);
 
+let socket;
+
 function VoiceCall() {
+
+  if(window.location.href === "https://one-call-away.herokuapp.com/voice_call")
+  {
+    socket = io("https://one-call-away.herokuapp.com");
+  }
+
   const [me, setMe] = useState("");
   const [stream, setStream] = useState();
   const [receivingCall, setReceivingCall] = useState(false);
