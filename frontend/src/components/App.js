@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch} from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { LOGOUT } from "../actions/types";
 import { loadUser } from "../actions/user";

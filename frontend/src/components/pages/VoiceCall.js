@@ -5,6 +5,7 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import PhoneIcon from "@material-ui/icons/Phone";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import React, { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Peer from "simple-peer";
 import io from "socket.io-client";
 import "./styles/App.css";
@@ -144,6 +145,8 @@ function VoiceCall() {
         console.error(error.response)
     })
   };
+
+  useLocation();
 
   return (
     <div className="vc_bg_color">
