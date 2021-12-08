@@ -37,6 +37,7 @@ export const TextField = styled(FormikTextField)`
 
 // Styled button
 export const Btn = styled.button`
+  display: inline-block;
   color: ${({ c }) => c || "#fff"};
   cursor: pointer;
   border-radius: ${({ br }) => br || ".6rem"};
@@ -47,7 +48,7 @@ export const Btn = styled.button`
   padding: ${({ p }) => p || "0.7rem 1.3rem"};
   text-decoration: none;
   text-align: center;
-  text-transform: uppercase;
+  margin: ${({ ml }) => ml || 0};
   margin: ${({ m }) => m || 0};
   border: ${({ border }) => border || "none"};
   &:hover {

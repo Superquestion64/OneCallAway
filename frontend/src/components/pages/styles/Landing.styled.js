@@ -1,6 +1,6 @@
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import styled from "styled-components";
-import LandingBg from "../../../images/LandingBg.jpeg";
+import LandingBg from "../../../images/LandingBg2.jpg";
 
 // Main landing
 export const LandingImage = styled.div`
@@ -36,6 +36,19 @@ export const Section = styled.div`
   margin-bottom: ${({ mb }) => mb || ""};
 `;
 
+//Button Section
+
+export const Section2 = styled.div`
+  height: 80%;
+  width: 80%;
+  margin-left: 10%;
+  text-align: center;
+  background-color: #3F0071;
+  border: solid;
+  border-color: #2B2B2B;
+  border-radius: 6rem;
+`;
+
 // Features
 export const FeatureList = styled.ul`
   list-style: none;
@@ -55,6 +68,17 @@ export const Icon = styled(ArrowForwardIosIcon)`
   transform: scale(0.8);
   margin-bottom: -0.3rem;
 `;
+
+
+// Used for spacing the buttons
+export const Indent = styled.div`
+  float: left;
+  height: 150px;
+  margin-left: 6rem;
+  margin-top: 3rem;
+`;
+
+
 
 // Review section
 export const ReviewSection = styled.div`
