@@ -37,7 +37,7 @@ const App = () => {
           <Route path="/" exact component={Landing} />
           <Route path="/signup" exact component={SignUpIn} />
           <Route path="/signin" exact component={SignUpIn} />
-          <Route path="/voice_call" exact component={VoiceCall} />
+          <Route path="/voice_call" exact component={(props) => <VoiceCall {...props} key={window.location.pathname}/>} />
           <PrivateRoute path="/dashboard" exact component={Dashboard} />
           <PrivateRoute path="/profile-form" exact component={ProfileForm} />
           <PrivateRoute path="/interests" exact component={InterestForm} />

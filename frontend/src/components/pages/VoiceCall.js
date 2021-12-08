@@ -9,7 +9,6 @@ import Peer from "simple-peer";
 import io from "socket.io-client";
 import "./styles/App.css";
 import user from "../../api/user";
-import { useHistory } from "react-router";
 
 let socket;
 
@@ -33,8 +32,6 @@ function VoiceCall() {
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
-
-  const history = useHistory();
 
   useEffect(() => {
     //alert(socket.connected + ": " + socket.id)
@@ -62,7 +59,7 @@ function VoiceCall() {
       // close socket on unmount
       socket.close();
     }
-  }, [history.location.pathname]);
+  }, []);
 
   const turnOffMic = () => {
     stream.getAudioTracks()[0].enabled = !stream.getAudioTracks()[0].enabled;
