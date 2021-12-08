@@ -24,7 +24,6 @@ export const loadUser = () => async dispatch => {
     if (err.response) {
       console.log("unable to load user");
     } else {
-      // alert("unable to authorize");
       console.log("unable to authorize");
     }
     dispatch({
@@ -41,12 +40,13 @@ export const register = values => async dispatch => {
       type: REGISTER_SUCCESS,
       payload: data
     });
+    successFlag("Account created successfully");
     console.log("register data", data);
   } catch (err) {
     if (err.response) {
       errorFlag(err.response.data);
     } else {
-      alert("unable to register");
+      errorFlag("Unable to Register");
     }
 
     dispatch({

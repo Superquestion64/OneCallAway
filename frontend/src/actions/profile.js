@@ -40,9 +40,8 @@ export const updateInterests = formData => async dispatch => {
       type: UPDATE_INTERESTS,
       payload: res.data
     });
-    alert(res.data);
+    successFlag(res.data);
   } catch (err) {
-    console.log(err);
-    alert("Cannot update interests");
+    errorFlag(err.response.data);
   }
 };

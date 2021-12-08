@@ -36,7 +36,15 @@ const Landing = () => {
 
   const navItems = [
     {
-      title: "Sign in",
+      title: "Features",
+      path: ""
+    },
+    {
+      title: "Get Chrome Extension",
+      path: "/"
+    },
+    {
+      title: "Sign In",
       path: "/signin"
     }
   ];
@@ -119,7 +127,7 @@ const Landing = () => {
           <Title fs="2.5rem" m="0 0 1rem 0">
             Features
           </Title>
-          <FeatureList name="features">
+          <FeatureList name="Features">
             {genFeature("Invite friends with a simple link")}
             {genFeature("Chat with anyone - anywhere")}
             {genFeature("All for FREE!")}

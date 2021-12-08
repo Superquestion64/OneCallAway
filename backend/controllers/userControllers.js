@@ -81,6 +81,16 @@ const loginUser = asyncHandler(async(req, res) => {
         res.status(400).send('Invalid Login Credentials');
     }
 });
+//Get user profile
+const userProfile = asyncHandler(async(req,res) => {
+    const user = await User.findById(req.user._id, '-_id -password -user_status -__v');
+    if(user) {
+        res.status(200).json(user);
+    }
+    else {
+        res.status(404).send('User not logged in')
+    }
+});
 
 //Update the user information such as username, email and password
 const updateUser = asyncHandler(async(req,res) => {
@@ -114,20 +124,20 @@ const updateUser = asyncHandler(async(req,res) => {
                 password = true;
             }
         }
-        user.save(function(err){
-            if(err){
-                console.log(err);
-                return;
-            }
-        })
         if (email && password) {
+            user.save(function(err){
+                if(err){
+                    console.log(err);
+                    return;
+                }
+            })
             res.status(200).send("Email and password update sucessful");
         }
         else if (email && !password) {
-            res.status(200).send("Email updated sucessfully. Failed to update password");
+            res.status(400).send("Invalid Password");
         }
         else if (!email && password) {
-            res.status(200).send("Password updated sucessfully. Failed to update email");
+            res.status(400).send("Invalid Email/Email already in use");
         }
         else {
             res.status(400).send("Invalid email and password");
@@ -187,7 +197,7 @@ const addInterest = asyncHandler(async(req, res) => {
                 res.status(200).send("Interest added sucessfully");
             }
             else {
-                res.status(200).send("Interest already exists");
+                res.status(400).send("Interest already exists");
             }
         } 
     }
@@ -219,4 +229,4 @@ const searchUser = asyncHandler(async(req,res) => {
         res.status(404).send("User not logged in");
     }
 }); 
-module.exports={ registerUser, loginUser, updateUser, authorizeUser, signoutUser, addInterest, searchUser};
+module.exports={ registerUser, loginUser, userProfile, updateUser, authorizeUser, signoutUser, addInterest, searchUser};
