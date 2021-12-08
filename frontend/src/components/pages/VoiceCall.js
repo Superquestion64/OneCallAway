@@ -23,7 +23,7 @@ let socket;
 
 function VoiceCall() {
 
-  if(window.location.href === "https://one-call-away.herokuapp.com/voice_call")
+  if(window.location.href === "https://one-call-away.herokuapp.com/voice_call" && socket.connected === false)
   {
     socket = io("https://one-call-away.herokuapp.com");
   }
