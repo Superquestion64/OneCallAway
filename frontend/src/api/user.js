@@ -9,7 +9,7 @@ import store from "../store";
 //   }
 // });
 const api = axios.create({
-  baseURL: "https://one-call-away.herokuapp.com",
+  baseURL: "http://localhost:5000",
   headers: {
     "Content-Type": "application/json"
   }

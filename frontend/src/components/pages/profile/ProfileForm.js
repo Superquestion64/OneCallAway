@@ -3,9 +3,9 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Formik } from "formik";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { updateProfile } from "../../../actions/profile";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProfile, getProfile } from "../../../actions/profile";
 import { profileSchema } from "../../../schema_validation/schemaValidation";
 import {
   Btn,
@@ -25,6 +25,12 @@ const initialValues = {
 const ProfileForm = () => {
   const dispatch = useDispatch();
   const [showPw, setShowPw] = useState(false);
+  const profile = useSelector(state => state.profile.profile);
+  useEffect(() => {
+    dispatch(getProfile());
+  }, [dispatch]);
+
+  console.log(profile);
   return (
     <Container p="10rem 4rem" mh="100vh" bgColor="#6B4F4F">
       <FlexCentered bgColor="#EED6C4" h="75vh" br="2rem">
