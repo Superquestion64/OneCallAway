@@ -22,12 +22,6 @@ import user from "../../api/user";
 let socket;
 
 function VoiceCall() {
-
-  if(window.location.href === "https://one-call-away.herokuapp.com/voice_call" && socket.connected === false)
-  {
-    socket = io("https://one-call-away.herokuapp.com");
-  }
-
   const [me, setMe] = useState("");
   const [stream, setStream] = useState();
   const [receivingCall, setReceivingCall] = useState(false);
@@ -43,6 +37,11 @@ function VoiceCall() {
 
   useEffect(() => {
     //alert(socket.connected + ": " + socket.id)
+    
+    if(window.location.href === "https://one-call-away.herokuapp.com/voice_call")
+    {
+      socket = io("https://one-call-away.herokuapp.com");
+    }
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
