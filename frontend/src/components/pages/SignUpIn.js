@@ -59,7 +59,11 @@ const SignUpIn = ({ location }) => {
 
   const navItems = [
     {
-      title: "Sign in",
+      title: "get chrome extension",
+      path: "/"
+    },
+    {
+      title: "sign in",
       path: "/signin"
     }
   ];
