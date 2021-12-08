@@ -17,19 +17,19 @@ const PrivateRoute = props => {
 
   const navItems = [
     {
-      title: "call",
+      title: "Call",
       path: "/voice_call"
     },
     {
-      title: "edit profile",
+      title: "Edit Profile",
       path: "/profile-form"
     },
     {
-      title: "update interests",
+      title: "Update Interests",
       path: "/interests"
     },
     {
-      title: "sign out",
+      title: "Sign Out",
       path: "/signin",
       onClick() {
         dispatch(logOut());

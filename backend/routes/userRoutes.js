@@ -1,5 +1,5 @@
 const express = require('express');
-const {registerUser, loginUser, authorizeUser, signoutUser, updateUser, addInterest, searchUser} = require('../controllers/userControllers');
+const {registerUser, loginUser, authorizeUser, userProfile,signoutUser, updateUser, addInterest, searchUser} = require('../controllers/userControllers');
 const { CreateLog, AddtoLog, GetUserFromLog} = require('../controllers/callControllers');
 const { LoggedInRequired } = require('../middlewares/authMiddleware');
 const router = express.Router();
@@ -9,6 +9,7 @@ router.route('/register').post(registerUser);
 router.route('/login').post(loginUser);
 router.route('/authorize').get(LoggedInRequired, authorizeUser);
 router.route('/logout').get(LoggedInRequired, signoutUser);
+router.route('/profile').get(LoggedInRequired, userProfile);
 router.route('/update_profile').patch(LoggedInRequired, updateUser);
 router.route('/add_interest').patch(LoggedInRequired, addInterest);
 router.route('/search').get(LoggedInRequired, searchUser);

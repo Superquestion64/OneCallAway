@@ -12,7 +12,7 @@ import { Link } from "react-scroll";
 const Navbar = ({ navItems = [] }) => {
   const renderNavItems = navItems.map(navItem => {
     const { title, path } = navItem;
-    if (title === "features") {
+    if (title === "Features") {
       return (
         <Link to={title} key={title} spy={true} smooth={true} duration={1000}>
           <Btn>{title}</Btn>
