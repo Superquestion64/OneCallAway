@@ -73,6 +73,7 @@ export const Icon = styled(ArrowForwardIosIcon)`
 // Used for spacing the buttons
 export const Indent = styled.div`
   height: 150px;
+  margin-left 6rem;
   margin-top: 3rem;
   text-align: center;
 `;

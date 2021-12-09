@@ -18,7 +18,7 @@ export const SignBtn = styled.button`
     0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
   color: ${({ c }) => c || "#fff"};
   cursor: pointer;
-  background-color: ${({ bgColor }) => bgColor || "#880e4f"};
+  background-color: ${({ bgColor }) => bgColor || "#393E46"};
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.75;
