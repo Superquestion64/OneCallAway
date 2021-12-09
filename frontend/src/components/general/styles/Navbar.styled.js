@@ -23,7 +23,7 @@ export const SiteLogo = styled.h1`
   flex-grow: 1;
   /* color: #b3e5fc; */
 
-  background: -webkit-linear-gradient(#EEEEEE 0%, #EEEEEE 100%);
+  background: -webkit-linear-gradient(#393E46 0%, #393E46 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

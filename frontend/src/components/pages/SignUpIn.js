@@ -73,7 +73,7 @@ const SignUpIn = ({ location }) => {
       <Container
         p="10rem 4rem"
         mh="100vh"
-        bgColor="rgba(224, 247, 250, 0.8)"
+        bgColor="#393E46"
         h="60%">
         <Flex bgColor="#00ADB5" h="75vh" br="6rem">
           <FlexItem fg="1" h="75vh">

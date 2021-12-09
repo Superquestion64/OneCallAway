@@ -63,7 +63,7 @@ const Landing = () => {
       <LandingImage>
         <LandingInner>
           <FlexCentered>
-            <Title fs="10">One Call Away</Title>
+            <Title fs="10rem">One Call Away</Title>
             <Subtitle>
               Connect with friends and families efficiently: Anytime | Anywhere
             </Subtitle>
@@ -85,7 +85,7 @@ const Landing = () => {
       </LandingImage>
       <Container bgColor="#AAD8D3" c="white" h="30rem" p="5rem 0rem 2rem 0rem">
         <Section2>
-          <div style={{ textAlign: "center" }}>
+          <Indent>
             <StyledLink to="/voice_call">
               <Btn
                 hoverColor="#00ADB5"
@@ -99,7 +99,7 @@ const Landing = () => {
                 Join a Call
               </Btn>
             </StyledLink>
-          </div>
+          </Indent>
         </Section2>
       </Container>
       <Section bgColor="#00ADB5">
