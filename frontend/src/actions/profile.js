@@ -1,6 +1,6 @@
 import user from "../api/user";
 import { GET_PROFILE, UPDATE_PROFILE, UPDATE_INTERESTS } from "./types";
-import { successFlag } from "../notification";
+import { successFlag, errorFlag } from "../notification";
 
 export const getProfile = () => async dispatch => {
   try {

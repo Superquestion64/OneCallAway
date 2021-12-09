@@ -30,7 +30,6 @@ const ProfileForm = () => {
     dispatch(getProfile());
   }, [dispatch]);
 
-  console.log(profile);
   return (
     <Container p="10rem 4rem" mh="100vh" bgColor="#6B4F4F">
       <FlexCentered bgColor="#EED6C4" h="75vh" br="2rem">
@@ -49,7 +48,7 @@ const ProfileForm = () => {
               <Title fs="3rem">Edit Profile</Title>
               <StyledForm>
                 <Flex fd="column" ai="center">
-                  <TextField label="Email Address" name="email" type="email" />
+                  <TextField label={profile.email} name="email" type="email" />
                   <TextField
                     name="password"
                     label="Password"
