@@ -40,12 +40,12 @@ export const Section = styled.div`
 
 export const Section2 = styled.div`
   height: 80%;
-  width: 80%;
+  width: 50%;
   margin-left: 10%;
   text-align: center;
-  background-color: #3F0071;
+  background-color: #393E46;
   border: solid;
-  border-color: #2B2B2B;
+  border-color: #AAD8D3;
   border-radius: 6rem;
 `;
 
@@ -83,7 +83,7 @@ export const Indent = styled.div`
 // Review section
 export const ReviewSection = styled.div`
   height: 12rem;
-  background-color: #e3f2fd;
+  background-color: #393E46;
   padding: 0 3rem;
   width: 60%;
   margin-top: -3rem;
@@ -95,6 +95,7 @@ export const Stars = styled.h5`
 
 export const Review = styled.div`
   text-align: center;
+  color: "#EEEEEE"
 `;
 
 export const Reviewer = styled.h5`
