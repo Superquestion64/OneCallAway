@@ -20,7 +20,13 @@ const InterestForm = () => {
   // renders all of the user's interest
   const renderInterests = interests.map((interest, i) => {
     return (
-      <TextField key={i} label={interest} disabled={true} name={interest} />
+      <TextField
+        key={i}
+        label={interest}
+        InputLabelProps={{ required: false }}
+        disabled={true}
+        name={interest}
+      />
     );
   });
 
