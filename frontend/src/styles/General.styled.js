@@ -23,7 +23,7 @@ export const Title = styled.div`
   margin: ${({ m }) => m || "3.5rem 0"};
   text-decoration: ${({ td }) => td || "none"};
   text-align: center;
-  color: ${({ c }) => c || "#00ADB5"};
+  color: ${({ c }) => c || "#393E46"};
 `;
 
 export const Text = styled.div`

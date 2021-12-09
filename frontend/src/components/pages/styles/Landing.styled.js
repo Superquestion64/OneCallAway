@@ -39,7 +39,7 @@ export const Section = styled.div`
 //Button Section
 
 export const Section2 = styled.div`
-  height: 80%;
+  height: 50%;
   width: 80%;
   margin-left: 10%;
   text-align: center;
@@ -87,6 +87,7 @@ export const ReviewSection = styled.div`
   padding: 0 3rem;
   width: 60%;
   margin-top: -3rem;
+  margin-bottom: -3rem;
   border: solid;
   border-radius: 6rem;
 `;
