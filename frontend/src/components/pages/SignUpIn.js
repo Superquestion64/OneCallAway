@@ -75,7 +75,7 @@ const SignUpIn = ({ location }) => {
         mh="100vh"
         bgColor="rgba(224, 247, 250, 0.8)"
         h="60%">
-        <Flex bgColor="#f3e5f5" h="75vh" br="6rem">
+        <Flex bgColor="#00ADB5" h="75vh" br="6rem">
           <FlexItem fg="1" h="75vh">
             <Image pathname={path === "/signup" ? true : false} />
           </FlexItem>

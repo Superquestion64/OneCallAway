@@ -22,6 +22,7 @@ export const Title = styled.div`
   font-size: ${({ fs }) => fs || "8rem"};
   margin: ${({ m }) => m || "3.5rem 0"};
   text-decoration: ${({ td }) => td || "none"};
+  text-align: center;
 `;
 
 export const Text = styled.div`

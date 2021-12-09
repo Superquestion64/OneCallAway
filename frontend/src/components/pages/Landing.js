@@ -7,7 +7,7 @@ import {
   Divider,
   FlexCentered,
   StyledLink,
-  Title
+  Title,
 } from "../../styles/General.styled";
 import Navbar from "../general/Navbar";
 import {
@@ -24,11 +24,11 @@ import {
   Subtitle,
   Indent,
   Section2,
-  SectionContainer
+  SectionContainer,
 } from "./styles/Landing.styled";
 
-const Landing = () => {  
-  const { isAuthenticated } = useSelector(state => state.user);
+const Landing = () => {
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
@@ -37,19 +37,19 @@ const Landing = () => {
   const navItems = [
     {
       title: "Features",
-      path: ""
+      path: "",
     },
     {
       title: "Get Chrome Extension",
-      path: "/"
+      path: "/",
     },
     {
       title: "Sign In",
-      path: "/signin"
-    }
+      path: "/signin",
+    },
   ];
 
-  const genFeature = feature => {
+  const genFeature = (feature) => {
     return (
       <Feature>
         <Icon />
@@ -63,68 +63,48 @@ const Landing = () => {
       <LandingImage>
         <LandingInner>
           <FlexCentered>
-            <Title>One Call Away</Title>
+            <Title fs="10">One Call Away</Title>
             <Subtitle>
-              Connect with friends and families anytime, anywhere
+              Connect with friends and families efficiently: Anytime | Anywhere
             </Subtitle>
-			<StyledLink to="/signup">
+            <StyledLink to="/signup">
               <Btn
-                hoverColor="#3F0071"
+                hoverColor="#AAD8D3"
                 br="1.8rem"
                 fs="2rem"
                 m="3.5rem 0 0 0"
-                bgColor="#3F0071"
+                bgColor="#00ADB5"
                 p="0.8rem 1.5rem"
-                boxShadowColor="#fff">
+                boxShadowColor="#EEEEEE"
+              >
                 Sign Up
               </Btn>
             </StyledLink>
           </FlexCentered>
         </LandingInner>
       </LandingImage>
-	  <Container 
-	    bgColor = "#171010"
-		c = "white"
-		h = "30rem"
-		p="5rem 0rem 2rem 0rem">
-	  <Section2>
-		<Indent>
-		  <StyledLink to="/voice_call">
-            <Btn
-              hoverColor="#00ADB5"
-              br="2rem"
-              fs="3rem"
-              m="2.5rem 5rem 0rem 15rem"
-              bgColor="#00ADB5"
-              p="2rem 3rem"
-              boxShadowColor="#fff">
-              Join a Call
-            </Btn>
-          </StyledLink>
-		</Indent>
-		<Indent bgColor = "#F0F8FF">
-		  <Title fs="2.5rem" m="5rem 0">Or</Title>
-		</Indent>
-		<Indent bgColor = "#F0F8FF">
-		  <StyledLink to="/chat">
-            <Btn
-              hoverColor="#B85252"
-              br="1.8rem"
-              fs="3rem"
-              m="2.5rem 0rem 0rem 5rem"
-              bgColor="#B85252"
-              p="2rem 3rem"
-              boxShadowColor="#fff">
-              Chat with friends
-            </Btn>
-          </StyledLink>
-		</Indent>
-	  </Section2>
-	  </Container>
-      <Section bgColor="#fffde7">
-
+      <Container bgColor="#AAD8D3" c="white" h="30rem" p="5rem 0rem 2rem 0rem">
+        <Section2>
+          <div style={{ textAlign: "center" }}>
+            <StyledLink to="/voice_call">
+              <Btn
+                hoverColor="#00ADB5"
+                br="2rem"
+                fs="3rem"
+                m="2.5rem 5rem 0rem 15rem"
+                bgColor="#00ADB5"
+                p="2rem 3rem"
+                boxShadowColor="#EEEEEE"
+              >
+                Join a Call
+              </Btn>
+            </StyledLink>
+          </div>
+        </Section2>
+      </Container>
+      <Section bgColor="#00ADB5">
         <FlexCentered>
-          <Title fs="2.5rem" m="0 0 1rem 0">
+          <Title fs="3rem" m="0 0 1rem 0">
             Features
           </Title>
           <FeatureList name="Features">
@@ -134,9 +114,8 @@ const Landing = () => {
           </FeatureList>
         </FlexCentered>
       </Section>
-      <Divider />
 
-      <Section bgColor="#dcedc8" mb="1.1rem">
+      <Section bgColor="#AAD8D3" mb="1.1rem">
         <Title fs="2.5rem" m="1rem 0">
           What our users are saying...
         </Title>
