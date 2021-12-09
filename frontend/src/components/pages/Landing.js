@@ -14,20 +14,19 @@ import {
   Feature,
   FeatureList,
   Icon,
+  Indent,
   LandingImage,
   LandingInner,
   Review,
   Reviewer,
   ReviewSection,
   Section,
-  Stars,
-  Subtitle,
-  Indent,
   Section2,
-  SectionContainer
+  Stars,
+  Subtitle
 } from "./styles/Landing.styled";
 
-const Landing = () => {  
+const Landing = () => {
   const { isAuthenticated } = useSelector(state => state.user);
 
   if (isAuthenticated) {
@@ -67,7 +66,7 @@ const Landing = () => {
             <Subtitle>
               Connect with friends and families anytime, anywhere
             </Subtitle>
-			<StyledLink to="/signup">
+            <StyledLink to="/signup">
               <Btn
                 hoverColor="#3F0071"
                 br="1.8rem"
@@ -82,47 +81,44 @@ const Landing = () => {
           </FlexCentered>
         </LandingInner>
       </LandingImage>
-	  <Container 
-	    bgColor = "#171010"
-		c = "white"
-		h = "30rem"
-		p="5rem 0rem 2rem 0rem">
-	  <Section2>
-		<Indent>
-		  <StyledLink to="/voice_call">
-            <Btn
-              hoverColor="#00ADB5"
-              br="2rem"
-              fs="3rem"
-              m="2.5rem 5rem 0rem 15rem"
-              bgColor="#00ADB5"
-              p="2rem 3rem"
-              boxShadowColor="#fff">
-              Join a Call
-            </Btn>
-          </StyledLink>
-		</Indent>
-		<Indent bgColor = "#F0F8FF">
-		  <Title fs="2.5rem" m="5rem 0">Or</Title>
-		</Indent>
-		<Indent bgColor = "#F0F8FF">
-		  <StyledLink to="/chat">
-            <Btn
-              hoverColor="#B85252"
-              br="1.8rem"
-              fs="3rem"
-              m="2.5rem 0rem 0rem 5rem"
-              bgColor="#B85252"
-              p="2rem 3rem"
-              boxShadowColor="#fff">
-              Chat with friends
-            </Btn>
-          </StyledLink>
-		</Indent>
-	  </Section2>
-	  </Container>
+      <Container bgColor="#171010" c="white" h="30rem" p="5rem 0rem 2rem 0rem">
+        <Section2>
+          <Indent>
+            <StyledLink to="/voice_call">
+              <Btn
+                hoverColor="#00ADB5"
+                br="2rem"
+                fs="3rem"
+                m="2.5rem 5rem 0rem 15rem"
+                bgColor="#00ADB5"
+                p="2rem 3rem"
+                boxShadowColor="#fff">
+                Join a Call
+              </Btn>
+            </StyledLink>
+          </Indent>
+          <Indent bgColor="#F0F8FF">
+            <Title fs="2.5rem" m="5rem 0">
+              Or
+            </Title>
+          </Indent>
+          <Indent bgColor="#F0F8FF">
+            <StyledLink to="/chat">
+              <Btn
+                hoverColor="#B85252"
+                br="1.8rem"
+                fs="3rem"
+                m="2.5rem 0rem 0rem 5rem"
+                bgColor="#B85252"
+                p="2rem 3rem"
+                boxShadowColor="#fff">
+                Chat with friends
+              </Btn>
+            </StyledLink>
+          </Indent>
+        </Section2>
+      </Container>
       <Section bgColor="#fffde7">
-
         <FlexCentered>
           <Title fs="2.5rem" m="0 0 1rem 0">
             Features

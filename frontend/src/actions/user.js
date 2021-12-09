@@ -18,7 +18,6 @@ export const loadUser = () => async dispatch => {
       type: LOAD_USER,
       payload: data
     });
-    successFlag("Welcome to OCA!");
   } catch (err) {
     console.error(err);
     if (err.response) {
@@ -41,6 +40,7 @@ export const register = values => async dispatch => {
       payload: data
     });
     successFlag("Account created successfully");
+    successFlag("Welcome to OCA!");
     console.log("register data", data);
   } catch (err) {
     if (err.response) {
