@@ -3,6 +3,8 @@ const Call_Log = require('../models/calls');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
+const join = false;
+const joined = true;
 const CreateLog = asyncHandler(async(req,res)=> {
     const call_id = req.body.call_id;
     if (req.headers.authorization &&req.headers.authorization.startsWith("Bearer")) {
@@ -22,6 +24,7 @@ const CreateLog = asyncHandler(async(req,res)=> {
         if(call_id) {
             username = user.username;
             const call = await Call_Log.create({
+                join,
                 call_id,
             });
             call.usernames.push(user.username);
@@ -41,6 +44,7 @@ const CreateLog = asyncHandler(async(req,res)=> {
         if(call_id) {
             username = "Anonymous"
             const call = await Call_Log.create({
+                join,
                 call_id,
             });
             call.usernames.push(username);
@@ -82,6 +86,7 @@ const AddtoLog = asyncHandler(async(req,res)=> {
             if (Exist == null) {
                 //If user is not in call log already, add new user to the call_Log
                 Call.usernames.push(username);
+                Call.join = joined;
                 Call.save(function(err){
                 if(err){
                     console.log(err);
@@ -97,6 +102,7 @@ const AddtoLog = asyncHandler(async(req,res)=> {
     }
     else {
         Call.usernames.push("Anonymous");
+        Call.join = joined;
         Call.save(function(err){
             if(err){
                 console.log(err);
@@ -110,7 +116,8 @@ const AddtoLog = asyncHandler(async(req,res)=> {
 const GetUserFromLog = asyncHandler(async(req, res, next)=> {
     const userId = req.user._id;
     const user = await User.findById(userId);
-    const calls = await Call_Log.find({usernames:user.username}, '-_id').limit(10);
+    const calls = await Call_Log.find({usernames:user.username, join:true}, '-_id').limit(10);
+    console.log(calls);
     if (calls) {
         res.status(200).json(calls);
     }

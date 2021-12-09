@@ -206,6 +206,17 @@ const addInterest = asyncHandler(async(req, res) => {
     }
 });
 
+//Get the user interest
+const getInterest = asyncHandler(async(req,res)=>{
+    const user = await User.findById(req.user._id, '-_id tags');
+    if(user) {
+        res.status(200).json(user);
+    }
+    else {
+        res.status(404).send('User not logged in')
+    }
+});
+
 //Search for users with similar interests
 const searchUser = asyncHandler(async(req,res) => {
     //Change the search parameter to lowercase, and find the current user using provided token,
@@ -229,4 +240,4 @@ const searchUser = asyncHandler(async(req,res) => {
         res.status(404).send("User not logged in");
     }
 }); 
-module.exports={ registerUser, loginUser, userProfile, updateUser, authorizeUser, signoutUser, addInterest, searchUser};
+module.exports={ registerUser, loginUser, userProfile, updateUser, authorizeUser, signoutUser, getInterest, addInterest, searchUser};

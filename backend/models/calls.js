@@ -7,6 +7,10 @@ const CallSchema = new mongoose.Schema({
         unique: true,
         required: true,
     },
+    join: {
+        type: Boolean,
+        required:true,
+    },
     usernames:[
         String,
     ],
