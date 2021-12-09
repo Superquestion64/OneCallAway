@@ -5,7 +5,8 @@ export const StyledNavbar = styled.div`
   height: 4rem;
   background-image: linear-gradient(
     -225deg,
-    #AAD8D3 0%,
+    #00ADB5 0%,
+    #AAD8D3 49%,
     #00ADB5 100%
   );
 `;
@@ -23,7 +24,7 @@ export const SiteLogo = styled.h1`
   flex-grow: 1;
   /* color: #b3e5fc; */
 
-  background: -webkit-linear-gradient(#393E46 0%, #393E46 100%);
+  background: -webkit-linear-gradient(#00ADB5 0%, #00ADB5 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

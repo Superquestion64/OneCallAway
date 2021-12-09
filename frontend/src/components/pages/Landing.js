@@ -102,8 +102,8 @@ const Landing = () => {
           </Indent>
         </Section2>
       </Container>
-      <Section bgColor="#00ADB5">
-        <FlexCentered>
+      <Section bgColor="#AAD8D3">
+        <FlexCentered bgColor="00ADB5">
           <Title fs="3rem" m="0 0 1rem 0">
             Features
           </Title>
@@ -115,7 +115,7 @@ const Landing = () => {
         </FlexCentered>
       </Section>
 
-      <Section bgColor="#AAD8D3" mb="1.1rem">
+      <Section bgColor="#AAD8D3">
         <Title fs="2.5rem" m="1rem 0">
           What our users are saying...
         </Title>

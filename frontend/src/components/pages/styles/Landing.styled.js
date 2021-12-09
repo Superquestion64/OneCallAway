@@ -43,7 +43,7 @@ export const Section2 = styled.div`
   width: 80%;
   margin-left: 10%;
   text-align: center;
-  background-color: #393E46;
+  background-color: #00ADB5;
   border: solid;
   border-color: #AAD8D3;
   border-radius: 6rem;
@@ -73,7 +73,6 @@ export const Icon = styled(ArrowForwardIosIcon)`
 // Used for spacing the buttons
 export const Indent = styled.div`
   height: 150px;
-  margin-left: 6rem;
   margin-top: 3rem;
   text-align: center;
 `;
