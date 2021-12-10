@@ -1,7 +1,7 @@
 import { Formik } from "formik";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { updateInterests } from "../../../actions/profile";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateInterests, getInterests } from "../../../actions/profile";
 import {
   Btn,
   Container,
@@ -15,8 +15,20 @@ import {
 
 const InterestForm = () => {
   const dispatch = useDispatch();
-  const [interests, setInterest] = useState([]);
+  const interestsList = useSelector(state => state.profile.interests);
+  const [interests, setInterests] = useState([]);
   const [currentInput, setCurrentInput] = useState("");
+
+  useEffect(() => {
+    dispatch(getInterests());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (interestsList && interestsList.length) {
+      setInterests(interestsList);
+    }
+  }, [interestsList]);
+
   // renders all of the user's interest
   const renderInterests = interests.map((interest, i) => {
     return (
@@ -32,7 +44,7 @@ const InterestForm = () => {
 
   const addInterest = () => {
     if (!currentInput) return;
-    setInterest([...interests, currentInput]);
+    setInterests([...interests, currentInput]);
     setCurrentInput("");
   };
 
@@ -48,6 +60,7 @@ const InterestForm = () => {
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
               dispatch(updateInterests(interests));
+
               setSubmitting(false);
             }, 1500);
           }}>
