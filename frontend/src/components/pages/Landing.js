@@ -72,11 +72,11 @@ const Landing = () => {
             <StyledLink to="/signup">
               <Btn
                 hoverColor="#AAD8D3"
-                br="1.8rem"
-                fs="2rem"
-                m="3.5rem 0 0 0"
+                br="2rem"
+                fs="3rem"
+                m="3"
                 bgColor="#00ADB5"
-                p="0.8rem 1.5rem"
+                p="1rem 2rem"
                 boxShadowColor="#EEEEEE">
                 Sign Up
               </Btn>
@@ -94,7 +94,7 @@ const Landing = () => {
                 fs="3rem"
                 bgColor="#AAD8D3"
                 p="2rem 3rem"
-                boxShadowColor="#AAD8D3"
+                boxShadowColor="#EEEEEE"
                 border="solid"
                 m="1.3rem"
                 c="#00ADB5"

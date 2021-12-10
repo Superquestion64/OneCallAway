@@ -87,6 +87,7 @@ export const ReviewSection = styled.div`
   width: 60%;
   border-color: "#AAD8D3";
   border-radius: 6rem;
+  min-width: 528px;
 `;
 
 export const Stars = styled.h5`

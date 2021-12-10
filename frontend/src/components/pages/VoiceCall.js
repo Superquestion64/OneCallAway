@@ -9,6 +9,7 @@ import Peer from "simple-peer";
 import io from "socket.io-client";
 import "./styles/App.css";
 import user from "../../api/user";
+import Navbar from "../general/Navbar";
 
 // let socket;
 
@@ -156,8 +157,24 @@ function VoiceCall() {
     })
   };
 
+  const navItems = [
+    {
+      title: "Features",
+      path: ""
+    },
+    {
+      title: "Get Chrome Extension",
+      path: "/"
+    },
+    {
+      title: "Sign In",
+      path: "/signin"
+    }
+  ];
+
   return (
     <div className="vc_bg_color">
+      <Navbar navItems={navItems} />
       <br></br>
       <h1 style={{ textAlign: "center", color: "#EEEEEE", fontSize: "70px" }}>
         One Call Away
