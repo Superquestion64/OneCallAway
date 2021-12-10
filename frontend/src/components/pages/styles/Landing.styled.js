@@ -47,7 +47,7 @@ export const Section2 = styled.div`
   border: solid;
   border-color: #AAD8D3;
   border-radius: 6rem;
-  min-width: 336px;
+  min-width: 793px;
 `;
 
 // Features
