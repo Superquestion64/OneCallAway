@@ -22,7 +22,7 @@ export const getProfile = () => async dispatch => {
 //update profile
 export const updateProfile = formData => async dispatch => {
   try {
-    const res = await user.patch("/profile/update_profile", formData);
+    const res = await user.patch("/update_profile", formData);
     successFlag("profile updated successfully");
     dispatch({
       type: UPDATE_PROFILE,
