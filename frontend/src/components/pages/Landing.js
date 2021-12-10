@@ -98,6 +98,7 @@ const Landing = () => {
                 boxShadowColor="#AAD8D3"
                 border="solid"
                 color="#00ADB5"
+                m="1rem"
               >
                 Join a Call
               </Btn>
@@ -118,7 +119,7 @@ const Landing = () => {
         </FlexCentered>
       </Section>
 
-      <Section bgColor="#AAD8D3" mb="1rem">
+      <Section bgColor="#AAD8D3">
         <Title fs="2.5rem" m="1rem 0">
           What our users are saying...
         </Title>

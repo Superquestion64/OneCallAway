@@ -82,7 +82,7 @@ export const Indent = styled.div`
 export const ReviewSection = styled.div`
   height: 12rem;
   background-color: #00ADB5;
-  padding: 0 3rem;
+  padding: 3rem 3rem;
   width: 60%;
   margin-top: -3rem;
   border: solid;
