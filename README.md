@@ -2,11 +2,11 @@
 
 ## Authors:
 
-### [Doylan Mihov](github.com/BDDoylan)
-### [Zhi Dong Dong](github.com/ZhiDong02134)
-### [Sabrina Chen](github.com/Sabrina76)
-### [Shihab Islam](github.com/ShihabIslam789)
-### [Charles Vega](github.com/Superquestion64)
+### [Doylan Mihov](https://github.com/BDDoylan)
+### [Zhi Dong Dong](https://github.com/ZhiDong02134)
+### [Sabrina Chen](https://github.com/Sabrina76)
+### [Shihab Islam](https://github.com/ShihabIslam789)
+### [Charles Vega](https://github.com/Superquestion64)
 
 ## Goal:
 
