@@ -7,6 +7,5 @@ export const Wrapper = styled.div`
   min-height: ${({ mh }) => mh || ""};
   position: relative;
   padding: ${({ p }) => p || ""};
-  background-color: ${({ bgColor }) => bgColor || "#fff"};
-  background-image: ${({ theme }) => theme.bg.dashboard || "linear-gradient(to top, #AAD8D3 45%, #AAD8D3 1%, #00ADB5 100%)"};
+  background-color: ${({ bgColor }) => bgColor || "#00ADB5"};
 `;

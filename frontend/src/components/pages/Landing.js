@@ -22,7 +22,6 @@ import {
   Section2,
   Stars,
   Subtitle,
-  Indent
 } from "./styles/Landing.styled";
 
 const Landing = () => {
@@ -69,6 +68,8 @@ const Landing = () => {
             <Subtitle>
               Connect with friends and families efficiently: Anytime | Anywhere
             </Subtitle>
+            <br></br>
+            <br></br>
             <StyledLink to="/signup">
               <Btn
                 hoverColor="#AAD8D3"

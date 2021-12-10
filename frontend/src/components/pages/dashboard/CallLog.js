@@ -53,13 +53,13 @@ const CallLog = () => {
   ));
 
   return (
-    <>
+    <div style={{backgroundColor:"#00ADB5", width:"100%", height:"100vh"}}>
       {callLog.length ? (
         renderCallLog
       ) : (
         <Text fs="2rem">No calls made yet</Text>
       )}
-    </>
+    </div>
   );
 };
 
