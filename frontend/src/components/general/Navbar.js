@@ -19,13 +19,15 @@ const Navbar = ({ navItems = [] }) => {
     if (title === "Features") {
       return (
         <Link to={title} key={title} spy={true} smooth={true} duration={1000}>
-          <Btn>{title}</Btn>
+          <Btn c="#00ADB5" fs="1rem">{title}</Btn>
         </Link>
       );
     }
     return (
       <StyledLink to={path} key={title}>
         <Btn
+          c="#00ADB5" 
+          fs="1rem"
           onClick={() =>
             typeof navItem.onClick === "function" ? navItem.onClick() : null
           }>

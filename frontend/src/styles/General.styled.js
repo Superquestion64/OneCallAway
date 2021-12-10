@@ -23,6 +23,7 @@ export const Title = styled.div`
   margin: ${({ m }) => m || "3.5rem 0"};
   text-decoration: ${({ td }) => td || "none"};
   text-align: center;
+  color: ${({ c }) => c || "#393E46"};
 `;
 
 export const Text = styled.div`
@@ -94,6 +95,7 @@ export const FlexCentered = styled.div`
   padding: ${({ p }) => p || ""};
   background-color: ${({ bgColor }) => bgColor || ""};
   border-radius: ${({ br }) => br || ""};
+  margin-left: ${({ ml }) => ml || ""}
 `;
 
 export const Flex = styled.div`

@@ -41,9 +41,9 @@ export const Section = styled.div`
 export const Section2 = styled.div`
   height: 80%;
   width: 50%;
-  margin-left: 10%;
+  margin-left: 25%;
   text-align: center;
-  background-color: #393E46;
+  background-color: #00ADB5;
   border: solid;
   border-color: #AAD8D3;
   border-radius: 6rem;
@@ -72,10 +72,8 @@ export const Icon = styled(ArrowForwardIosIcon)`
 
 // Used for spacing the buttons
 export const Indent = styled.div`
-  float: left;
   height: 150px;
-  margin-left: 6rem;
-  margin-top: 3rem;
+  text-align: center;
 `;
 
 
@@ -83,22 +81,25 @@ export const Indent = styled.div`
 // Review section
 export const ReviewSection = styled.div`
   height: 12rem;
-  background-color: #393E46;
-  padding: 0 3rem;
+  background-color: #00ADB5;
+  padding: 3rem 3rem;
   width: 60%;
   margin-top: -3rem;
+  border: solid;
+  border-color: "#AAD8D3";
+  border-radius: 6rem;
 `;
 
 export const Stars = styled.h5`
   letter-spacing: 0.1rem;
 `;
 
-export const Review = styled.div`
+export const Review = styled.h3`
   text-align: center;
-  color: "#EEEEEE"
+  color: "EEEEEE";
 `;
 
 export const Reviewer = styled.h5`
-  color: "#e0e0e0";
+  color: "#EEEEEE";
   text-decoration: none;
 `;

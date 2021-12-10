@@ -21,7 +21,8 @@ import {
   Section,
   Section2,
   Stars,
-  Subtitle
+  Subtitle,
+  Indent
 } from "./styles/Landing.styled";
 
 const Landing = () => {
@@ -60,7 +61,11 @@ const Landing = () => {
       <LandingImage>
         <LandingInner>
           <FlexCentered>
-            <Title fs="10">One Call Away</Title>
+            <Title c="#00ADB5" fs="10rem">
+              One Call Away
+            </Title>
+            <br></br>
+            <br></br>
             <Subtitle>
               Connect with friends and families efficiently: Anytime | Anywhere
             </Subtitle>
@@ -79,27 +84,29 @@ const Landing = () => {
           </FlexCentered>
         </LandingInner>
       </LandingImage>
-      <Container bgColor="#AAD8D3" c="white" h="30rem" p="5rem 0rem 2rem 0rem">
+      <Container bgColor="#AAD8D3" c="white" h="20rem" p="5rem 0rem 2rem 0rem">
         <Section2>
-          <div style={{ textAlign: "center" }}>
+          <Indent>
             <StyledLink to="/voice_call">
               <Btn
-                hoverColor="#00ADB5"
+                hoverColor="#AAD8D3"
                 br="2rem"
                 fs="3rem"
-                m="2.5rem 5rem 0rem 15rem"
-                bgColor="#00ADB5"
+                bgColor="#AAD8D3"
                 p="2rem 3rem"
-                boxShadowColor="#EEEEEE">
+                boxShadowColor="#AAD8D3"
+                border="solid"
+                color="#00ADB5"
+                m="1rem">
                 Join a Call
               </Btn>
             </StyledLink>
-          </div>
+          </Indent>
         </Section2>
       </Container>
-      <Section bgColor="#00ADB5">
-        <FlexCentered>
-          <Title fs="3rem" m="0 0 1rem 0">
+      <Section bgColor="#AAD8D3">
+        <FlexCentered bgColor="#00ADB5" w="30%" ml="35%" br="6rem">
+          <Title c="#393E46" fs="3rem" m="0 0 1rem 0">
             Features
           </Title>
           <FeatureList name="Features">
@@ -110,7 +117,7 @@ const Landing = () => {
         </FlexCentered>
       </Section>
 
-      <Section bgColor="#AAD8D3" mb="1.1rem">
+      <Section bgColor="#AAD8D3">
         <Title fs="2.5rem" m="1rem 0">
           What our users are saying...
         </Title>
