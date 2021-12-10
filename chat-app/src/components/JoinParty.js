@@ -19,7 +19,8 @@ export default props => {
 				style={{
 					height: "90vh",
 					position: "relative",
-					zIndex: "10"
+					zIndex: "10",
+					backgroundColor: "rgb(170, 216, 211)"
 				}}
 				display="flex"
 				alignItems="center"
@@ -31,7 +32,7 @@ export default props => {
 						padding: 35,
 						boxShadow: "0px 10px 35px -4px rgba(0,0,0,0.15)",
 						borderRadius: 10,
-						backgroundColor: "white"
+						backgroundColor: "rgb(170, 216, 211)"
 					}}
 				>
 					<Grid container>

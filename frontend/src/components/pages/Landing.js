@@ -6,7 +6,7 @@ import {
   Container,
   FlexCentered,
   StyledLink,
-  Title
+  Title,
 } from "../../styles/General.styled";
 import Navbar from "../general/Navbar";
 import {
@@ -25,7 +25,7 @@ import {
 } from "./styles/Landing.styled";
 
 const Landing = () => {
-  const { isAuthenticated } = useSelector(state => state.user);
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
@@ -34,19 +34,19 @@ const Landing = () => {
   const navItems = [
     {
       title: "Features",
-      path: ""
+      path: "",
     },
     {
       title: "Get Chrome Extension",
-      path: "/"
+      path: "/",
     },
     {
       title: "Sign In",
-      path: "/signin"
-    }
+      path: "/signin",
+    },
   ];
 
-  const genFeature = feature => {
+  const genFeature = (feature) => {
     return (
       <Feature>
         <Icon />
@@ -78,7 +78,8 @@ const Landing = () => {
                 m="2rem"
                 bgColor="#00ADB5"
                 p="1rem 2rem"
-                boxShadowColor="#EEEEEE">
+                boxShadowColor="#EEEEEE"
+              >
                 Sign Up
               </Btn>
             </StyledLink>
@@ -87,7 +88,7 @@ const Landing = () => {
       </LandingImage>
       <Container bgColor="#AAD8D3" c="white" h="20rem" p="5rem 0rem 2rem 0rem">
         <Section2>
-          <FlexCentered>
+          <FlexCentered fw="wrap">
             <StyledLink to="/voice_call">
               <Btn
                 hoverColor="#00ADB5"
@@ -99,15 +100,11 @@ const Landing = () => {
                 border="solid"
                 m="1.3rem"
                 c="#00ADB5"
-                >
+              >
                 Join a Call
               </Btn>
             </StyledLink>
-          </FlexCentered>
-        </Section2>
-		<Section2>
-          <FlexCentered>
-            <StyledLink to="/chat-app">
+            <a href = "https://chat-app-63eec.web.app/">
               <Btn
                 hoverColor="#00ADB5"
                 br="2rem"
@@ -118,10 +115,10 @@ const Landing = () => {
                 border="solid"
                 m="1.3rem"
                 c="#00ADB5"
-                >
-                Join a chat room
+              >
+                Join a Chat Room
               </Btn>
-            </StyledLink>
+            </a>
           </FlexCentered>
         </Section2>
       </Container>
@@ -139,23 +136,23 @@ const Landing = () => {
       </Section>
 
       <Section bgColor="#AAD8D3">
-          <ReviewSection>
-            <FlexCentered>
-              <Title fs="2rem" m="1rem 0">
-                What our users are saying...
-              </Title>
-              <Stars>
-                <span role="img" aria-label="star">
-                  ⭐ ⭐ ⭐ ⭐ ⭐
-                </span>
-              </Stars>
-              <Review>
-                This site makes it crazy easy for me to hop in a call with my
-                bros during a game. What a revolutionary product!
-              </Review>
-              <Reviewer>- John Doe</Reviewer>
-            </FlexCentered>
-          </ReviewSection>
+        <ReviewSection>
+          <FlexCentered>
+            <Title fs="2rem" m="1rem 0">
+              What our users are saying...
+            </Title>
+            <Stars>
+              <span role="img" aria-label="star">
+                ⭐ ⭐ ⭐ ⭐ ⭐
+              </span>
+            </Stars>
+            <Review>
+              This site makes it crazy easy for me to hop in a call with my bros
+              during a game. What a revolutionary product!
+            </Review>
+            <Reviewer>- John Doe</Reviewer>
+          </FlexCentered>
+        </ReviewSection>
       </Section>
     </Container>
   );

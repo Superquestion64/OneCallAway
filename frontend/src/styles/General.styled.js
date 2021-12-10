@@ -40,7 +40,7 @@ export const TextField = styled(FormikTextField)`
 
 // Styled button
 export const Btn = styled.button`
-  display: inline-block;
+  display: inline;
   color: ${({ c }) => c || "#fff"};
   cursor: pointer;
   border-radius: ${({ br }) => br || ".6rem"};
@@ -92,12 +92,13 @@ export const FlexCentered = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  display: flex;
+  display: ${({dis}) => dis || "flex"};
   margin: ${({ m }) => m || ""};
   padding: ${({ p }) => p || ""};
   background-color: ${({ bgColor }) => bgColor || ""};
   border-radius: ${({ br }) => br || ""};
   margin-left: ${({ ml }) => ml || ""}
+  flex-wrap: ${({fw}) => fw || ""}
 `;
 
 export const Flex = styled.div`

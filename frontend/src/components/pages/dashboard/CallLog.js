@@ -39,7 +39,8 @@ const CallLog = () => {
   const renderCallLog = callLog.map(({ call_id, usernames }) => (
     <Accordion
       sx={{
-        width: "60vw"
+        width: "60vw",
+        backgroundColor: "#AAD8D3"
       }}
       key={call_id}>
       <AccordionSummary
