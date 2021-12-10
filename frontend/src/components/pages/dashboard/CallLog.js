@@ -41,23 +41,17 @@ const CallLog = () => {
     <Accordion
       sx={{
         width: "60vw",
-        margin: "0 auto"
+        margin: "0 auto",
+        backgroundColor: "#AAD8D3"
       }}
       key={call_id}>
       <AccordionSummary
-        sx={{
-          margin: "0 auto"
-        }}
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header">
         <p>{"ID: " + call_id}</p>
       </AccordionSummary>
-      <AccordionDetails
-        sx={{
-          margin: "0 auto"
-        }}
-      >{renderCallMembers(usernames)}</AccordionDetails>
+      <AccordionDetails>{renderCallMembers(usernames)}</AccordionDetails>
     </Accordion>
   ));
 
