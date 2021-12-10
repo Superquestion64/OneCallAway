@@ -159,14 +159,6 @@ function VoiceCall() {
 
   const navItems = [
     {
-      title: "Features",
-      path: ""
-    },
-    {
-      title: "Get Chrome Extension",
-      path: "/"
-    },
-    {
       title: "Sign In",
       path: "/signin"
     }

@@ -43,6 +43,6 @@ export const SignBtn = styled.button`
   width: 70%;
 
   &:hover {
-    background-color: rgba(233, 30, 99, 0.6);
+    background-color: #00ADB5;
   }
 `;

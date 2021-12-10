@@ -52,8 +52,8 @@ const InterestForm = () => {
     setCurrentInput(e.target.value);
   };
   return (
-    <Container p="10rem 4rem" mh="100vh" bgColor="#D3E4CD">
-      <FlexCentered bgColor="#F2DDC1" h="75vh" br="2rem">
+    <Container p="10rem 4rem" mh="100vh" bgColor="#00ADB5">
+      <FlexCentered bgColor="#AAD8D3" h="75vh" br="2rem">
         <Formik
           initialValues={interests}
           novalidate
@@ -81,24 +81,24 @@ const InterestForm = () => {
                   </FlexItem>
                   <Flex fd="column" ai="center">
                     <Btn
-                      hoverColor="#99A799"
+                      hoverColor="#EEEEEE"
                       fs="1.6rem"
                       m="2rem 0 0 0"
-                      bgColor="#99A799"
+                      bgColor="#00ADB5"
                       p="0.8rem 1.5rem"
-                      boxShadowColor="#fff"
+                      boxShadowColor="#393E46"
                       variant="contained"
                       onClick={addInterest}
                       type="button">
                       Add Interest
                     </Btn>
                     <Btn
-                      hoverColor="#E2C2B9"
+                      hoverColor="#EEEEEE"
                       fs="1.6rem"
                       m="2rem 0 0 0"
-                      bgColor="#E2C2B9"
+                      bgColor="#00ADB5"
                       p="0.8rem 1.5rem"
-                      boxShadowColor="#fff"
+                      boxShadowColor="#393E46"
                       type="submit"
                       variant="contained"
                       disabled={isSubmitting}>

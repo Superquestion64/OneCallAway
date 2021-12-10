@@ -31,8 +31,8 @@ const ProfileForm = () => {
   }, [dispatch]);
 
   return (
-    <Container p="10rem 4rem" mh="100vh" bgColor="#6B4F4F">
-      <FlexCentered bgColor="#EED6C4" h="75vh" br="2rem">
+    <Container p="10rem 4rem" mh="100vh" bgColor="#600ADB5">
+      <FlexCentered bgColor="#AAD8D3" h="75vh" br="2rem">
         <Formik
           initialValues={initialValues}
           validationSchema={profileSchema}
@@ -68,13 +68,13 @@ const ProfileForm = () => {
                     }}
                   />
                   <Btn
-                    hoverColor="#483434"
+                    hoverColor="#EEEEEE"
                     br="1.8rem"
                     fs="1.6rem"
                     m="6rem 0 0 0"
-                    bgColor="#483434"
+                    bgColor="#00ADB5"
                     p="0.8rem 1.5rem"
-                    boxShadowColor="#fff"
+                    boxShadowColor="#393E46"
                     type="submit"
                     variant="contained"
                     disabled={isSubmitting}>

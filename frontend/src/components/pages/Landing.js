@@ -74,7 +74,7 @@ const Landing = () => {
                 hoverColor="#AAD8D3"
                 br="2rem"
                 fs="3rem"
-                m="3"
+                m="2rem"
                 bgColor="#00ADB5"
                 p="1rem 2rem"
                 boxShadowColor="#EEEEEE">
