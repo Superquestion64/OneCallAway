@@ -98,7 +98,7 @@ export default props => {
 								borderRadius: 8
 							}}
 						>
-							Join up !
+							Let's party !
 						</Button>
 					</Link>
 				</Box>
