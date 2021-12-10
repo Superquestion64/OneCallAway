@@ -6,11 +6,11 @@ Enter any username you want! Make sure your friend joins the same room as you. A
 - Join the chat room Africa and now you'll be able to chat
 - Have your friends join the same chat room, Africa, you'll all be able to speak together!
 
-## Launching Chat App for Devolopment
+## Launching Chat App for Development
 
 Once switching to chat-app folder <br>
 To start the application just do: <br>
 **npm start**  <br>
 
-Devolpment mode should begin as normal!
+Development mode should begin as normal!
 
