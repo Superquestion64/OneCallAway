@@ -7,6 +7,7 @@ import {
   FlexCentered,
   StyledLink,
   Title,
+  FlexCenteredBut
 } from "../../styles/General.styled";
 import Navbar from "../general/Navbar";
 import {
@@ -88,7 +89,7 @@ const Landing = () => {
       </LandingImage>
       <Container bgColor="#AAD8D3" c="white" h="30rem" p="5rem 0rem 0rem 0rem">
         <Section2>
-          <FlexCentered>
+          <FlexCenteredBut>
             <StyledLink to="/voice_call">
               <Btn
                 hoverColor="#00ADB5"
@@ -119,7 +120,7 @@ const Landing = () => {
                 Join a Chat Room
               </Btn>
             </a>
-          </FlexCentered>
+          </FlexCenteredBut>
         </Section2>
       </Container>
       <Section bgColor="#AAD8D3">

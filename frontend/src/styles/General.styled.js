@@ -100,6 +100,21 @@ export const FlexCentered = styled.div`
   margin-left: ${({ ml }) => ml || ""}
 `;
 
+export const FlexCenteredBut = styled.div`
+  height: ${({ h }) => h || "100%"};
+  width: ${({ w }) => w || "100%"};
+  min-width: ${({ mw }) => mw || ""};
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: ${({ m }) => m || ""};
+  padding: ${({ p }) => p || ""};
+  background-color: ${({ bgColor }) => bgColor || ""};
+  border-radius: ${({ br }) => br || ""};
+  flex-wrap: wrap;
+`;
+
 export const Flex = styled.div`
   margin: ${({ m }) => m || 0};
   background-color: ${({ bgColor }) => bgColor || ""};
