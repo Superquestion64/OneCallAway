@@ -86,7 +86,7 @@ const Landing = () => {
       </LandingImage>
       <Container bgColor="#AAD8D3" c="white" h="20rem" p="5rem 0rem 2rem 0rem">
         <Section2>
-          <Indent>
+          <FlexCentered>
             <StyledLink to="/voice_call">
               <Btn
                 hoverColor="#00ADB5"
@@ -102,11 +102,11 @@ const Landing = () => {
                 Join a Call
               </Btn>
             </StyledLink>
-          </Indent>
+          </FlexCentered>
         </Section2>
       </Container>
       <Section bgColor="#AAD8D3">
-        <FlexCentered bgColor="#00ADB5" w="30%" ml="35%" br="6rem" mw="396">
+        <FlexCentered bgColor="#00ADB5" w="30%" ml="35%" br="6rem" mw="396px">
           <Title c="#393E46" fs="3rem" m="0 0 1rem 0">
             Features
           </Title>
