@@ -92,6 +92,7 @@ export const ReviewSection = styled.div`
 
 export const Stars = styled.h5`
   letter-spacing: 0.1rem;
+  margin: 0.1rem;
 `;
 
 export const Review = styled.h3`
@@ -102,4 +103,5 @@ export const Review = styled.h3`
 export const Reviewer = styled.h5`
   color: "#EEEEEE";
   text-decoration: none;
+  margin: 0.1rem;
 `;

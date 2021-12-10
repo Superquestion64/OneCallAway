@@ -125,7 +125,6 @@ const Landing = () => {
         </Title>
         <FlexCentered>
           <ReviewSection>
-            <FlexCentered>
               <Stars>
                 <span role="img" aria-label="star">
                   ⭐ ⭐ ⭐ ⭐ ⭐
@@ -136,7 +135,6 @@ const Landing = () => {
                 bros during a game. What a revolutionary product!
               </Review>
               <Reviewer>- John Doe</Reviewer>
-            </FlexCentered>
           </ReviewSection>
         </FlexCentered>
       </Section>
