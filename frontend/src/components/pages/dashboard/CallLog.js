@@ -12,6 +12,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import PersonIcon from "@mui/icons-material/Person";
 import { Text } from "../../../styles/General.styled";
+import { autocompleteClasses } from "@mui/material";
 
 const CallLog = () => {
   const dispatch = useDispatch();
@@ -39,16 +40,21 @@ const CallLog = () => {
   const renderCallLog = callLog.map(({ call_id, usernames }) => (
     <Accordion
       sx={{
-        width: "60vw"
+        width: "60vw",
+        margin: "0 auto"
       }}
       key={call_id}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header">
-        <p>{call_id}</p>
+        <p>{"ID: " + call_id}</p>
       </AccordionSummary>
-      <AccordionDetails>{renderCallMembers(usernames)}</AccordionDetails>
+      <AccordionDetails
+        sx={{
+          margin: "0 auto"
+        }}
+      >{renderCallMembers(usernames)}</AccordionDetails>
     </Accordion>
   ));
 
