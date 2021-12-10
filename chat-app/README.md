@@ -5,7 +5,7 @@ Visit the site! [Chat-App](https://chat-app-63eec.web.app/)
 
 Once switching to chat-app folder <br>
 To start the application just do: <br>
-*npm start*  <br>
+** *npm start* **  <br>
 
 Devolpment mode should begin as normal
 
