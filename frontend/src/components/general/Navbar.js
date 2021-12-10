@@ -19,7 +19,7 @@ const Navbar = ({ navItems = [] }) => {
     if (title === "Features") {
       return (
         <Link to={title} key={title} spy={true} smooth={true} duration={1000}>
-          <Btn c="#00ADB5" fs="1.7rem">{title}</Btn>
+          <Btn c="#393E46" fs="1.7rem">{title}</Btn>
         </Link>
       );
     }

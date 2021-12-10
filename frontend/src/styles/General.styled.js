@@ -87,6 +87,7 @@ export const Divider = styled.div`
 export const FlexCentered = styled.div`
   height: ${({ h }) => h || "100%"};
   width: ${({ w }) => w || "100%"};
+  min-width: ${({ mw }) => mw || ""};
   flex-direction: column;
   justify-content: center;
   align-items: center;

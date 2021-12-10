@@ -106,7 +106,7 @@ const Landing = () => {
         </Section2>
       </Container>
       <Section bgColor="#AAD8D3">
-        <FlexCentered bgColor="#00ADB5" w="30%" ml="35%" br="6rem">
+        <FlexCentered bgColor="#00ADB5" w="30%" ml="35%" br="6rem" mw="396">
           <Title c="#393E46" fs="3rem" m="0 0 1rem 0">
             Features
           </Title>
@@ -119,13 +119,9 @@ const Landing = () => {
       </Section>
 
       <Section bgColor="#AAD8D3">
-        <Title fs="2.5rem" m="1rem 0">
-          What our users are saying...
-        </Title>
-        <FlexCentered>
           <ReviewSection>
             <FlexCentered>
-              <Title fs="2.5rem" m="1rem 0">
+              <Title fs="2rem" m="1rem 0">
                 What our users are saying...
               </Title>
               <Stars>
@@ -140,7 +136,6 @@ const Landing = () => {
               <Reviewer>- John Doe</Reviewer>
             </FlexCentered>
           </ReviewSection>
-        </FlexCentered>
       </Section>
     </Container>
   );
