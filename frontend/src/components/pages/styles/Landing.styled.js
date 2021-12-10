@@ -86,6 +86,7 @@ export const ReviewSection = styled.div`
   width: 60%;
   margin-top: -3rem;
   border: solid;
+  border-color: "#AAD8D3";
   border-radius: 6rem;
 `;
 

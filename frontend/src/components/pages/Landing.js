@@ -64,6 +64,8 @@ const Landing = () => {
         <LandingInner>
           <FlexCentered>
             <Title c="#00ADB5" fs="10rem">One Call Away</Title>
+            <br></br>
+            <br></br>
             <Subtitle>
               Connect with friends and families efficiently: Anytime | Anywhere
             </Subtitle>
@@ -93,8 +95,9 @@ const Landing = () => {
                 fs="3rem"
                 bgColor="#AAD8D3"
                 p="2rem 3rem"
-                boxShadowColor="#EEEEEE"
+                boxShadowColor="#AAD8D3"
                 border="solid"
+                color="#00ADB5"
               >
                 Join a Call
               </Btn>
@@ -103,7 +106,7 @@ const Landing = () => {
         </Section2>
       </Container>
       <Section bgColor="#AAD8D3">
-        <FlexCentered bgColor="#00ADB5" w="50%" ml="25%">
+        <FlexCentered bgColor="#00ADB5" w="30%" ml="35%" br="6rem">
           <Title c="#393E46" fs="3rem" m="0 0 1rem 0">
             Features
           </Title>
