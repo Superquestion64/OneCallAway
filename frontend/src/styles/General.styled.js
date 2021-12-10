@@ -30,6 +30,7 @@ export const Text = styled.div`
   font-size: ${({ fs }) => fs || "1rem"};
   text-decoration: ${({ td }) => td || "none"};
   margin: ${({ m }) => m || "0"};
+  text-align: center;
 `;
 
 export const TextField = styled(FormikTextField)`

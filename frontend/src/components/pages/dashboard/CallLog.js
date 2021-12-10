@@ -53,7 +53,7 @@ const CallLog = () => {
   ));
 
   return (
-    <div style={{backgroundColor:"#00ADB5", width:"100%", height:"100vh"}}>
+    <div style={{backgroundImage:"linear-gradient(#00ADB5, #AAD8D3)", width:"100%", height:"100vh"}}>
       {callLog.length ? (
         renderCallLog
       ) : (

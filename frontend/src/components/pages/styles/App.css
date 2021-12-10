@@ -54,12 +54,5 @@
     left: 0;
     width:100%;
     height:100vh;
-	background: #4776e6;
-	background: -webkit-linear-gradient(to right, #393E46, #00ADB5, #393E46);
-	background: linear-gradient(
-		to right,
-		#393E46,
-		#00ADB5,
-		#393E46
-	);
+	background-color: #00ADB5;
 }
