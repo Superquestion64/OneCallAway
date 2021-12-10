@@ -43,9 +43,6 @@ const CallLog = () => {
       }}
       key={call_id}>
       <AccordionSummary
-        sx={{
-          margin: "0 auto"
-        }}
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header">
