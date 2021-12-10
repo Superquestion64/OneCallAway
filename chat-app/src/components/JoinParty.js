@@ -19,7 +19,8 @@ export default props => {
 				style={{
 					height: "90vh",
 					position: "relative",
-					zIndex: "10"
+					zIndex: "10",
+					backgroundColor: "rgb(170, 216, 211)"
 				}}
 				display="flex"
 				alignItems="center"
@@ -31,7 +32,7 @@ export default props => {
 						padding: 35,
 						boxShadow: "0px 10px 35px -4px rgba(0,0,0,0.15)",
 						borderRadius: 10,
-						backgroundColor: "white"
+						backgroundColor: "rgb(170, 216, 211)"
 					}}
 				>
 					<Grid container>
@@ -101,6 +102,31 @@ export default props => {
 							Let's party !
 						</Button>
 					</Link>
+					
+						<Button
+							fullWidth
+							className="gradiantColor"
+							style={{
+								marginTop: 15,
+								color: "AliceBlue",
+								background:
+									"linear-gradient(to right, #00d0ea 0%, #0085d1 100%)",
+								fontWeight: "bold",
+								backgroundSize: "cover",
+								backgroundPosition: "bottom",
+								backgroundRepeat: "no-repeat",
+								borderRadius: 8
+							}}
+						>
+						<a href="https://one-call-away.herokuapp.com/" 
+							style={{
+								color: "AliceBlue",
+								textDecoration: "none"
+							}}
+							>
+							To Home Page 
+						</a>
+					</Button>
 				</Box>
 			</Box>
 		</Container>
