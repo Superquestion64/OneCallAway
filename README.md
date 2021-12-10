@@ -11,19 +11,19 @@
 ## Goal:
 
 OCA is a product that allows all users to efficiently communicate to others 
-with the ease of a few buttons. In order to achieve such efficient and intuitive 
-communication our product will solve the hyper-competitive as well as casual 
-person’s craving for communication during their desired activities by giving 
-them the tools needed (namely the OCA extension and connected webapp) to generate 
-a call with next to no effort or account creation needed. We know our product 
-works as intended when we see users in the middle of an activity popping into a 
-call to enhance their experience, and see connections being formed without the 
-need of making another online presence on a site or asking for your information 
+with the ease of a few buttons. 
+- To achieve such efficient and intuitive communication our product will solve the 
+hyper-competitive as well as casual person’s craving for communication during their
+desired activities by giving them the tools needed (namely the OCA extension and connected webapp) 
+to generate a call with next to no effort or account creation needed 
+- We know our product works as intended when we see users in the middle of an 
+activity popping into a call to enhance their experience, and see connections 
+being formed without the need of making another online presence on a site or asking for your information 
 to get started.
 
 ## How To Use:
 
-Simply: https://one-call-away.herokuapp.com/
+Simply visit the page! https://one-call-away.herokuapp.com/
 
 ## With Extension:
 
