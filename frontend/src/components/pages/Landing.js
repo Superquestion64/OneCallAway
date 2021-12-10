@@ -105,6 +105,25 @@ const Landing = () => {
             </StyledLink>
           </FlexCentered>
         </Section2>
+		<Section2>
+          <FlexCentered>
+            <StyledLink to="/chat-app">
+              <Btn
+                hoverColor="#00ADB5"
+                br="2rem"
+                fs="3rem"
+                bgColor="#AAD8D3"
+                p="2rem 3rem"
+                boxShadowColor="#EEEEEE"
+                border="solid"
+                m="1.3rem"
+                c="#00ADB5"
+                >
+                Join a chat room
+              </Btn>
+            </StyledLink>
+          </FlexCentered>
+        </Section2>
       </Container>
       <Section bgColor="#AAD8D3">
         <FlexCentered bgColor="#00ADB5" w="30%" ml="35%" br="6rem" mw="396px">
