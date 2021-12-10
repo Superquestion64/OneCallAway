@@ -11,8 +11,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import PersonIcon from "@mui/icons-material/Person";
-import { Text } from "../../../styles/General.styled";
-import { autocompleteClasses } from "@mui/material";
+import { Text, Flex } from "../../../styles/General.styled";
 
 const CallLog = () => {
   const dispatch = useDispatch();
@@ -40,8 +39,7 @@ const CallLog = () => {
   const renderCallLog = callLog.map(({ call_id, usernames }) => (
     <Accordion
       sx={{
-        width: "60vw",
-        margin: "0 auto"
+        width: "60vw"
       }}
       key={call_id}>
       <AccordionSummary
@@ -53,22 +51,25 @@ const CallLog = () => {
         id="panel1a-header">
         <p>{"ID: " + call_id}</p>
       </AccordionSummary>
-      <AccordionDetails
-        sx={{
-          margin: "0 auto"
-        }}
-      >{renderCallMembers(usernames)}</AccordionDetails>
+      <AccordionDetails>{renderCallMembers(usernames)}</AccordionDetails>
     </Accordion>
   ));
 
   return (
-    <div style={{backgroundImage:"linear-gradient(#00ADB5, #AAD8D3)", width:"100%", height:"100vh"}}>
+    <Flex
+      ai="center"
+      fd="column"
+      style={{
+        backgroundImage: "linear-gradient(#00ADB5, #AAD8D3)",
+        width: "100%",
+        height: "100vh"
+      }}>
       {callLog.length ? (
         renderCallLog
       ) : (
         <Text fs="2rem">No calls made yet</Text>
       )}
-    </div>
+    </Flex>
   );
 };
 
