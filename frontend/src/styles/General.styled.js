@@ -92,7 +92,7 @@ export const FlexCentered = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  display: inline-block;
+  display: ${({dis}) => dis || "flex"};
   margin: ${({ m }) => m || ""};
   padding: ${({ p }) => p || ""};
   background-color: ${({ bgColor }) => bgColor || ""};

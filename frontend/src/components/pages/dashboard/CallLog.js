@@ -40,7 +40,7 @@ const CallLog = () => {
     <Accordion
       sx={{
         width: "60vw",
-        backgroundColor: "#00ADB5"
+        backgroundColor: "#AAD8D3"
       }}
       key={call_id}>
       <AccordionSummary
