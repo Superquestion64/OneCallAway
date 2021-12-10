@@ -1,5 +1,10 @@
 import user from "../api/user";
-import { GET_PROFILE, UPDATE_PROFILE, UPDATE_INTERESTS } from "./types";
+import {
+  GET_PROFILE,
+  UPDATE_PROFILE,
+  UPDATE_INTERESTS,
+  GET_INTERESTS
+} from "./types";
 import { successFlag, errorFlag } from "../notification";
 
 export const getProfile = () => async dispatch => {
@@ -11,7 +16,6 @@ export const getProfile = () => async dispatch => {
     });
   } catch (err) {
     console.log("error getting profile", err);
-    console.error(err);
   }
 };
 
@@ -26,19 +30,31 @@ export const updateProfile = formData => async dispatch => {
     });
     console.log(res.data);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     // errorFlag(err.response.data)
     console.log("Cannot update profile");
   }
 };
 
+export const getInterests = () => async dispatch => {
+  try {
+    const res = await user.get("/get_interest");
+    dispatch({
+      type: GET_INTERESTS,
+      payload: res.data.tags
+    });
+  } catch (err) {
+    console.log("error getting profile", err);
+  }
+};
+
 export const updateInterests = formData => async dispatch => {
   try {
-    const res = await user.patch("/profile/add_interest", formData);
+    const res = await user.patch("/add_interest", formData);
 
     dispatch({
       type: UPDATE_INTERESTS,
-      payload: res.data
+      payload: res.data.tags
     });
     successFlag(res.data);
   } catch (err) {

@@ -4,10 +4,9 @@ import { Redirect } from "react-router-dom";
 import {
   Btn,
   Container,
-  Divider,
   FlexCentered,
   StyledLink,
-  Title,
+  Title
 } from "../../styles/General.styled";
 import Navbar from "../general/Navbar";
 import {
@@ -20,15 +19,14 @@ import {
   Reviewer,
   ReviewSection,
   Section,
+  Section2,
   Stars,
   Subtitle,
-  Indent,
-  Section2,
-  SectionContainer,
+  Indent
 } from "./styles/Landing.styled";
 
 const Landing = () => {
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated } = useSelector(state => state.user);
 
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
@@ -37,19 +35,19 @@ const Landing = () => {
   const navItems = [
     {
       title: "Features",
-      path: "",
+      path: ""
     },
     {
       title: "Get Chrome Extension",
-      path: "/",
+      path: "/"
     },
     {
       title: "Sign In",
-      path: "/signin",
-    },
+      path: "/signin"
+    }
   ];
 
-  const genFeature = (feature) => {
+  const genFeature = feature => {
     return (
       <Feature>
         <Icon />
@@ -63,7 +61,9 @@ const Landing = () => {
       <LandingImage>
         <LandingInner>
           <FlexCentered>
-            <Title c="#00ADB5" fs="10rem">One Call Away</Title>
+            <Title c="#00ADB5" fs="10rem">
+              One Call Away
+            </Title>
             <br></br>
             <br></br>
             <Subtitle>
@@ -77,8 +77,7 @@ const Landing = () => {
                 m="3.5rem 0 0 0"
                 bgColor="#00ADB5"
                 p="0.8rem 1.5rem"
-                boxShadowColor="#EEEEEE"
-              >
+                boxShadowColor="#EEEEEE">
                 Sign Up
               </Btn>
             </StyledLink>
@@ -98,8 +97,7 @@ const Landing = () => {
                 boxShadowColor="#AAD8D3"
                 border="solid"
                 color="#00ADB5"
-                m="1rem"
-              >
+                m="1rem">
                 Join a Call
               </Btn>
             </StyledLink>

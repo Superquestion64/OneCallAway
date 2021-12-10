@@ -21,11 +21,11 @@ const PrivateRoute = props => {
       path: "/voice_call"
     },
     {
-      title: "Edit Profile",
+      title: "Profile",
       path: "/profile-form"
     },
     {
-      title: "Update Interests",
+      title: "Interests",
       path: "/interests"
     },
     {

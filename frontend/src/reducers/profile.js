@@ -1,7 +1,8 @@
 import {
   GET_PROFILE,
   UPDATE_PROFILE,
-  UPDATE_INTERESTS
+  UPDATE_INTERESTS,
+  GET_INTERESTS
 } from "../actions/types";
 
 const initialState = {
@@ -20,6 +21,7 @@ const profileReducer = (state = initialState, action) => {
         profile: payload
       };
     case UPDATE_INTERESTS:
+    case GET_INTERESTS:
       return {
         ...state,
         interests: payload
