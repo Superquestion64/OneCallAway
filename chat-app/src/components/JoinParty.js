@@ -101,6 +101,31 @@ export default props => {
 							Let's party !
 						</Button>
 					</Link>
+					
+						<Button
+							fullWidth
+							className="gradiantColor"
+							style={{
+								marginTop: 15,
+								color: "AliceBlue",
+								background:
+									"linear-gradient(to right, #00d0ea 0%, #0085d1 100%)",
+								fontWeight: "bold",
+								backgroundSize: "cover",
+								backgroundPosition: "bottom",
+								backgroundRepeat: "no-repeat",
+								borderRadius: 8
+							}}
+						>
+						<a href="https://one-call-away.herokuapp.com/" 
+							style={{
+								color: "AliceBlue",
+								textDecoration: "none"
+							}}
+							>
+							To Home Page 
+						</a>
+					</Button>
 				</Box>
 			</Box>
 		</Container>
