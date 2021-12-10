@@ -31,7 +31,7 @@ const ProfileForm = () => {
   }, [dispatch]);
 
   return (
-    <Container p="10rem 4rem" mh="100vh" bgColor="#600ADB5">
+    <Container p="10rem 4rem" mh="100vh" bgColor="#00ADB5">
       <FlexCentered bgColor="#AAD8D3" h="75vh" br="2rem">
         <Formik
           initialValues={initialValues}

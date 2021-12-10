@@ -157,20 +157,12 @@ function VoiceCall() {
     })
   };
 
-  const navItems = [
-    {
-      title: "Sign In",
-      path: "/signin"
-    }
-  ];
+  const navItems = [];
 
   return (
     <div className="vc_bg_color">
       <Navbar navItems={navItems} />
       <br></br>
-      <h1 style={{ textAlign: "center", color: "#EEEEEE", fontSize: "70px" }}>
-        One Call Away
-      </h1>
       <br></br>
       <div className="myId">
         <CopyToClipboard text={socket.id} style={{ marginBottom: "2rem" }}>
