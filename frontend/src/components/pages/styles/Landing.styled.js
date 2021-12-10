@@ -39,7 +39,7 @@ export const Section = styled.div`
 //Button Section
 
 export const Section2 = styled.div`
-  height: 40%;
+  height: 80%;
   width: 50%;
   margin-left: 25%;
   text-align: center;
