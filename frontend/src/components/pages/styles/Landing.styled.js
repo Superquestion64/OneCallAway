@@ -39,9 +39,9 @@ export const Section = styled.div`
 //Button Section
 
 export const Section2 = styled.div`
-  height: 50%;
-  width: 80%;
-  margin-left: 10%;
+  height: 80%;
+  width: 50%;
+  margin-left: 25%;
   text-align: center;
   background-color: #00ADB5;
   border: solid;

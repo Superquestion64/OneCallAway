@@ -95,6 +95,7 @@ export const FlexCentered = styled.div`
   padding: ${({ p }) => p || ""};
   background-color: ${({ bgColor }) => bgColor || ""};
   border-radius: ${({ br }) => br || ""};
+  margin-left: ${({ ml }) => ml || ""}
 `;
 
 export const Flex = styled.div`

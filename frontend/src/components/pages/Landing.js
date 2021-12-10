@@ -103,8 +103,8 @@ const Landing = () => {
         </Section2>
       </Container>
       <Section bgColor="#AAD8D3">
-        <FlexCentered bgColor="#00ADB5" w="50%">
-          <Title c="#393E46" fs="1.5rem" m="0 0 1rem 0">
+        <FlexCentered bgColor="#00ADB5" w="50%" ml="25%">
+          <Title c="#393E46" fs="3rem" m="0 0 1rem 0">
             Features
           </Title>
           <FeatureList name="Features">
