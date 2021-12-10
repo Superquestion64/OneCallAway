@@ -19,15 +19,15 @@ const Navbar = ({ navItems = [] }) => {
     if (title === "Features") {
       return (
         <Link to={title} key={title} spy={true} smooth={true} duration={1000}>
-          <Btn c="#00ADB5" fs="1.5rem">{title}</Btn>
+          <Btn c="#00ADB5" fs="1.7rem">{title}</Btn>
         </Link>
       );
     }
     return (
       <StyledLink to={path} key={title}>
         <Btn
-          c="#00ADB5" 
-          fs="1.2rem"
+          c="#393E46" 
+          fs="1.7rem"
           onClick={() =>
             typeof navItem.onClick === "function" ? navItem.onClick() : null
           }>
@@ -43,7 +43,7 @@ const Navbar = ({ navItems = [] }) => {
         <PhoneIcon />
         <FlexItem fg="1">
           <SiteLogo>
-            <StyledLink c="00ADB5" to={logoTo}>OCA</StyledLink>
+            <StyledLink c="#00ADB5" to={logoTo}>OCA</StyledLink>
           </SiteLogo>
         </FlexItem>
         <NavLinks>

@@ -89,15 +89,16 @@ const Landing = () => {
           <Indent>
             <StyledLink to="/voice_call">
               <Btn
-                hoverColor="#AAD8D3"
+                hoverColor="#00ADB5"
                 br="2rem"
                 fs="3rem"
                 bgColor="#AAD8D3"
                 p="2rem 3rem"
                 boxShadowColor="#AAD8D3"
                 border="solid"
-                color="#00ADB5"
-                m="1rem">
+                m="1.3rem"
+                c="#00ADB5"
+                >
                 Join a Call
               </Btn>
             </StyledLink>
@@ -123,6 +124,10 @@ const Landing = () => {
         </Title>
         <FlexCentered>
           <ReviewSection>
+            <FlexCentered>
+              <Title fs="2.5rem" m="1rem 0">
+                What our users are saying...
+              </Title>
               <Stars>
                 <span role="img" aria-label="star">
                   ⭐ ⭐ ⭐ ⭐ ⭐
@@ -133,6 +138,7 @@ const Landing = () => {
                 bros during a game. What a revolutionary product!
               </Review>
               <Reviewer>- John Doe</Reviewer>
+            </FlexCentered>
           </ReviewSection>
         </FlexCentered>
       </Section>

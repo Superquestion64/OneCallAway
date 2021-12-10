@@ -40,8 +40,8 @@ export const Section = styled.div`
 
 export const Section2 = styled.div`
   height: 80%;
-  width: 50%;
-  margin-left: 25%;
+  width: 20%;
+  margin-left: 40%;
   text-align: center;
   background-color: #00ADB5;
   border: solid;

@@ -60,8 +60,8 @@ export const Btn = styled.button`
     color: ${({ hoverColor }) => hoverColor || "#fff"};
     background-color: ${({ hoverBgColor }) => hoverBgColor || ""};
   }
-  -webkit-transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
-  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+  -webkit-transition: box-shadow 200ms ease-in-out, color 200ms ease-in-out;
+  transition: box-shadow 200ms ease-in-out, color 200ms ease-in-out;
   white-space: nowrap;
 `;
 
