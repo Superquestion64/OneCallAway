@@ -40,7 +40,7 @@ export const TextField = styled(FormikTextField)`
 
 // Styled button
 export const Btn = styled.button`
-  display: inline-block;
+  display: inline;
   color: ${({ c }) => c || "#fff"};
   cursor: pointer;
   border-radius: ${({ br }) => br || ".6rem"};

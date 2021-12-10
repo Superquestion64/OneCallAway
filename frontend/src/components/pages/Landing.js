@@ -104,7 +104,7 @@ const Landing = () => {
                 Join a Call
               </Btn>
             </StyledLink>
-            <StyledLink to="https://chat-app-63eec.web.app/">
+            <a href = "https://chat-app-63eec.web.app/">
               <Btn
                 hoverColor="#00ADB5"
                 br="2rem"
@@ -118,7 +118,7 @@ const Landing = () => {
               >
                 Join a chat room
               </Btn>
-            </StyledLink>
+            </a>
           </FlexCentered>
         </Section2>
       </Container>
