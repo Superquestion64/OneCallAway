@@ -72,7 +72,7 @@ const Landing = () => {
             <br></br>
             <StyledLink to="/signup">
               <Btn
-                hoverColor="#AAD8D3"
+                hoverColor="#00ADB5"
                 br="2rem"
                 fs="3rem"
                 m="2rem"
