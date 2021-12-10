@@ -63,8 +63,7 @@ const Landing = () => {
       <LandingImage>
         <LandingInner>
           <FlexCentered>
-            <br></br>
-            <Title fs="10rem">One Call Away</Title>
+            <Title c="#00ADB5" fs="10rem">One Call Away</Title>
             <Subtitle>
               Connect with friends and families efficiently: Anytime | Anywhere
             </Subtitle>
@@ -84,16 +83,15 @@ const Landing = () => {
           </FlexCentered>
         </LandingInner>
       </LandingImage>
-      <Container bgColor="#AAD8D3" c="white" h="30rem" p="5rem 0rem 2rem 0rem">
+      <Container bgColor="#AAD8D3" c="white" h="20rem" p="5rem 0rem 2rem 0rem">
         <Section2>
           <Indent>
             <StyledLink to="/voice_call">
               <Btn
-                hoverColor="#00ADB5"
+                hoverColor="#AAD8D3"
                 br="2rem"
                 fs="3rem"
-                m="2.5rem 0rem 0rem 2.5rem"
-                bgColor="#00ADB5"
+                bgColor="#AAD8D3"
                 p="2rem 3rem"
                 boxShadowColor="#EEEEEE"
                 border="solid"
@@ -105,8 +103,8 @@ const Landing = () => {
         </Section2>
       </Container>
       <Section bgColor="#AAD8D3">
-        <FlexCentered bgColor="#00ADB5">
-          <Title c="#AAD8D3" fs="3rem" m="0 0 1rem 0">
+        <FlexCentered bgColor="#00ADB5" w="50%">
+          <Title c="#393E46" fs="1.5rem" m="0 0 1rem 0">
             Features
           </Title>
           <FeatureList name="Features">
@@ -117,7 +115,7 @@ const Landing = () => {
         </FlexCentered>
       </Section>
 
-      <Section bgColor="#AAD8D3">
+      <Section bgColor="#AAD8D3" mb="1rem">
         <Title fs="2.5rem" m="1rem 0">
           What our users are saying...
         </Title>

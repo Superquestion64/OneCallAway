@@ -73,8 +73,6 @@ export const Icon = styled(ArrowForwardIosIcon)`
 // Used for spacing the buttons
 export const Indent = styled.div`
   height: 150px;
-  margin-left 6rem;
-  margin-top: 3rem;
   text-align: center;
 `;
 
@@ -87,7 +85,6 @@ export const ReviewSection = styled.div`
   padding: 0 3rem;
   width: 60%;
   margin-top: -3rem;
-  margin-bottom: -3rem;
   border: solid;
   border-radius: 6rem;
 `;
