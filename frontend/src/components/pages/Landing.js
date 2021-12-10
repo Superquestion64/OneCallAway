@@ -87,7 +87,7 @@ const Landing = () => {
           </FlexCentered>
         </LandingInner>
       </LandingImage>
-      <Container bgColor="#AAD8D3" c="white" h="30rem" p="5rem 0rem 0rem 0rem">
+      <Container bgColor="#AAD8D3" c="white" h="20rem" p="5rem 0rem 0rem 0rem">
         <Section2>
           <FlexCenteredBut>
             <StyledLink to="/voice_call">

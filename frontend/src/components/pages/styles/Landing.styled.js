@@ -39,7 +39,7 @@ export const Section = styled.div`
 //Button Section
 
 export const Section2 = styled.div`
-  height: 80%;
+  height: 40%;
   width: 50%;
   margin-left: 25%;
   text-align: center;
@@ -47,7 +47,7 @@ export const Section2 = styled.div`
   border: solid;
   border-color: #AAD8D3;
   border-radius: 6rem;
-  min-width: 793px;
+  min-width: 800px;
 `;
 
 // Features
