@@ -88,7 +88,7 @@ const Landing = () => {
       </LandingImage>
       <Container bgColor="#AAD8D3" c="white" h="20rem" p="5rem 0rem 2rem 0rem">
         <Section2>
-          <FlexCentered des="inline-block">
+          <FlexCentered fw="wrap">
             <StyledLink to="/voice_call">
               <Btn
                 hoverColor="#00ADB5"
@@ -116,7 +116,7 @@ const Landing = () => {
                 m="1.3rem"
                 c="#00ADB5"
               >
-                Join a chat room
+                Join a Chat Room
               </Btn>
             </a>
           </FlexCentered>

@@ -98,6 +98,7 @@ export const FlexCentered = styled.div`
   background-color: ${({ bgColor }) => bgColor || ""};
   border-radius: ${({ br }) => br || ""};
   margin-left: ${({ ml }) => ml || ""}
+  flex-wrap: ${({fw}) => fw || ""}
 `;
 
 export const Flex = styled.div`
